@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barber Life Simone - Prenota</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Barber Life Simone</h1>
+<p>Scoglitti</p>
+
+<form id="bookingForm">
+  <input type="text" id="name" placeholder="Nome" required>
+  <input type="tel" id="phone" placeholder="Telefono" required>
+
+  <select id="service"></select>
+
+  <input type="date" id="date" required>
+  <select id="time" required></select>
+
+  <button type="submit">Prenota</button>
+</form>
+
+<p id="msg"></p>
+
+<script src="app.js"></script>
+
+</body>
+</html>
