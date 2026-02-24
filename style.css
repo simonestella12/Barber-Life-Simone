@@ -208,3 +208,25 @@ label {
 .section.active{
   display:block;
 }
+.map-section h3{
+  color:#c8a96a;
+}
+
+.map-img{
+  width:100%;
+  border-radius:12px;
+  margin-top:10px;
+  border:2px solid #c8a96a;
+}
+
+.call-btn{
+  display:block;
+  margin-top:12px;
+  padding:14px;
+  border-radius:12px;
+  background:#c8a96a;
+  color:black;
+  text-decoration:none;
+  font-weight:bold;
+  text-align:center;
+}
