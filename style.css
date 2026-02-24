@@ -1,4 +1,9 @@
 body {
+  <header class="header">
+  <img src="IMG_9103.jpeg" class="logo-small">
+  <div class="brand">BARBER LIFE SIMONE</div>
+  <img src="palo.png" class="barber-pole">
+</header>
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(180deg, #0f0f0f, #1b1b1b);
