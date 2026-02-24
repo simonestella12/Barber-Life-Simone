@@ -75,3 +75,12 @@ if (serviceSelect) {
     serviceSelect.add(option);
   });
 }
+function toggleMenu(){
+  document.getElementById("sideMenu").classList.toggle("show");
+}
+
+function showSection(id){
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  toggleMenu();
+}
