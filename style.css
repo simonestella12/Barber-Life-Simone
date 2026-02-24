@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #0f0f0f, #1b1b1b);
+  color: white;
+}
+
+.container {
+  max-width: 420px;
+  margin: 30px auto;
+  padding: 25px;
+  background: #141414;
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+  text-align: center;
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 100%;
+  border: 3px solid #c8a96a;
+  margin-bottom: 10px;
+}
+
+h1 { margin: 5px 0 0; font-size: 26px; }
+
+.subtitle {
+  color: #c8a96a;
+  margin-bottom: 20px;
+}
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  margin: 6px 0;
+  border-radius: 10px;
+  border: none;
+  background: #1f1f1f;
+  color: white;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #c8a96a;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.contact a {
+  display: block;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.whatsapp { background: #25D366; }
+.instagram { background: #E1306C; }
