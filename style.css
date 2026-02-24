@@ -88,3 +88,33 @@ input:focus, select:focus {
 input[type="date"] {
   color-scheme: dark;
 }
+/* ANIMAZIONE ENTRATA */
+.container {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* EFFETTO PRESSIONE BOTTONI */
+button:active {
+  transform: scale(0.97);
+}
+
+/* CARD PREZZI */
+.prices {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+}
+
+.price-title { color: #ddd; }
+.price-value { color: #c8a96a; font-weight: bold; }
