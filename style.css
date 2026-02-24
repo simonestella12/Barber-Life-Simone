@@ -165,3 +165,36 @@ button{
   width:100%;
   border-radius:12px;
 }
+.header-pro{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px;
+  background:#0d0d0d;
+  border-bottom:2px solid #c8a96a;
+  box-shadow:0 4px 20px rgba(0,0,0,0.6);
+}
+
+.logo-left{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  border:2px solid #c8a96a;
+  object-fit:cover;
+}
+
+.brand-center{
+  flex:1;
+  text-align:center;
+}
+
+.logo-name{
+  max-width:220px;
+  height:auto;
+}
+
+.barber-pole{
+  width:45px;
+  animation:swing 3s ease-in-out infinite;
+  transform-origin:top center;
+}
