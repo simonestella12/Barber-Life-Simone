@@ -168,4 +168,43 @@ label {
   50%{ transform:rotate(4deg); }
   100%{ transform:rotate(0deg); }
 }
+.menu-btn{
+  position:fixed;
+  top:15px;
+  left:15px;
+  font-size:28px;
+  color:#c8a96a;
+  z-index:1000;
+}
 
+.side-menu{
+  position:fixed;
+  top:0;
+  left:-250px;
+  width:200px;
+  height:100%;
+  background:#111;
+  padding-top:60px;
+  transition:0.3s;
+  z-index:999;
+}
+
+.side-menu a{
+  display:block;
+  padding:15px;
+  color:white;
+  text-decoration:none;
+  border-bottom:1px solid #333;
+}
+
+.side-menu.show{
+  left:0;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
