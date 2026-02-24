@@ -10,9 +10,11 @@
 <body>
 <img src="IMG_9103.jpeg" class="logo">
 <h1>Barber Life Simone</h1>
+  <div id="booking" class="section active">
 
 <form id="bookingForm">
-  <div class="prices">
+    <div id="prices"class="section">
+      <div class="prices">
   <h3>Listino Prezzi</h3>
 
   <div class="price-item"><span class="price-title">Taglio</span><span class="price-value">14€</span></div>
@@ -29,21 +31,23 @@
   <div class="price-item"><span class="price-title">Trattamenti</span><span class="price-value">da 10€</span></div>
   <div class="price-item"><span class="price-title">Trattamento lisciante</span><span class="price-value">da 15€</span></div>
 </div>
+      </div>
   <div class="map-section">
   <h3>Dove trovarmi</h3>
 
   <a href="https://maps.google.com/?q=Via+Palermo+7/A+Scoglitti" target="_blank">
     <img src="https://maps.googleapis.com/maps/api/staticmap?center=Via+Palermo+7/A+Scoglitti&zoom=16&size=600x300&markers=Via+Palermo+7/A+Scoglitti" class="map-img">
   </a>
-
+</div>
   <a href="tel:+393421722184" class="call-btn">
     Chiama ora
   </a>
+    </div>
 </div>
   </a>
 </div>
 </div>
-  <form id="bookingForm">
+    <div id="booking" class="section active">
 
   <label>Nome</label>
   <input type="text" id="name" placeholder="Inserisci nome" required>
@@ -64,7 +68,7 @@
 
 </form>
 </form>
-
+</div>
 <p id="msg"></p>
 
 <script src="app.js"></script>
