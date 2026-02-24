@@ -41,15 +41,26 @@
     <span class="price-value">da 10€</span>
   </div>
 </div>
-  <input type="text" id="name" placeholder="Nome" required>
-  <input type="tel" id="phone" placeholder="Telefono" required>
+  <form id="bookingForm">
 
+  <label>Nome</label>
+  <input type="text" id="name" placeholder="Inserisci nome" required>
+
+  <label>Telefono</label>
+  <input type="tel" id="phone" placeholder="Inserisci telefono" required>
+
+  <label>Servizio</label>
   <select id="service"></select>
 
+  <label>Data appuntamento</label>
   <input type="date" id="date" required>
+
+  <label>Orario</label>
   <select id="time" required></select>
 
-  <button type="submit">Prenota</button>
+  <button type="submit">Prenota appuntamento</button>
+
+</form>
 </form>
 
 <p id="msg"></p>
