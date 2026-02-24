@@ -1,95 +1,167 @@
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0f0f0f;
+  color:white;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 16px;
+  background:#111;
+  border-bottom:1px solid #2a2a2a;
+}
+
+.logo-small{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #c8a96a;
+}
+
+.brand{
+  font-weight:bold;
+  letter-spacing:2px;
+  color:#c8a96a;
+  text-align:center;
+  flex:1;
+}
+
+.barber-pole{
+  width:40px;
+  animation:swing 3s ease-in-out infinite;
+  transform-origin:top center;
+}
+
+@keyframes swing{
+  0%{ transform:rotate(0deg); }
+  50%{ transform:rotate(4deg); }
+  100%{ transform:rotate(0deg); }
+}
+
+/* CONTAINER */
+.container{
+  max-width:420px;
+  margin:20px auto;
+  padding:20px;
+  background:#141414;
+  border-radius:18px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* FORM */
+label{
+  display:block;
+  margin-top:12px;
+  color:#c8a96a;
+  font-weight:bold;
+}
+
+input, select{
+  width:100%;
+  padding:14px;
+  margin-top:4px;
+  border-radius:10px;
+  border:2px solid #c8a96a;
+  background:#1a1a1a;
+  color:white;
+  font-size:16px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:14px;
+  border-radius:10px;
+  border:none;
+  background:#c8a96a;
+  color:black;
+  font-size:18px;
+  font-weight:bold;
+}
+
 /* MENU */
-function toggleMenu(){
-  document.getElementById("sideMenu").classList.toggle("show");
+.menu-btn{
+  position:fixed;
+  top:15px;
+  left:15px;
+  font-size:28px;
+  color:#c8a96a;
+  z-index:1000;
 }
 
-function showSection(id){
-  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  toggleMenu();
+.side-menu{
+  position:fixed;
+  top:0;
+  left:-250px;
+  width:220px;
+  height:100%;
+  background:#111;
+  padding-top:60px;
+  transition:0.3s;
+  z-index:999;
 }
 
-/* SERVIZI */
-const services = [
-  "Taglio",
-  "Taglio Baby 0-8",
-  "Barba",
-  "Barba con macchinetta",
-  "Barba sfumata",
-  "Taglio + Barba + Shampoo",
-  "Sfumatura lato",
-  "Trattamenti",
-  "Trattamento lisciante"
-];
-
-const serviceSelect = document.getElementById("service");
-if(serviceSelect){
-  services.forEach(s=>{
-    const option=document.createElement("option");
-    option.text=s;
-    option.value=s;
-    serviceSelect.add(option);
-  });
+.side-menu a{
+  display:block;
+  padding:15px;
+  color:white;
+  text-decoration:none;
+  border-bottom:1px solid #333;
 }
 
-/* ORARI */
-const openingHours = {
-  "martedì":["09:30-13:00","15:30-20:00"],
-  "mercoledì":["09:30-13:00","15:30-20:00"],
-  "giovedì":["09:30-13:00","15:30-20:00"],
-  "venerdì":["09:30-13:00","15:30-20:00"],
-  "sabato":["09:30-13:00","15:30-20:00"]
-};
-
-const dateInput=document.getElementById("date");
-const timeInput=document.getElementById("time");
-
-if(dateInput && timeInput){
-  dateInput.addEventListener("change",()=>{
-    const dayName=new Date(dateInput.value)
-      .toLocaleDateString('it-IT',{weekday:'long'})
-      .toLowerCase();
-
-    const slots=openingHours[dayName];
-    timeInput.innerHTML="";
-
-    if(!slots){
-      const option=document.createElement("option");
-      option.text="Chiuso";
-      timeInput.add(option);
-      return;
-    }
-
-    slots.forEach(slot=>{
-      const [start,end]=slot.split("-");
-      let [sh,sm]=start.split(":").map(Number);
-      let [eh,em]=end.split(":").map(Number);
-
-      let current=sh*60+sm;
-      const endMinutes=eh*60+em;
-
-      while(current<endMinutes){
-        const h=String(Math.floor(current/60)).padStart(2,'0');
-        const m=String(current%60).padStart(2,'0');
-
-        const option=document.createElement("option");
-        option.value=`${h}:${m}`;
-        option.text=`${h}:${m}`;
-        timeInput.add(option);
-
-        current+=30;
-      }
-    });
-  });
+.side-menu.show{
+  left:0;
 }
 
-/* PRENOTAZIONE */
-const form=document.getElementById("bookingForm");
+/* SEZIONI */
+.section{ display:none; }
+.section.active{ display:block; }
 
-if(form){
-  form.addEventListener("submit",e=>{
-    e.preventDefault();
-    alert("Prenotazione inviata! Ti aspettiamo 💈");
-    form.reset();
-  });
+/* LISTINO */
+.price-item{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #333;
+}
+
+/* BOTTONI */
+.call-btn{
+  display:block;
+  margin-top:12px;
+  padding:14px;
+  border-radius:12px;
+  background:#c8a96a;
+  color:black;
+  text-decoration:none;
+  font-weight:bold;
+  text-align:center;
+}
+
+/* MAPPA */
+.map-section h3{ color:#c8a96a; }
+
+.map-img{
+  width:100%;
+  border-radius:12px;
+  margin-top:10px;
+  border:2px solid #c8a96a;
+}
+
+/* GALLERIA */
+.gallery{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+
+.gallery img{
+  width:100%;
+  border-radius:12px;
 }
