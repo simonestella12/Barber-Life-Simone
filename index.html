@@ -4,320 +4,159 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Barber Life Simone</title>
-
-<style>
-body{
-margin:0;
-font-family:Arial, sans-serif;
-background:#0f0f0f;
-color:white;
-}
-
-/* HEADER */
-header{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:10px 15px;
-background:#111;
-position:sticky;
-top:0;
-z-index:1000;
-}
-
-.logo-round{
-width:55px;
-height:55px;
-border-radius:50%;
-object-fit:cover;
-}
-
-.logo-name{
-height:45px;
-}
-
-.pole{
-height:70px;
-animation:swing 3s ease-in-out infinite;
-transform-origin:top center;
-}
-
-@keyframes swing{
-0%{transform:rotate(2deg)}
-50%{transform:rotate(-2deg)}
-100%{transform:rotate(2deg)}
-}
-
-/* HAMBURGER */
-.menu-btn{
-font-size:28px;
-cursor:pointer;
-}
-
-.menu{
-position:fixed;
-top:0;
-left:-100%;
-width:80%;
-height:100%;
-background:#111;
-padding:20px;
-transition:0.3s;
-z-index:2000;
-}
-
-.menu.active{
-left:0;
-}
-
-.menu a{
-display:block;
-color:white;
-text-decoration:none;
-padding:15px 0;
-border-bottom:1px solid #333;
-font-size:18px;
-}
-
-/* SEZIONI */
-.section{
-display:none;
-padding:20px;
-}
-
-.section.active{
-display:block;
-}
-
-/* FORM */
-form{
-display:flex;
-flex-direction:column;
-gap:12px;
-}
-
-input, select, button{
-padding:12px;
-border:none;
-border-radius:8px;
-font-size:16px;
-}
-
-button{
-background:#c9a227;
-color:black;
-font-weight:bold;
-cursor:pointer;
-}
-
-.call-btn{
-background:#25d366;
-color:white;
-text-align:center;
-text-decoration:none;
-padding:12px;
-border-radius:8px;
-display:block;
-margin-top:15px;
-}
-
-/* MAPPA */
-.map{
-width:100%;
-height:200px;
-border-radius:10px;
-border:none;
-margin-top:10px;
-}
-
-/* PREZZI */
-.price-item{
-display:flex;
-justify-content:space-between;
-padding:8px 0;
-border-bottom:1px solid #333;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
-<img src="Logo rotondo .png" class="logo-round">
-<img src="logo-nome.jpg" class="logo-name">
-<img src="palo.jpg" class="pole">
+<header class="topbar">
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <div class="header-center">
+    <img src="logo-nome.jpg" class="logo-nome">
+  </div>
+
+  <img src="palo.jpg" class="palo">
 </header>
 
-<!-- MENU -->
-<div class="menu" id="menu">
-<a onclick="openSection('booking')">Prenota</a>
-<a onclick="openSection('prezzi')">Listino prezzi</a>
-<a onclick="openSection('dove')">Dove trovarmi</a>
-<a href="https://www.instagram.com/barber_life_simone" target="_blank">Instagram</a>
-<a href="https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti" target="_blank">Lascia recensione</a>
-<a onclick="openSection('gallery')">Galleria</a>
+<div id="menu" class="menu">
+  <a onclick="showSection('booking')">Prenota</a>
+  <a onclick="showSection('prezzi')">Listino Prezzi</a>
+  <a onclick="showSection('contatti')">Contatti</a>
+  <a onclick="showSection('mappa')">Dove trovarmi</a>
+  <a href="https://www.instagram.com/barber_life_simone" target="_blank">Instagram</a>
 </div>
-  
 
-<!-- PRENOTAZIONE -->
-<div id="booking" class="section active">
+<main>
+
+<section id="booking" class="section active">
 <h2>Prenota appuntamento</h2>
 
-<form>
-<input type="text" placeholder="Nome e Cognome" required>
-<input type="tel" placeholder="Telefono" required>
+<form id="bookingForm">
+<input type="text" id="name" placeholder="Nome e cognome" required>
+<input type="tel" id="phone" placeholder="Telefono" required>
 
-<select required>
+<select id="service" required>
 <option value="">Seleziona servizio</option>
-<option>Taglio</option>
-<option>Barba</option>
-<option>Taglio + Barba</option>
-<option>Rasatura</option>
-<option>Modellatura</option>
+<option>Taglio14€</option>
+<option>Taglio + Barba18€</option>
+<option>Taglio + Barba + Shampoo20€</option>
+<option>Shampoo3€</option>
+<option>Sfumatura lato10€</option>
+<option>Trattamento lisciante15€</option>
+<option>Trattamenti10€</option>
+<option>Basette e collo3€</option>
+<option>Sopracciglia3€</option>
+<option>Pettinata + Shampoo5€</option>
 </select>
 
-<input type="date" id="data" required>
-<select id="ora" required>
-<option value="">Seleziona orario</option>
-</select>
+<input type="date" id="date" required>
+<select id="time" required></select>
 
 <button type="submit">Prenota</button>
 </form>
 
-<a href="tel:+393421722184" class="call-btn">Chiama</a>
-</div>
+<p id="msg"></p>
+</section>
 
-<!-- PREZZI -->
-<h2>Listino prezzi</h2>
+<section id="prezzi" class="section">
+<h2>Listino Prezzi</h2>
 
-<div class="price-item"><span>Taglio</span><span>€14</span></div>
-<div class="price-item"><span>Taglio Baby (0-8)</span><span>€10</span></div>
-<div class="price-item"><span>Barba</span><span>€5</span></div>
-<div class="price-item"><span>Barba con macchinetta</span><span>€5</span></div>
-<div class="price-item"><span>Barba sfumata</span><span>€5</span></div>
-<div class="price-item"><span>Taglio + Barba + Shampoo</span><span>€20</span></div>
-<div class="price-item"><span>Trattamento lisciante</span><span>da €15</span></div>
-<div class="price-item"><span>Trattamenti</span><span>da €10</span></div>
-<div class="price-item"><span>Sfumatura lato</span><span>da €10</span></div>
-<div class="price-item"><span>Shampoo</span><span>€3</span></div>
-<div class="price-item"><span>Basette e collo</span><span>€3</span></div>
-<div class="price-item"><span>Sopracciglia</span><span>€3</span></div>
-<div class="price-item"><span>Pettinata + Shampoo</span><span>€5</span></div>
-</div>
+<div class="price-item">Taglio — €14</div>
+<div class="price-item">Taglio + Barba — €18</div>
+<div class="price-item">Taglio + Barba + Shampoo — €20</div>
+<div class="price-item">Shampoo — €3</div>
+<div class="price-item">Sfumatura lato — da €10</div>
+<div class="price-item">Trattamento lisciante — da €15</div>
+<div class="price-item">Trattamenti — da €10</div>
+<div class="price-item">Basette e collo — €3</div>
+<div class="price-item">Sopracciglia — €3</div>
+<div class="price-item">Pettinata + Shampoo — €5</div>
 
-<!-- MAPPA -->
-<div id="dove" class="section">
+</section>
+
+<section id="contatti" class="section">
+<h2>Contatti</h2>
+<a class="call-btn" href="tel:3421722184">Chiama</a>
+</section>
+
+<section id="mappa" class="section">
 <h2>Dove trovarmi</h2>
 
-<iframe class="map"
-src="https://www.google.com/maps?q=Via+Palermo+7/A+Scoglitti&output=embed">
+<iframe
+src="https://www.google.com/maps?q=Via+Palermo+7A+Scoglitti&output=embed"
+width="100%"
+height="300"
+style="border:0; border-radius:12px;">
 </iframe>
 
-<a href="tel:+393421722184" class="call-btn">Chiama</a>
-</div>
-<div id="gallery" class="section">
-<h2>I miei lavori</h2>
+</section>
 
-<img src="Taglio0.jpg" style="width:100%;border-radius:12px;margin-bottom:10px;">
-<img src="Taglio1.jpg" style="width:100%;border-radius:12px;margin-bottom:10px;">
-<img src="Taglio2.jpg" style="width:100%;border-radius:12px;margin-bottom:10px;">
-<img src="Taglio3.jpg" style="width:100%;border-radius:12px;margin-bottom:10px;">
-<img src="Taglio4.jpg" style="width:100%;border-radius:12px;margin-bottom:10px;">
-<img src="Taglio5.jpg" style="width:100%;border-radius:12px;margin-bottom:10px;">
-<img src="Taglio6.jpg" style="width:100%;border-radius:12px;margin-bottom:10px;">
-<img src="Taglio7.jpg" style="width:100%;border-radius:12px;margin-bottom:10px;">
-</div>
+</main>
+
 <script>
+
 function toggleMenu(){
-document.getElementById("menu").classList.toggle("active");
+document.getElementById("menu").classList.toggle("open");
 }
 
-function openSection(id){
+function showSection(id){
 document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
 toggleMenu();
 }
 
-/* DATA */
-const dateInput = document.getElementById("data");
-const today = new Date();
-dateInput.min = today.toISOString().split("T")[0];
+/* BLOCCO DOMENICA E LUNEDI */
+const dateInput = document.getElementById("date");
 
 dateInput.addEventListener("change", function(){
 const d = new Date(this.value);
 const day = d.getDay();
-if(day===0 || day===1){
-alert("Prenotazioni da martedì a sabato");
+
+if(day === 0 || day === 1){
+alert("Giorno non disponibile");
 this.value="";
 }
 });
 
-/* ORARI */
-const oraSelect = document.getElementById("ora");
+/* ORARI AUTOMATICI */
+const timeSelect = document.getElementById("time");
 
 function generaOrari(){
-oraSelect.innerHTML='<option value="">Seleziona orario</option>';
+timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
 
-function aggiungi(start,end){
-let [h,m]=start.split(":").map(Number);
-const [eh,em]=end.split(":").map(Number);
+function add(startH,startM,endH,endM){
+let h=startH;
+let m=startM;
 
-while(h<eh || (h===eh && m<=em)){
-const time = String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
-oraSelect.innerHTML+=`<option>${time}</option>`;
+while(h < endH || (h===endH && m<=endM)){
+const hh = String(h).padStart(2,'0');
+const mm = String(m).padStart(2,'0');
+
+const opt = document.createElement("option");
+opt.textContent = hh+":"+mm;
+timeSelect.appendChild(opt);
+
 m+=30;
 if(m>=60){m=0;h++;}
 }
 }
 
-aggiungi("09:30","12:30");
-aggiungi("15:30","19:30");
+add(9,30,12,30);
+add(15,30,19,30);
 }
 
 generaOrari();
+
+/* PRENOTAZIONE */
+document.getElementById("bookingForm").addEventListener("submit", function(e){
+e.preventDefault();
+
+document.getElementById("msg").textContent =
+"Prenotazione inviata ✔";
+});
+
 </script>
 
 </body>
 </html>
-/* EFFETTO APP PREMIUM */
-.section{
-animation:fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(10px)}
-to{opacity:1; transform:translateY(0)}
-}
-
-button{
-transition:0.2s;
-}
-
-button:active{
-transform:scale(0.97);
-}
-
-/* CARD PRENOTAZIONE */
-form{
-background:linear-gradient(145deg,#1a1a1a,#0f0f0f);
-box-shadow:0 10px 25px rgba(0,0,0,0.6);
-padding:20px;
-border-radius:14px;
-}
-
-/* MENU PREMIUM */
-.menu{
-box-shadow:10px 0 30px rgba(0,0,0,0.8);
-}
-
-/* PREZZI ELEGANTI */
-.price-item{
-padding:12px 0;
-font-size:18px;
-}
-
-/* HEADER PIÙ PROFESSIONALE */
-header{
-box-shadow:0 4px 20px rgba(0,0,0,0.7);
-}
