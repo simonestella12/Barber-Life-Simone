@@ -5,172 +5,92 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Barber Life Simone — Prenota</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
-body{margin:0;font-family:Poppins, sans-serif;background:#0f0f0f;color:white}
-
-/* HEADER PREMIUM */
-.topbar{
-position:sticky;top:0;z-index:1000;
-display:flex;align-items:center;justify-content:center;
-padding:16px 10px;
-background:linear-gradient(180deg,#111,#000);
-border-bottom:2px solid #d4af37;
-box-shadow:0 8px 30px rgba(0,0,0,.6)
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#111;
+color:white;
+text-align:center;
 }
-.menu-btn{
-position:absolute;left:12px;top:14px;
-background:#000;border:2px solid #d4af37;color:#d4af37;
-padding:8px 12px;border-radius:10px;font-size:20px
-}
-.logo-round{position:absolute;left:60px;width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid #d4af37}
-.logo-name{height:42px;filter:drop-shadow(0 0 8px rgba(212,175,55,.5))}
-.barber-pole{position:absolute;right:12px;top:4px;height:62px;animation:swing 3s ease-in-out infinite;transform-origin:top center}
-@keyframes swing{0%{transform:rotate(2deg)}50%{transform:rotate(-2deg)}100%{transform:rotate(2deg)}}
 
-/* MENU LATERALE */
-.side-menu{
-position:fixed;left:-260px;top:0;width:260px;height:100%;
-background:#111;padding:20px;transition:.3s;z-index:2000
+.header{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:15px;
+padding:15px;
+background:#1a1a1a;
+box-shadow:0 4px 10px rgba(0,0,0,0.5);
 }
-.side-menu a{display:block;color:white;text-decoration:none;margin:18px 0;font-size:18px}
-.side-menu.show{left:0}
 
-/* CONTENUTO */
-.container{max-width:420px;margin:20px auto;padding:20px;background:#141414;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,.7)}
-.section{display:none}
-.section.active{display:block}
+.header img{
+height:60px;
+}
+
+form{
+background:#1c1c1c;
+padding:20px;
+margin:20px;
+border-radius:12px;
+}
 
 input,select,button{
-width:100%;padding:14px;margin-top:10px;border-radius:12px;border:none;font-size:16px
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:8px;
+border:none;
+font-size:16px;
 }
-button{background:#d4af37;color:black;font-weight:600}
 
-.price-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #333}
+button{
+background:#c59b6d;
+color:black;
+font-weight:bold;
+}
 
-.map{width:100%;height:220px;border-radius:12px;border:none}
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.gallery img{width:100%;border-radius:12px}
+.call{
+margin:20px;
+display:inline-block;
+padding:15px 25px;
+background:#c59b6d;
+color:black;
+text-decoration:none;
+border-radius:10px;
+font-weight:bold;
+}
 </style>
 </head>
 
 <body>
 
-<!-- MENU -->
-<div id="menu" class="side-menu">
-<a onclick="showSection('booking')">Prenota</a>
-<a onclick="showSection('prezzi')">Listino prezzi</a>
-<a onclick="showSection('contatti')">Contatti</a>
-<a onclick="showSection('mappa')">Dove trovarmi</a>
-<a onclick="showSection('gallery')">Galleria</a>
-<a href="https://www.google.com/maps/search/?api=1&query=Via+Palermo+7/A+Scoglitti" target="_blank">Apri su Google Maps</a>
+<div class="header">
+<img src="Logo rotondo.png">
+<img src="logo-nome.jpg">
+<img src="palo.jpg">
 </div>
 
-<!-- HEADER -->
-<header class="topbar">
-<button class="menu-btn" onclick="toggleMenu()">☰</button>
-<img src="Logo rotondo.png" class="logo-round">
-<img src="logo-nome.jpg" class="logo-name">
-<img src="palo.jpg" class="barber-pole">
-</header>
+<form>
+<h2>Prenota appuntamento</h2>
+<input type="text" placeholder="Nome">
+<input type="tel" placeholder="Telefono">
 
-<div class="container">
-
-<!-- PRENOTAZIONE (HOME) -->
-<div id="booking" class="section active">
-<h2>Prenota Appuntamento</h2>
-
-<form id="bookingForm">
-<input type="text" placeholder="Nome" required>
-<input type="tel" placeholder="Telefono" required>
-
-<select required>
-<option>Seleziona Servizio</option>
+<select>
+<option>Seleziona servizio</option>
 <option>Taglio €14</option>
-<option>Taglio Baby 0-8 €10</option>
+<option>Taglio Baby €10</option>
 <option>Barba €5</option>
-<option>Barba con Macchinetta €5</option>
-<option>Barba Sfumata €5</option>
-<option>Taglio + Barba + Shampoo €20</option>
-<option>Sfumatura Lato da €10</option>
-<option>Trattamento Lisciante da €15</option>
-<option>Trattamenti da €10</option>
-<option>Shampoo €3</option>
-<option>Basette e Collo €3</option>
-<option>Sopracciglia €3</option>
-<option>Pettinata + Shampoo €5</option>
+<option>Taglio + Barba €20</option>
 </select>
 
-<input type="date" required>
-<input type="time" required>
+<input type="date">
+<input type="time">
 
-<button type="submit">Chiama per confermare</button>
+<button>Prenota</button>
 </form>
-</div>
 
-<!-- LISTINO -->
-<div id="prezzi" class="section">
-<h2>Listino Completo</h2>
-
-<div class="price-item"><span>Taglio</span><span>14€</span></div>
-<div class="price-item"><span>Taglio Baby 0-8</span><span>10€</span></div>
-<div class="price-item"><span>Barba</span><span>5€</span></div>
-<div class="price-item"><span>Barba con Macchinetta</span><span>5€</span></div>
-<div class="price-item"><span>Barba Sfumata</span><span>5€</span></div>
-<div class="price-item"><span>Taglio + Barba + Shampoo</span><span>20€</span></div>
-<div class="price-item"><span>Sfumatura Lato</span><span>da 10€</span></div>
-<div class="price-item"><span>Trattamento Lisciante</span><span>da 15€</span></div>
-<div class="price-item"><span>Trattamenti</span><span>da 10€</span></div>
-<div class="price-item"><span>Shampoo</span><span>3€</span></div>
-<div class="price-item"><span>Basette e Collo</span><span>3€</span></div>
-<div class="price-item"><span>Sopracciglia</span><span>3€</span></div>
-<div class="price-item"><span>Pettinata + Shampoo</span><span>5€</span></div>
-</div>
-
-<!-- CONTATTI -->
-<div id="contatti" class="section">
-<h2>Contatti</h2>
-<button onclick="window.open('tel:+393421722185')">Chiama</button>
-</div>
-
-<!-- MAPPA NEGOZIO -->
-<div id="mappa" class="section">
-<h2>Dove trovarmi</h2>
-<iframe class="map"
-src="https://www.google.com/maps?q=Via+Palermo+7/A+Scoglitti&output=embed">
-</iframe>
-</div>
-
-<!-- GALLERIA -->
-<div id="gallery" class="section">
-<h2>Galleria</h2>
-<div class="gallery">
-<img src="foto1.jpg">
-<img src="foto2.jpg">
-<img src="foto3.jpg">
-<img src="foto4.jpg">
-</div>
-</div>
-
-</div>
-
-<script>
-function toggleMenu(){
-document.getElementById("menu").classList.toggle("show");
-}
-
-function showSection(id){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-toggleMenu();
-}
-
-document.getElementById("bookingForm").addEventListener("submit",function(e){
-e.preventDefault();
-window.open("tel:+393421722185");
-});
-</script>
+<a class="call" href="tel:3421722185">Chiama</a>
 
 </body>
 </html>
