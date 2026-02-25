@@ -124,9 +124,39 @@ timeSelect.innerHTML += `<option>${h}:00</option>`;
 timeSelect.innerHTML += `<option>${h}:30</option>`;
 }
 }
+function addHalfHourRange(startHour, startMin, endHour, endMin){
+let start = new Date();
+start.setHours(startHour, startMin, 0);
 
-addTimes(9:30,13); // mattina
-addTimes(15:30,20); // pomeriggio
+let end = new Date();
+end.setHours(endHour, endMin, 0);
+
+while(start <= end){
+let h = start.getHours().toString().padStart(2,"0");
+let m = start.getMinutes().toString().padStart(2,"0");
+timeSelect.innerHTML += `<option>${h}:${m}</option>`;
+start.setMinutes(start.getMinutes() + 30);
+}
+}
+function addHalfHourRange(startHour, startMin, endHour, endMin){
+let start = new Date();
+start.setHours(startHour, startMin, 0);
+
+let end = new Date();
+end.setHours(endHour, endMin, 0);
+
+while(start <= end){
+let h = start.getHours().toString().padStart(2,"0");
+let m = start.getMinutes().toString().padStart(2,"0");
+timeSelect.innerHTML += `<option>${h}:${m}</option>`;
+start.setMinutes(start.getMinutes() + 30);
+}
+}
+
+// ORARI REALI NEGOZIO
+addHalfHourRange(9,30,12,30);
+addHalfHourRange(15,30,19,30);
+
 </script>
 
 </body>
