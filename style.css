@@ -198,3 +198,70 @@ button{
   animation:swing 3s ease-in-out infinite;
   transform-origin:top center;
 }
+/* ===== HEADER PROFESSIONALE ===== */
+
+.topbar{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 10px;
+  background: linear-gradient(180deg,#111,#000);
+  border-bottom: 2px solid #d4af37;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+}
+
+/* menu hamburger */
+.menu-btn{
+  position: absolute;
+  left: 15px;
+  top: 18px;
+  background: transparent;
+  border: 2px solid #d4af37;
+  color: #d4af37;
+  font-size: 20px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.menu-btn:hover{
+  background: #d4af37;
+  color: black;
+}
+
+/* logo sinistra */
+.logo-round{
+  position: absolute;
+  left: 60px;
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #d4af37;
+  box-shadow: 0 0 10px rgba(212,175,55,0.6);
+}
+
+/* logo nome centro */
+.logo-name{
+  width: 220px;
+  filter: drop-shadow(0 0 8px rgba(212,175,55,0.5));
+}
+
+/* palo barbiere appeso */
+.barber-pole{
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  width: 55px;
+  animation: swing 3s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* animazione appeso */
+@keyframes swing{
+  0%{ transform: rotate(2deg); }
+  50%{ transform: rotate(-2deg); }
+  100%{ transform: rotate(2deg); }
+}
