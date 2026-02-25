@@ -249,7 +249,10 @@ document.getElementById("bookingForm").addEventListener("submit", function(e){
 e.preventDefault();
 window.open("https://wa.me/393421722185");
 });
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
 </script>
-
 </body>
 </html>
