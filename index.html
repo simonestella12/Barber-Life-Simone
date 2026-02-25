@@ -71,26 +71,63 @@ font-weight:bold;
 <img src="palo.jpg">
 </div>
 
-<form>
+<form id="bookingForm">
 <h2>Prenota appuntamento</h2>
-<input type="text" placeholder="Nome">
-<input type="tel" placeholder="Telefono">
 
-<select>
-<option>Seleziona servizio</option>
+<input type="text" placeholder="Nome e Cognome" required>
+<input type="tel" placeholder="Telefono" required>
+
+<select required>
+<option value="">Seleziona servizio</option>
 <option>Taglio €14</option>
-<option>Taglio Baby €10</option>
+<option>Taglio Baby (0-8) €10</option>
 <option>Barba €5</option>
-<option>Taglio + Barba €20</option>
+<option>Barba con macchinetta €5</option>
+<option>Barba sfumata €5</option>
+<option>Trattamento lisciante da €15</option>
+<option>Basette e collo €3</option>
+<option>Shampoo €3</option>
+<option>Trattamenti da €10</option>
+<option>Taglio + Barba + Shampoo €20</option>
+<option>Sopracciglia €3</option>
+<option>Pettinata + Shampoo €5</option>
+<option>Sfumatura lato da €10</option>
 </select>
 
-<input type="date">
-<input type="time">
+<input type="date" id="date" required>
+<select id="time" required>
+<option value="">Seleziona orario</option>
+</select>
 
 <button>Prenota</button>
 </form>
 
 <a class="call" href="tel:3421722185">Chiama</a>
+
+<script>
+// BLOCCA DOMENICA E LUNEDÌ
+document.getElementById("date").addEventListener("input", function(){
+const date = new Date(this.value);
+const day = date.getDay();
+if(day === 0 || day === 1){
+alert("Il negozio è chiuso domenica e lunedì");
+this.value="";
+}
+});
+
+// CREA ORARI OGNI 30 MINUTI
+const timeSelect = document.getElementById("time");
+
+function addTimes(startHour,endHour){
+for(let h=startHour; h<endHour; h++){
+timeSelect.innerHTML += `<option>${h}:00</option>`;
+timeSelect.innerHTML += `<option>${h}:30</option>`;
+}
+}
+
+addTimes(9,13); // mattina
+addTimes(15,20); // pomeriggio
+</script>
 
 </body>
 </html>
