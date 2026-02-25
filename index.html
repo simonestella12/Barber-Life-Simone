@@ -3,160 +3,260 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Barber Life Simone — Prenota</title>
+<title>Barber Life Simone</title>
 
 <style>
 body{
 margin:0;
 font-family:Arial, sans-serif;
-background:#111;
+background:#0f0f0f;
 color:white;
-text-align:center;
 }
 
-.header{
+/* HEADER */
+header{
 display:flex;
 align-items:center;
-justify-content:center;
-gap:15px;
-padding:15px;
-background:#1a1a1a;
-box-shadow:0 4px 10px rgba(0,0,0,0.5);
+justify-content:space-between;
+padding:10px 15px;
+background:#111;
+position:sticky;
+top:0;
+z-index:1000;
 }
 
-.header img{
-height:60px;
+.logo-round{
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
 }
 
-form{
-background:#1c1c1c;
+.logo-name{
+height:45px;
+}
+
+.pole{
+height:70px;
+animation:swing 3s ease-in-out infinite;
+transform-origin:top center;
+}
+
+@keyframes swing{
+0%{transform:rotate(2deg)}
+50%{transform:rotate(-2deg)}
+100%{transform:rotate(2deg)}
+}
+
+/* HAMBURGER */
+.menu-btn{
+font-size:28px;
+cursor:pointer;
+}
+
+.menu{
+position:fixed;
+top:0;
+left:-100%;
+width:80%;
+height:100%;
+background:#111;
 padding:20px;
-margin:20px;
-border-radius:12px;
+transition:0.3s;
+z-index:2000;
 }
 
-input,select,button{
-width:100%;
+.menu.active{
+left:0;
+}
+
+.menu a{
+display:block;
+color:white;
+text-decoration:none;
+padding:15px 0;
+border-bottom:1px solid #333;
+font-size:18px;
+}
+
+/* SEZIONI */
+.section{
+display:none;
+padding:20px;
+}
+
+.section.active{
+display:block;
+}
+
+/* FORM */
+form{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+input, select, button{
 padding:12px;
-margin-top:10px;
-border-radius:8px;
 border:none;
+border-radius:8px;
 font-size:16px;
 }
 
 button{
-background:#c59b6d;
+background:#c9a227;
 color:black;
 font-weight:bold;
+cursor:pointer;
 }
 
-.call{
-margin:20px;
-display:inline-block;
-padding:15px 25px;
-background:#c59b6d;
-color:black;
+.call-btn{
+background:#25d366;
+color:white;
+text-align:center;
 text-decoration:none;
+padding:12px;
+border-radius:8px;
+display:block;
+margin-top:15px;
+}
+
+/* MAPPA */
+.map{
+width:100%;
+height:200px;
 border-radius:10px;
-font-weight:bold;
+border:none;
+margin-top:10px;
+}
+
+/* PREZZI */
+.price-item{
+display:flex;
+justify-content:space-between;
+padding:8px 0;
+border-bottom:1px solid #333;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-<img src="Logo rotondo.png">
-<img src="logo-nome.jpg">
-<img src="palo.jpg">
+<header>
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+<img src="Logo rotondo.png" class="logo-round">
+<img src="logo-nome.jpg" class="logo-name">
+<img src="palo.jpg" class="pole">
+</header>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+<a onclick="openSection('booking')">Prenota</a>
+<a onclick="openSection('prezzi')">Listino prezzi</a>
+<a onclick="openSection('dove')">Dove trovarmi</a>
+<a href="https://www.instagram.com/barber_life_simone" target="_blank">Instagram</a>
+<a href="https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti" target="_blank">Lascia recensione</a>
 </div>
 
-<form id="bookingForm">
+<!-- PRENOTAZIONE -->
+<div id="booking" class="section active">
 <h2>Prenota appuntamento</h2>
 
+<form>
 <input type="text" placeholder="Nome e Cognome" required>
 <input type="tel" placeholder="Telefono" required>
 
 <select required>
 <option value="">Seleziona servizio</option>
-<option>Taglio €14</option>
-<option>Taglio Baby (0-8) €10</option>
-<option>Barba €5</option>
-<option>Barba con macchinetta €5</option>
-<option>Barba sfumata €5</option>
-<option>Trattamento lisciante da €15</option>
-<option>Basette e collo €3</option>
-<option>Shampoo €3</option>
-<option>Trattamenti da €10</option>
-<option>Taglio + Barba + Shampoo €20</option>
-<option>Sopracciglia €3</option>
-<option>Pettinata + Shampoo €5</option>
-<option>Sfumatura lato da €10</option>
+<option>Taglio</option>
+<option>Barba</option>
+<option>Taglio + Barba</option>
+<option>Rasatura</option>
+<option>Modellatura</option>
 </select>
 
-<input type="date" id="date" required>
-<select id="time" required>
+<input type="date" id="data" required>
+<select id="ora" required>
 <option value="">Seleziona orario</option>
 </select>
 
-<button>Prenota</button>
+<button type="submit">Prenota</button>
 </form>
 
-<a class="call" href="tel:3421722185">Chiama</a>
+<a href="tel:+393000000000" class="call-btn">Chiama</a>
+</div>
+
+<!-- PREZZI -->
+<div id="prezzi" class="section">
+<h2>Listino prezzi</h2>
+
+<div class="price-item"><span>Taglio</span><span>€15</span></div>
+<div class="price-item"><span>Barba</span><span>€10</span></div>
+<div class="price-item"><span>Taglio + Barba</span><span>€22</span></div>
+<div class="price-item"><span>Rasatura</span><span>€12</span></div>
+<div class="price-item"><span>Modellatura</span><span>€8</span></div>
+
+</div>
+
+<!-- MAPPA -->
+<div id="dove" class="section">
+<h2>Dove trovarmi</h2>
+
+<iframe class="map"
+src="https://www.google.com/maps?q=Via+Palermo+7/A+Scoglitti&output=embed">
+</iframe>
+
+<a href="tel:+393000000000" class="call-btn">Chiama</a>
+</div>
 
 <script>
-// BLOCCA DOMENICA E LUNEDÌ
-document.getElementById("date").addEventListener("input", function(){
-const date = new Date(this.value);
-const day = date.getDay();
-if(day === 0 || day === 1){
-alert("Il negozio è chiuso domenica e lunedì");
+function toggleMenu(){
+document.getElementById("menu").classList.toggle("active");
+}
+
+function openSection(id){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+toggleMenu();
+}
+
+/* DATA */
+const dateInput = document.getElementById("data");
+const today = new Date();
+dateInput.min = today.toISOString().split("T")[0];
+
+dateInput.addEventListener("change", function(){
+const d = new Date(this.value);
+const day = d.getDay();
+if(day===0 || day===1){
+alert("Prenotazioni da martedì a sabato");
 this.value="";
 }
 });
 
-// CREA ORARI OGNI 30 MINUTI
-const timeSelect = document.getElementById("time");
+/* ORARI */
+const oraSelect = document.getElementById("ora");
 
-function addTimes(startHour,endHour){
-for(let h=startHour; h<endHour; h++){
-timeSelect.innerHTML += `<option>${h}:00</option>`;
-timeSelect.innerHTML += `<option>${h}:30</option>`;
-}
-}
-function addHalfHourRange(startHour, startMin, endHour, endMin){
-let start = new Date();
-start.setHours(startHour, startMin, 0);
+function generaOrari(){
+oraSelect.innerHTML='<option value="">Seleziona orario</option>';
 
-let end = new Date();
-end.setHours(endHour, endMin, 0);
+function aggiungi(start,end){
+let [h,m]=start.split(":").map(Number);
+const [eh,em]=end.split(":").map(Number);
 
-while(start <= end){
-let h = start.getHours().toString().padStart(2,"0");
-let m = start.getMinutes().toString().padStart(2,"0");
-timeSelect.innerHTML += `<option>${h}:${m}</option>`;
-start.setMinutes(start.getMinutes() + 30);
-}
-}
-function addHalfHourRange(startHour, startMin, endHour, endMin){
-let start = new Date();
-start.setHours(startHour, startMin, 0);
-
-let end = new Date();
-end.setHours(endHour, endMin, 0);
-
-while(start <= end){
-let h = start.getHours().toString().padStart(2,"0");
-let m = start.getMinutes().toString().padStart(2,"0");
-timeSelect.innerHTML += `<option>${h}:${m}</option>`;
-start.setMinutes(start.getMinutes() + 30);
+while(h<eh || (h===eh && m<=em)){
+const time = String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+oraSelect.innerHTML+=`<option>${time}</option>`;
+m+=30;
+if(m>=60){m=0;h++;}
 }
 }
 
-// ORARI REALI NEGOZIO
-addHalfHourRange(9,30,12,30);
-addHalfHourRange(15,30,19,30);
+aggiungi("09:30","12:30");
+aggiungi("15:30","19:30");
+}
 
+generaOrari();
 </script>
 
 </body>
