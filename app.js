@@ -1,95 +1,61 @@
-/* MENU */
 function toggleMenu(){
-  document.getElementById("sideMenu").classList.toggle("show");
+document.getElementById("menu").classList.toggle("open");
 }
 
 function showSection(id){
-  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  toggleMenu();
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+toggleMenu();
 }
 
-/* SERVIZI */
-const services = [
-  "Taglio",
-  "Taglio Baby 0-8",
-  "Barba",
-  "Barba con macchinetta",
-  "Barba sfumata",
-  "Taglio + Barba + Shampoo",
-  "Sfumatura lato",
-  "Trattamenti",
-  "Trattamento lisciante"
-];
-
-const serviceSelect = document.getElementById("service");
-if(serviceSelect){
-  services.forEach(s=>{
-    const option=document.createElement("option");
-    option.text=s;
-    option.value=s;
-    serviceSelect.add(option);
-  });
+function openMaps(){
+window.open("https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti");
 }
+
+/* BLOCCA DOMENICA E LUNEDI */
+const dateInput = document.getElementById("date");
+
+dateInput.addEventListener("change", function(){
+const d = new Date(this.value);
+const day = d.getDay();
+
+if(day === 0 || day === 1){
+alert("Il negozio è chiuso domenica e lunedì");
+this.value="";
+}
+});
 
 /* ORARI */
-const openingHours = {
-  "martedì":["09:30-13:00","15:30-20:00"],
-  "mercoledì":["09:30-13:00","15:30-20:00"],
-  "giovedì":["09:30-13:00","15:30-20:00"],
-  "venerdì":["09:30-13:00","15:30-20:00"],
-  "sabato":["09:30-13:00","15:30-20:00"]
-};
+const timeSelect = document.getElementById("time");
 
-const dateInput=document.getElementById("date");
-const timeInput=document.getElementById("time");
+function generaOrari(){
+timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
 
-if(dateInput && timeInput){
-  dateInput.addEventListener("change",()=>{
-    const dayName=new Date(dateInput.value)
-      .toLocaleDateString('it-IT',{weekday:'long'})
-      .toLowerCase();
+function add(startH,startM,endH,endM){
+let h=startH;
+let m=startM;
 
-    const slots=openingHours[dayName];
-    timeInput.innerHTML="";
+while(h < endH || (h===endH && m<=endM)){
+const hh = String(h).padStart(2,'0');
+const mm = String(m).padStart(2,'0');
 
-    if(!slots){
-      const option=document.createElement("option");
-      option.text="Chiuso";
-      timeInput.add(option);
-      return;
-    }
+const opt = document.createElement("option");
+opt.textContent = hh+":"+mm;
+timeSelect.appendChild(opt);
 
-    slots.forEach(slot=>{
-      const [start,end]=slot.split("-");
-      let [sh,sm]=start.split(":").map(Number);
-      let [eh,em]=end.split(":").map(Number);
-
-      let current=sh*60+sm;
-      const endMinutes=eh*60+em;
-
-      while(current<endMinutes){
-        const h=String(Math.floor(current/60)).padStart(2,'0');
-        const m=String(current%60).padStart(2,'0');
-
-        const option=document.createElement("option");
-        option.value=`${h}:${m}`;
-        option.text=`${h}:${m}`;
-        timeInput.add(option);
-
-        current+=30;
-      }
-    });
-  });
+m+=30;
+if(m>=60){m=0;h++;}
+}
 }
 
-/* PRENOTAZIONE */
-const form=document.getElementById("bookingForm");
-
-if(form){
-  form.addEventListener("submit",e=>{
-    e.preventDefault();
-    alert("Prenotazione inviata! Ti aspettiamo 💈");
-    form.reset();
-  });
+add(9,30,12,30);
+add(15,30,19,30);
 }
+
+generaOrari();
+
+/* CONFERMA */
+document.getElementById("bookingForm").addEventListener("submit", function(e){
+e.preventDefault();
+document.getElementById("msg").textContent="Prenotazione inviata ✔";
+});
