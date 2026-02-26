@@ -102,3 +102,23 @@ gap:10px;
 width:100%;
 border-radius:12px;
 }
+.price-list{
+list-style:none;
+padding:0;
+margin:0;
+}
+
+.price-list li{
+padding:12px;
+border-bottom:1px solid #333;
+}
+
+.gallery-buttons{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+.gallery-buttons button{
+flex:1;
+}
