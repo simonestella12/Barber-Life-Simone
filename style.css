@@ -79,3 +79,32 @@ background:#c9a96e;
 color:black;
 font-weight:bold;
 }
+.hero{
+position:relative;
+}
+
+.hero-img{
+width:100%;
+display:block;
+}
+
+/* zona clic sul menu dentro immagine */
+.menu-touch{
+position:absolute;
+top:10px;
+left:10px;
+width:60px;
+height:60px;
+}
+
+.gallery{
+padding:20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.gallery img{
+width:100%;
+border-radius:12px;
+}
