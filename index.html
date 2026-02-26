@@ -9,29 +9,40 @@
 
 <body>
 
+<!-- HEADER IMMAGINE UNICA -->
 <header class="hero">
   <img src="Logo unico .jpg" class="hero-img">
+  <!-- area clic sopra icona hamburger dentro immagine -->
   <div class="menu-touch" onclick="toggleMenu()"></div>
 </header>
 
+<!-- MENU -->
 <nav id="menu" class="menu">
-  <a href="#">Listino prezzi</a>
-  <a href="#">Galleria</a>
-  <a href="#">Dove trovarmi</a>
+
+  <a onclick="showSection('prezzi')">Listino prezzi</a>
+  <a onclick="showSection('mappa')">Dove trovarmi</a>
   <a href="https://www.instagram.com/barber_life_simone" target="_blank">Instagram</a>
-  <a href="https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti" target="_blank">Lascia una recensione</a>
   <a href="tel:3421722184">Chiama</a>
+  <a href="https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti" target="_blank">Lascia una recensione</a>
+  <a onclick="showSection('gallery')">Galleria</a>
+
 </nav>
 
 <main class="container">
 
+<!-- PRENOTAZIONE -->
+<section id="booking" class="section active">
 <h2>Prenota appuntamento</h2>
 
 <form id="bookingForm">
 
-<input type="text" placeholder="Nome e Cognome" required>
-<input type="tel" placeholder="Telefono" required>
+<label>Nome e cognome</label>
+<input type="text" required>
 
+<label>Telefono</label>
+<input type="tel" required>
+
+<label>Servizio</label>
 <select required>
 <option value="">Seleziona servizio</option>
 <option>Taglio €14</option>
@@ -48,7 +59,10 @@
 <option>Trattamenti da €10</option>
 </select>
 
+<label>Data appuntamento</label>
 <input type="date" id="date" required>
+
+<label>Orario appuntamento</label>
 <select id="time" required></select>
 
 <button type="submit">PRENOTA APPUNTAMENTO</button>
@@ -56,9 +70,22 @@
 </form>
 
 <p id="msg"></p>
-<section class="gallery">
-<h2>I miei lavori</h2>
+</section>
 
+<!-- MAPPA -->
+<section id="mappa" class="section">
+<h2>Dove trovarmi</h2>
+<button onclick="openMaps()">Apri su Google Maps</button>
+</section>
+
+<!-- PREZZI -->
+<section id="prezzi" class="section">
+<h2>Listino prezzi</h2>
+<p>Consulta i servizi dal menu prenotazione</p>
+</section>
+
+<!-- GALLERIA -->
+<section id="gallery" class="section gallery">
 <img src="Taglio0.jpg">
 <img src="Taglio1.jpg">
 <img src="Taglio2.jpg">
@@ -67,8 +94,8 @@
 <img src="Taglio5.jpg">
 <img src="Taglio6.jpg">
 <img src="Taglio7.jpg">
-
 </section>
+
 </main>
 
 <script src="app.js"></script>
