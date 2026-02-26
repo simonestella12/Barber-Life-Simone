@@ -19,6 +19,7 @@
 <!-- MENU -->
 <nav id="menu" class="menu">
 
+  <a onclick="showSection('booking')">Home</a>
   <a onclick="showSection('prezzi')">Listino prezzi</a>
   <a onclick="showSection('mappa')">Dove trovarmi</a>
   <a href="https://www.instagram.com/barber_life_simone" target="_blank">Instagram</a>
@@ -81,11 +82,38 @@
 <!-- PREZZI -->
 <section id="prezzi" class="section">
 <h2>Listino prezzi</h2>
-<p>Consulta i servizi dal menu prenotazione</p>
+
+<ul class="price-list">
+<li>Taglio €14</li>
+<li>Taglio Baby €10</li>
+<li>Barba €5</li>
+<li>Barba con macchinetta €5</li>
+<li>Barba sfumata €5</li>
+<li>Taglio + Barba + Shampoo €20</li>
+<li>Basette e collo €3</li>
+<li>Sopracciglia €3</li>
+<li>Shampoo €3</li>
+<li>Pettinata + Shampoo €5</li>
+<li>Sfumatura lato da €10</li>
+<li>Trattamento lisciante da €15</li>
+<li>Trattamenti da €10</li>
+</ul>
 </section>
 
 <!-- GALLERIA -->
-<section id="gallery" class="section gallery">
+<section id="galleryMenu" class="section">
+
+<h2>Galleria</h2>
+
+<div class="gallery-buttons">
+<button onclick="showSection('lavori')">I miei lavori</button>
+<button onclick="showSection('locale')">Il locale</button>
+</div>
+
+</section>
+
+<!-- ALBUM TAGLI -->
+<section id="lavori" class="section gallery">
 <img src="Taglio0.jpg">
 <img src="Taglio1.jpg">
 <img src="Taglio2.jpg">
@@ -96,6 +124,12 @@
 <img src="Taglio7.jpg">
 </section>
 
+<!-- ALBUM LOCALE -->
+<section id="locale" class="section gallery">
+<img src="locale1.jpg">
+<img src="locale2.jpg">
+<img src="locale3.jpg">
+</section>
 </main>
 
 <script src="app.js"></script>
