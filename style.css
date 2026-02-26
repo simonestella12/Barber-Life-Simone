@@ -5,7 +5,7 @@ background:#0f0f0f;
 color:white;
 }
 
-/* HEADER FOTO */
+/* HEADER */
 .hero{
 position:relative;
 }
@@ -15,16 +15,13 @@ width:100%;
 display:block;
 }
 
-.menu-btn{
+/* zona clic menu dentro immagine */
+.menu-touch{
 position:absolute;
-top:15px;
-left:15px;
-font-size:28px;
-background:rgba(0,0,0,0.6);
-border:none;
-color:white;
-padding:6px 10px;
-border-radius:6px;
+top:5px;
+left:5px;
+width:80px;
+height:80px;
 }
 
 /* MENU */
@@ -57,6 +54,15 @@ border-bottom:1px solid #333;
 padding:20px;
 }
 
+.section{
+display:none;
+}
+
+.section.active{
+display:block;
+}
+
+/* FORM */
 form{
 background:#1a1a1a;
 padding:20px;
@@ -64,7 +70,12 @@ border-radius:14px;
 box-shadow:0 10px 25px rgba(0,0,0,0.6);
 display:flex;
 flex-direction:column;
-gap:12px;
+gap:8px;
+}
+
+label{
+font-size:14px;
+opacity:0.8;
 }
 
 input,select,button{
@@ -79,26 +90,9 @@ background:#c9a96e;
 color:black;
 font-weight:bold;
 }
-.hero{
-position:relative;
-}
 
-.hero-img{
-width:100%;
-display:block;
-}
-
-/* zona clic sul menu dentro immagine */
-.menu-touch{
-position:absolute;
-top:10px;
-left:10px;
-width:60px;
-height:60px;
-}
-
+/* GALLERIA */
 .gallery{
-padding:20px;
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:10px;
