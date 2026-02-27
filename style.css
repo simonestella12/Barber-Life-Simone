@@ -122,3 +122,12 @@ margin-top:15px;
 .gallery-buttons button{
 flex:1;
 }
+.gallery-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.gallery-buttons button{
+  flex:1;
+}
