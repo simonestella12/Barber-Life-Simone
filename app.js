@@ -3,9 +3,11 @@ document.getElementById("menu").classList.toggle("open");
 }
 
 function showSection(id){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll(".section").forEach(section=>{
+section.classList.remove("active");
+});
 document.getElementById(id).classList.add("active");
-toggleMenu();
+document.getElementById("menu").classList.remove("open");
 }
 
 function openMaps(){
