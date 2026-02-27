@@ -12,21 +12,18 @@
 <!-- HEADER IMMAGINE UNICA -->
 <header class="hero">
   <img src="Logo unico .jpg" class="hero-img">
-  <!-- area clic sopra icona hamburger dentro immagine -->
   <div class="menu-touch" onclick="toggleMenu()"></div>
 </header>
 
 <!-- MENU -->
 <nav id="menu" class="menu">
-
   <a onclick="showSection('booking')">Home</a>
   <a onclick="showSection('prezzi')">Listino prezzi</a>
   <a onclick="showSection('mappa')">Dove trovarmi</a>
   <a href="https://www.instagram.com/barber_life_simone" target="_blank">Instagram</a>
-  <a href="tel:3421722184">Chiama</a>
+  <a href="tel:3421722185">Chiama</a>
   <a href="https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti" target="_blank">Lascia una recensione</a>
-  <a onclick="showSection('gallery')">Galleria</a>
-
+  <a onclick="showSection('galleryMenu')">Galleria</a>
 </nav>
 
 <main class="container">
@@ -49,6 +46,7 @@
 <option>Taglio €14</option>
 <option>Taglio Baby €10</option>
 <option>Barba €5</option>
+<option>Barba con macchinetta €5</option>
 <option>Barba sfumata €5</option>
 <option>Taglio + Barba + Shampoo €20</option>
 <option>Shampoo €3</option>
@@ -100,16 +98,14 @@
 </ul>
 </section>
 
-<!-- GALLERIA -->
+<!-- MENU GALLERIA -->
 <section id="galleryMenu" class="section">
-
 <h2>Galleria</h2>
 
 <div class="gallery-buttons">
 <button onclick="showSection('lavori')">I miei lavori</button>
-<button onclick="showSection('locale')">Il locale</button>
+<button onclick="showSection('locale')">Foto del locale</button>
 </div>
-
 </section>
 
 <!-- ALBUM TAGLI -->
@@ -130,6 +126,7 @@
 <img src="locale2.jpg">
 <img src="locale3.jpg">
 </section>
+
 </main>
 
 <script src="app.js"></script>
