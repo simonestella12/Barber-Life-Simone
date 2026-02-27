@@ -131,3 +131,10 @@ flex:1;
 .gallery-buttons button{
   flex:1;
 }
+.section{
+display:none;
+}
+
+.section.active{
+display:block;
+}
