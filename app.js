@@ -1,32 +1,22 @@
 window.toggleMenu = function () {
-  const menu = document.getElementById("menu");
-  if (menu) menu.classList.toggle("open");
+  document.getElementById("menu").classList.toggle("open");
 };
 
 window.showSection = function (id) {
   document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-  const el = document.getElementById(id);
-  if (el) el.classList.add("active");
-  const menu = document.getElementById("menu");
-  if (menu) menu.classList.remove("open");
+  document.getElementById(id).classList.add("active");
+  document.getElementById("menu").classList.remove("open");
 };
 
 window.openMaps = function () {
   window.open("https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti");
 };
 
-
-// ⚠️ parte SOLO quando tutto è carico
 window.onload = function () {
 
   const dateInput = document.getElementById("date");
   const timeSelect = document.getElementById("time");
   const form = document.getElementById("bookingForm");
-
-  if (!dateInput || !timeSelect || !form) {
-    alert("Errore: campi prenotazione non trovati");
-    return;
-  }
 
   function generaOrari() {
     timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
@@ -53,10 +43,8 @@ window.onload = function () {
     add(15, 30, 19, 30);
   }
 
-  // genera subito
   generaOrari();
 
-  // blocco giorni chiusi
   dateInput.addEventListener("change", function () {
     const d = new Date(this.value);
     const day = d.getDay();
@@ -64,19 +52,15 @@ window.onload = function () {
     if (day === 0 || day === 1) {
       alert("Chiuso domenica e lunedì");
       this.value = "";
-      generaOrari();
-      return;
     }
   });
 
-
-  // salvataggio
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const nome = form.querySelector("input[type='text']").value;
-    const telefono = form.querySelector("input[type='tel']").value;
-    const servizio = form.querySelector("select").value;
+    const nome = document.getElementById("nome").value;
+    const telefono = document.getElementById("telefono").value;
+    const servizio = document.getElementById("servizio").value;
     const data = dateInput.value;
     const ora = timeSelect.value;
 
