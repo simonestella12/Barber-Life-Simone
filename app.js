@@ -1,4 +1,3 @@
-/* MENU */
 function toggleMenu(){
 document.getElementById("menu").classList.toggle("open");
 }
@@ -11,7 +10,6 @@ document.getElementById(id).classList.add("active");
 document.getElementById("menu").classList.remove("open");
 }
 
-/* MAPPA */
 function openMaps(){
 window.open("https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti");
 }
@@ -44,7 +42,6 @@ const hh = String(h).padStart(2,'0');
 const mm = String(m).padStart(2,'0');
 
 const opt = document.createElement("option");
-opt.value = hh+":"+mm;
 opt.textContent = hh+":"+mm;
 timeSelect.appendChild(opt);
 
@@ -59,7 +56,7 @@ add(15,30,19,30);
 
 generaOrari();
 
-/* SALVA PRENOTAZIONE SU FIREBASE */
+/* SALVA PRENOTAZIONE FIRESTORE */
 document.getElementById("bookingForm").addEventListener("submit", async function(e){
 e.preventDefault();
 
@@ -69,29 +66,22 @@ const servizio = this.querySelector("select").value;
 const data = document.getElementById("date").value;
 const ora = document.getElementById("time").value;
 
-if(!data || !ora){
-document.getElementById("msg").textContent="Seleziona data e orario";
-return;
-}
-
 try{
-const { collection, addDoc, Timestamp } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
-
-await addDoc(collection(window.db, "prenotazioni"), {
+await addDoc(collection(window.db,"prenotazioni"),{
 nome,
 telefono,
 servizio,
 data,
 ora,
-creato: Timestamp.now()
+timestamp:new Date()
 });
 
 document.getElementById("msg").textContent="Prenotazione salvata ✔";
 this.reset();
-generaOrari();
 
 }catch(err){
-console.error(err);
 document.getElementById("msg").textContent="Errore salvataggio ❌";
+console.error(err);
 }
+
 });
