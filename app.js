@@ -1,14 +1,14 @@
-// 🔥 rende le funzioni globali (menu funzionante)
 window.toggleMenu = function () {
-  document.getElementById("menu").classList.toggle("open");
+  const menu = document.getElementById("menu");
+  if (menu) menu.classList.toggle("open");
 };
 
 window.showSection = function (id) {
-  document.querySelectorAll(".section").forEach(section => {
-    section.classList.remove("active");
-  });
-  document.getElementById(id).classList.add("active");
-  document.getElementById("menu").classList.remove("open");
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  const el = document.getElementById(id);
+  if (el) el.classList.add("active");
+  const menu = document.getElementById("menu");
+  if (menu) menu.classList.remove("open");
 };
 
 window.openMaps = function () {
@@ -16,38 +16,26 @@ window.openMaps = function () {
 };
 
 
-// ⏳ aspetta che la pagina sia pronta
-document.addEventListener("DOMContentLoaded", function () {
+// ⚠️ parte SOLO quando tutto è carico
+window.onload = function () {
 
   const dateInput = document.getElementById("date");
   const timeSelect = document.getElementById("time");
   const form = document.getElementById("bookingForm");
 
-  // ✅ BLOCCA DOMENICA E LUNEDÌ
-  dateInput.addEventListener("change", function () {
-    const d = new Date(this.value);
-    const day = d.getDay();
+  if (!dateInput || !timeSelect || !form) {
+    alert("Errore: campi prenotazione non trovati");
+    return;
+  }
 
-    if (day === 0 || day === 1) {
-      alert("Il negozio è chiuso domenica e lunedì");
-      this.value = "";
-      timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
-      return;
-    }
-
-    generaOrari();
-  });
-
-
-  // ✅ GENERA ORARI CORRETTI
   function generaOrari() {
     timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
 
-    function add(startH, startM, endH, endM) {
-      let h = startH;
-      let m = startM;
+    function add(h1, m1, h2, m2) {
+      let h = h1;
+      let m = m1;
 
-      while (h < endH || (h === endH && m <= endM)) {
+      while (h < h2 || (h === h2 && m <= m2)) {
         const hh = String(h).padStart(2, '0');
         const mm = String(m).padStart(2, '0');
 
@@ -57,10 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         timeSelect.appendChild(opt);
 
         m += 30;
-        if (m >= 60) {
-          m = 0;
-          h++;
-        }
+        if (m >= 60) { m = 0; h++; }
       }
     }
 
@@ -68,12 +53,24 @@ document.addEventListener("DOMContentLoaded", function () {
     add(15, 30, 19, 30);
   }
 
-
-  // 🔥 genera orari iniziali
+  // genera subito
   generaOrari();
 
+  // blocco giorni chiusi
+  dateInput.addEventListener("change", function () {
+    const d = new Date(this.value);
+    const day = d.getDay();
 
-  // ✅ SALVATAGGIO FIRESTORE
+    if (day === 0 || day === 1) {
+      alert("Chiuso domenica e lunedì");
+      this.value = "";
+      generaOrari();
+      return;
+    }
+  });
+
+
+  // salvataggio
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -92,12 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
 
       await addDoc(collection(window.db, "prenotazioni"), {
-        nome,
-        telefono,
-        servizio,
-        data,
-        ora,
-        creato: new Date()
+        nome, telefono, servizio, data, ora, creato: new Date()
       });
 
       document.getElementById("msg").textContent = "Prenotazione salvata ✔";
@@ -105,9 +97,8 @@ document.addEventListener("DOMContentLoaded", function () {
       generaOrari();
 
     } catch (err) {
-      console.error(err);
       document.getElementById("msg").textContent = "Errore salvataggio ❌";
     }
-  });
+  };
 
-});
+};
