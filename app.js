@@ -1,87 +1,113 @@
-function toggleMenu(){
-document.getElementById("menu").classList.toggle("open");
-}
+// 🔥 rende le funzioni globali (menu funzionante)
+window.toggleMenu = function () {
+  document.getElementById("menu").classList.toggle("open");
+};
 
-function showSection(id){
-document.querySelectorAll(".section").forEach(section=>{
-section.classList.remove("active");
-});
-document.getElementById(id).classList.add("active");
-document.getElementById("menu").classList.remove("open");
-}
+window.showSection = function (id) {
+  document.querySelectorAll(".section").forEach(section => {
+    section.classList.remove("active");
+  });
+  document.getElementById(id).classList.add("active");
+  document.getElementById("menu").classList.remove("open");
+};
 
-function openMaps(){
-window.open("https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti");
-}
+window.openMaps = function () {
+  window.open("https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti");
+};
 
-/* BLOCCA DOMENICA E LUNEDI */
-const dateInput = document.getElementById("date");
 
-dateInput.addEventListener("change", function(){
-const d = new Date(this.value);
-const day = d.getDay();
+// ⏳ aspetta che la pagina sia pronta
+document.addEventListener("DOMContentLoaded", function () {
 
-if(day === 0 || day === 1){
-alert("Il negozio è chiuso domenica e lunedì");
-this.value="";
-}
-});
+  const dateInput = document.getElementById("date");
+  const timeSelect = document.getElementById("time");
+  const form = document.getElementById("bookingForm");
 
-/* ORARI */
-const timeSelect = document.getElementById("time");
+  // ✅ BLOCCA DOMENICA E LUNEDÌ
+  dateInput.addEventListener("change", function () {
+    const d = new Date(this.value);
+    const day = d.getDay();
 
-function generaOrari(){
-timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
+    if (day === 0 || day === 1) {
+      alert("Il negozio è chiuso domenica e lunedì");
+      this.value = "";
+      timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
+      return;
+    }
 
-function add(startH,startM,endH,endM){
-let h=startH;
-let m=startM;
+    generaOrari();
+  });
 
-while(h < endH || (h===endH && m<=endM)){
-const hh = String(h).padStart(2,'0');
-const mm = String(m).padStart(2,'0');
 
-const opt = document.createElement("option");
-opt.textContent = hh+":"+mm;
-timeSelect.appendChild(opt);
+  // ✅ GENERA ORARI CORRETTI
+  function generaOrari() {
+    timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
 
-m+=30;
-if(m>=60){m=0;h++;}
-}
-}
+    function add(startH, startM, endH, endM) {
+      let h = startH;
+      let m = startM;
 
-add(9,30,12,30);
-add(15,30,19,30);
-}
+      while (h < endH || (h === endH && m <= endM)) {
+        const hh = String(h).padStart(2, '0');
+        const mm = String(m).padStart(2, '0');
 
-generaOrari();
+        const opt = document.createElement("option");
+        opt.value = hh + ":" + mm;
+        opt.textContent = hh + ":" + mm;
+        timeSelect.appendChild(opt);
 
-/* SALVA PRENOTAZIONE FIRESTORE */
-document.getElementById("bookingForm").addEventListener("submit", async function(e){
-e.preventDefault();
+        m += 30;
+        if (m >= 60) {
+          m = 0;
+          h++;
+        }
+      }
+    }
 
-const nome = this.querySelector("input[type=text]").value;
-const telefono = this.querySelector("input[type=tel]").value;
-const servizio = this.querySelector("select").value;
-const data = document.getElementById("date").value;
-const ora = document.getElementById("time").value;
+    add(9, 30, 12, 30);
+    add(15, 30, 19, 30);
+  }
 
-try{
-await addDoc(collection(window.db,"prenotazioni"),{
-nome,
-telefono,
-servizio,
-data,
-ora,
-timestamp:new Date()
-});
 
-document.getElementById("msg").textContent="Prenotazione salvata ✔";
-this.reset();
+  // 🔥 genera orari iniziali
+  generaOrari();
 
-}catch(err){
-document.getElementById("msg").textContent="Errore salvataggio ❌";
-console.error(err);
-}
+
+  // ✅ SALVATAGGIO FIRESTORE
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const nome = form.querySelector("input[type='text']").value;
+    const telefono = form.querySelector("input[type='tel']").value;
+    const servizio = form.querySelector("select").value;
+    const data = dateInput.value;
+    const ora = timeSelect.value;
+
+    if (!nome || !telefono || !servizio || !data || !ora) {
+      alert("Compila tutti i campi");
+      return;
+    }
+
+    try {
+      const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+
+      await addDoc(collection(window.db, "prenotazioni"), {
+        nome,
+        telefono,
+        servizio,
+        data,
+        ora,
+        creato: new Date()
+      });
+
+      document.getElementById("msg").textContent = "Prenotazione salvata ✔";
+      form.reset();
+      generaOrari();
+
+    } catch (err) {
+      console.error(err);
+      document.getElementById("msg").textContent = "Errore salvataggio ❌";
+    }
+  });
 
 });
