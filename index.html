@@ -9,19 +9,17 @@
 
 <body>
 
-<!-- HEADER IMMAGINE UNICA -->
 <header class="hero">
-  <img src="Logo unico .jpg" class="hero-img">
+  <img src="Logo unico.jpg" class="hero-img">
   <div class="menu-touch" onclick="toggleMenu()"></div>
 </header>
 
-<!-- MENU -->
 <nav id="menu" class="menu">
   <a onclick="showSection('booking')">Home</a>
   <a onclick="showSection('prezzi')">Listino prezzi</a>
   <a onclick="showSection('mappa')">Dove trovarmi</a>
   <a href="https://www.instagram.com/barber_life_simone" target="_blank">Instagram</a>
-  <a href="tel:3421722185">Chiama</a>
+  <a href="tel:3421722184">Chiama</a>
   <a href="https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti" target="_blank">Lascia una recensione</a>
   <a onclick="showSection('galleryMenu')">Galleria</a>
 </nav>
@@ -35,18 +33,17 @@
 <form id="bookingForm">
 
 <label>Nome e cognome</label>
-<input type="text" required>
+<input type="text" id="nome" required>
 
 <label>Telefono</label>
-<input type="tel" required>
+<input type="tel" id="telefono" required>
 
 <label>Servizio</label>
-<select required>
+<select id="servizio" required>
 <option value="">Seleziona servizio</option>
 <option>Taglio €14</option>
 <option>Taglio Baby €10</option>
 <option>Barba €5</option>
-<option>Barba con macchinetta €5</option>
 <option>Barba sfumata €5</option>
 <option>Taglio + Barba + Shampoo €20</option>
 <option>Shampoo €3</option>
@@ -57,6 +54,7 @@
 <option>Trattamento lisciante da €15</option>
 <option>Trattamenti da €10</option>
 </select>
+
 <label>Data appuntamento</label>
 <input type="date" id="date" required>
 
@@ -81,17 +79,15 @@
 <!-- PREZZI -->
 <section id="prezzi" class="section">
 <h2>Listino prezzi</h2>
-
 <ul class="price-list">
 <li>Taglio €14</li>
 <li>Taglio Baby €10</li>
 <li>Barba €5</li>
-<li>Barba con macchinetta €5</li>
 <li>Barba sfumata €5</li>
 <li>Taglio + Barba + Shampoo €20</li>
+<li>Shampoo €3</li>
 <li>Basette e collo €3</li>
 <li>Sopracciglia €3</li>
-<li>Shampoo €3</li>
 <li>Pettinata + Shampoo €5</li>
 <li>Sfumatura lato da €10</li>
 <li>Trattamento lisciante da €15</li>
@@ -102,14 +98,10 @@
 <!-- MENU GALLERIA -->
 <section id="galleryMenu" class="section">
 <h2>Galleria</h2>
-
-<div class="gallery-buttons">
 <button onclick="showSection('lavori')">I miei lavori</button>
 <button onclick="showSection('locale')">Foto del locale</button>
-</div>
 </section>
 
-<!-- ALBUM TAGLI -->
 <section id="lavori" class="section gallery">
 <img src="Taglio0.jpg">
 <img src="Taglio1.jpg">
@@ -121,7 +113,6 @@
 <img src="Taglio7.jpg">
 </section>
 
-<!-- ALBUM LOCALE -->
 <section id="locale" class="section gallery">
 <img src="locale1.jpg">
 <img src="locale2.jpg">
@@ -129,18 +120,7 @@
 </section>
 
 </main>
-  <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
-INCOLLA QUI I TUOI DATI
-};
-
-const app = initializeApp(firebaseConfig);
-window.db = getFirestore(app);
-window.collection = collection;
-window.addDoc = addDoc;
-</script>
+<script src="app.js"></script>
 </body>
 </html>
