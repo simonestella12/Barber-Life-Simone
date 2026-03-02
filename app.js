@@ -5,29 +5,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const timeSelect = document.getElementById("time");
   const msg = document.getElementById("msg");
 
-  /* MENU */
-  window.toggleMenu = function(){
+  /* ===== MENU ===== */
+  window.toggleMenu = () => {
     document.getElementById("menu").classList.toggle("open");
-  }
+  };
 
-  window.showSection = function(id){
+  window.showSection = id => {
     document.querySelectorAll(".section").forEach(section=>{
       section.classList.remove("active");
     });
     document.getElementById(id).classList.add("active");
     document.getElementById("menu").classList.remove("open");
-  }
+  };
 
-  window.openMaps = function(){
+  window.openMaps = () => {
     window.open("https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti");
-  }
+  };
 
-  /* CREA ORARI SOLO DOPO CHE LA DATA È SCELTA */
-  dateInput.addEventListener("change", () => {
-    if(!dateInput.value) return;
-    generaOrari();
-  });
-
+  /* ===== GENERAZIONE ORARI ===== */
   function generaOrari(){
     timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
 
@@ -53,10 +48,31 @@ document.addEventListener("DOMContentLoaded", () => {
     add(15,30,19,30);
   }
 
-  /* PRENOTAZIONE */
-  form.addEventListener("submit", async function(e){
+  /* ===== QUANDO SCEGLI DATA ===== */
+  dateInput.addEventListener("change", () => {
+    if(!dateInput.value) return;
+
+    const giorno = new Date(dateInput.value).getDay();
+
+    if(giorno === 0 || giorno === 1){
+      msg.textContent = "Il negozio è chiuso domenica e lunedì";
+      dateInput.value = "";
+      timeSelect.innerHTML = "<option value=''>Prima scegli la data</option>";
+      return;
+    }
+
+    generaOrari();
+    msg.textContent = "";
+  });
+
+  /* ===== PRENOTAZIONE ===== */
+  form.addEventListener("submit", async e => {
     e.preventDefault();
-    msg.textContent = "Invio prenotazione...";
+
+    if(!window.db){
+      msg.textContent = "Errore connessione database";
+      return;
+    }
 
     const nome = document.getElementById("nome").value.trim();
     const telefono = document.getElementById("telefono").value.trim();
@@ -64,20 +80,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = dateInput.value;
     const ora = timeSelect.value;
 
-    if(!data || !ora){
-      msg.textContent="Seleziona data e orario";
+    if(!nome || !telefono || !servizio || !data || !ora){
+      msg.textContent = "Compila tutti i campi";
       return;
     }
 
-    /* BLOCCO DOMENICA E LUNEDÌ SOLO QUI */
-    const giorno = new Date(data).getDay();
-    if(giorno === 0 || giorno === 1){
-      msg.textContent="Chiuso domenica e lunedì";
-      return;
-    }
+    msg.textContent = "Invio prenotazione...";
 
     try{
-      const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+      const { collection, addDoc } = await import(
+        "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+      );
 
       await addDoc(collection(window.db, "prenotazioni"), {
         nome,
@@ -85,16 +98,16 @@ document.addEventListener("DOMContentLoaded", () => {
         servizio,
         data,
         ora,
-        creato: new Date()
+        creatoIl: new Date()
       });
 
-      msg.textContent="Prenotazione confermata ✔";
+      msg.textContent = "Prenotazione confermata ✔";
       form.reset();
-      timeSelect.innerHTML="";
+      timeSelect.innerHTML = "<option value=''>Prima scegli la data</option>";
     }
     catch(err){
       console.error(err);
-      msg.textContent="Errore salvataggio ❌";
+      msg.textContent = "Errore salvataggio ❌";
     }
   });
 
