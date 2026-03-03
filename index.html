@@ -208,7 +208,7 @@ form.addEventListener("submit", async e => {
   }
 
   try {
-    await addDoc(collection(db, "prenotazioni"), {
+    await addDoc(collection(db, "Prenotazione"), {
       nome, telefono, servizio, data, ora, creatoIl: new Date()
     });
 
