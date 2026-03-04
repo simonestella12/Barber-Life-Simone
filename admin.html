@@ -658,7 +658,7 @@ let allPrenotazioni = [];
 // ─── AUTH ───
 function login() {
   const pwd = document.getElementById('passwordInput').value;
-  if (pwd === ADMIN_PASSWORD) {
+  if (pwd === barber2024) {
     sessionStorage.setItem('adminAuth', '1');
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminPanel').style.display = 'block';
