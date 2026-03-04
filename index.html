@@ -126,7 +126,7 @@ import { getFirestore, collection, addDoc } from "https://www.gstatic.com/fireba
 
 const firebaseConfig = {
   apiKey: "AIzaSyA-v4UrLIZPJGrq4_Mwc12XJlGHM26RLpA",
-  authDomain: "barber-life-simone.vercel.app",
+  authDomain: "barber-life-simone.firebaseapp.com",
   projectId: "barber-life-simone",
   storageBucket: "barber-life-simone.firebasestorage.app",
   messagingSenderId: "1017187146409",
@@ -212,10 +212,17 @@ form.addEventListener("submit", async e => {
 
   msg.textContent = "Invio in corso...";
 
+  const timeout = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error("Timeout: nessuna risposta da Firestore")), 10000)
+  );
+
   try {
-    await addDoc(collection(db, "Prenotazione"), {
-      nome, telefono, servizio, data, ora, creatoIl: new Date()
-    });
+    await Promise.race([
+      addDoc(collection(db, "Prenotazione"), {
+        nome, telefono, servizio, data, ora, creatoIl: new Date()
+      }),
+      timeout
+    ]);
 
     msg.textContent = "✅ Prenotazione inviata!";
     form.reset();
@@ -224,6 +231,11 @@ form.addEventListener("submit", async e => {
   } catch (error) {
     msg.textContent = "❌ Errore: " + error.message;
   }
+});
+</script>
+
+</body>
+</html>
 });
 </script>
 
