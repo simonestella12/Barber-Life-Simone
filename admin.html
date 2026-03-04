@@ -29,369 +29,206 @@
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html, body { height: 100%; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+html, body { height:100%; overflow:hidden; -webkit-tap-highlight-color:transparent; }
+body { font-family:‘Jost’,sans-serif; font-weight:400; background:var(–black); }
 
-body {
-font-family: ‘Jost’, sans-serif;
-font-weight: 400;
-background: var(–black);
-}
-
-/* ══════════════════
-LOGIN — DARK
-══════════════════ */
+/* LOGIN */
 #loginScreen {
-position: fixed;
-inset: 0;
-background: var(–black);
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 32px 24px;
-overflow: hidden;
-z-index: 500;
+position:fixed; inset:0; background:var(–black);
+display:flex; flex-direction:column; align-items:center; justify-content:center;
+padding:32px 24px; overflow:hidden; z-index:500;
 }
-
 .wood-lines {
-position: absolute; inset: 0;
-background-image: repeating-linear-gradient(180deg, transparent 0px, transparent 18px, rgba(212,184,150,0.04) 18px, rgba(212,184,150,0.04) 19px);
-pointer-events: none;
+position:absolute; inset:0;
+background-image:repeating-linear-gradient(180deg,transparent 0px,transparent 18px,rgba(212,184,150,0.04) 18px,rgba(212,184,150,0.04) 19px);
+pointer-events:none;
 }
-
 .login-glow {
-position: absolute;
-width: 300px; height: 300px;
-background: radial-gradient(circle, rgba(212,184,150,0.07) 0%, transparent 70%);
-top: 40%; left: 50%; transform: translate(-50%,-50%);
-pointer-events: none;
+position:absolute; width:300px; height:300px;
+background:radial-gradient(circle,rgba(212,184,150,0.07) 0%,transparent 70%);
+top:40%; left:50%; transform:translate(-50%,-50%); pointer-events:none;
 }
-
-.login-brand {
-position: relative; z-index: 2;
-text-align: center; margin-bottom: 44px;
-}
-
-.login-scissors { font-size: 2.8rem; display: block; margin-bottom: 12px; }
-
+.login-brand { position:relative; z-index:2; text-align:center; margin-bottom:44px; }
+.login-scissors { font-size:2.8rem; display:block; margin-bottom:12px; }
 .login-title {
-font-family: ‘Playfair Display’, serif;
-font-size: 2.4rem; font-weight: 900;
-color: var(–wood); letter-spacing: 0.02em; line-height: 0.9;
+font-family:‘Playfair Display’,serif; font-size:2.4rem; font-weight:900;
+color:var(–wood); letter-spacing:0.02em; line-height:0.9;
 }
-
 .login-title span {
-display: block; font-size: 1rem; font-weight: 400; font-style: italic;
-color: var(–wood2); letter-spacing: 0.15em; margin-top: 8px;
+display:block; font-size:1rem; font-weight:400; font-style:italic;
+color:var(–wood2); letter-spacing:0.15em; margin-top:8px;
 }
-
-.login-div {
-display: flex; align-items: center; gap: 12px; margin-top: 14px;
-}
-.login-div::before, .login-div::after {
-content: ‘’; width: 30px; height: 1px; background: var(–wood3); opacity: 0.4;
-}
-.login-div span {
-font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase;
-color: var(–wood3); opacity: 0.7;
-}
+.login-div { display:flex; align-items:center; gap:12px; margin-top:14px; }
+.login-div::before,.login-div::after { content:’’; width:30px; height:1px; background:var(–wood3); opacity:0.4; }
+.login-div span { font-size:0.58rem; letter-spacing:0.4em; text-transform:uppercase; color:var(–wood3); opacity:0.7; }
 
 .login-card {
-position: relative; z-index: 2;
-width: 100%; max-width: 340px;
-background: var(–black2);
-border: 1px solid rgba(212,184,150,0.15);
-border-radius: 14px; padding: 32px 24px;
-box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(212,184,150,0.08);
+position:relative; z-index:2; width:100%; max-width:340px;
+background:var(–black2); border:1px solid rgba(212,184,150,0.15);
+border-radius:14px; padding:32px 24px;
+box-shadow:0 40px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(212,184,150,0.08);
 }
 .login-card::before {
-content: ‘’; position: absolute;
-top: 0; left: 30%; right: 30%; height: 1px;
-background: linear-gradient(90deg, transparent, var(–wood), transparent); opacity: 0.5;
+content:’’; position:absolute; top:0; left:30%; right:30%; height:1px;
+background:linear-gradient(90deg,transparent,var(–wood),transparent); opacity:0.5;
 }
-
-.field-lbl {
-font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase;
-color: var(–wood2); margin-bottom: 10px; display: block;
-}
-
-.pwd-wrap { position: relative; }
+.field-lbl { font-size:0.58rem; letter-spacing:0.4em; text-transform:uppercase; color:var(–wood2); margin-bottom:10px; display:block; }
+.pwd-wrap { position:relative; }
 .pwd-wrap input {
-width: 100%; background: var(–black3);
-border: 1px solid var(–black4); border-radius: 8px;
-color: var(–white); font-family: ‘Jost’, sans-serif;
-font-size: 1.4rem; letter-spacing: 0.3em;
-padding: 16px 48px 16px 18px; outline: none;
-transition: border-color 0.3s, box-shadow 0.3s;
+width:100%; background:var(–black3); border:1px solid var(–black4); border-radius:8px;
+color:var(–white); font-family:‘Jost’,sans-serif; font-size:1.4rem; letter-spacing:0.3em;
+padding:16px 48px 16px 18px; outline:none; transition:border-color 0.3s,box-shadow 0.3s;
 }
-.pwd-wrap input:focus { border-color: var(–wood2); box-shadow: 0 0 0 3px rgba(196,164,124,0.1); }
-
-.eye-btn {
-position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-background: none; border: none; color: var(–gray); cursor: pointer; font-size: 1rem;
-}
-
+.pwd-wrap input:focus { border-color:var(–wood2); box-shadow:0 0 0 3px rgba(196,164,124,0.1); }
+.eye-btn { position:absolute; right:14px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(–gray); cursor:pointer; font-size:1rem; }
 .btn-login {
-width: 100%; margin-top: 22px; padding: 17px;
-background: var(–wood); color: var(–black); border: none; border-radius: 8px;
-font-family: ‘Jost’, sans-serif; font-size: 0.7rem; font-weight: 600;
-letter-spacing: 0.4em; text-transform: uppercase; cursor: pointer;
-transition: background 0.2s; box-shadow: 0 6px 20px rgba(212,184,150,0.2);
+width:100%; margin-top:22px; padding:17px; background:var(–wood); color:var(–black);
+border:none; border-radius:8px; font-family:‘Jost’,sans-serif; font-size:0.7rem; font-weight:600;
+letter-spacing:0.4em; text-transform:uppercase; cursor:pointer;
+transition:background 0.2s; box-shadow:0 6px 20px rgba(212,184,150,0.2);
 }
-.btn-login:hover { background: var(–wood2); }
+.btn-login:hover { background:var(–wood2); }
+.login-err { text-align:center; color:#E74C3C; font-size:0.75rem; margin-top:12px; min-height:18px; }
 
-.login-err {
-text-align: center; color: #E74C3C; font-size: 0.75rem;
-margin-top: 12px; min-height: 18px; letter-spacing: 0.05em;
+/* ADMIN LAYOUT — flex column, body overflow:hidden = navbar always fixed */
+#adminPanel {
+display:none; position:fixed; inset:0;
+flex-direction:column; background:var(–cream);
 }
 
-/* ══════════════════
-ADMIN — LAYOUT
-KEY FIX: body overflow:hidden
-
-- inner scroll on content only
-  ══════════════════ */
-  #adminPanel {
-  display: none;
-  position: fixed;
-  inset: 0;
-  flex-direction: column;
-  background: var(–cream);
-  }
-
-/* TOP BAR — fixed, never moves */
+/* TOP BAR */
 .top-bar {
-flex-shrink: 0;
-background: var(–black);
-border-bottom: 2px solid var(–wood3);
-padding: 0 16px;
-height: 52px;
-display: flex;
-align-items: center;
-justify-content: space-between;
+flex-shrink:0; background:var(–black); border-bottom:2px solid var(–wood3);
+padding:0 16px; height:52px; display:flex; align-items:center; justify-content:space-between;
 }
-
-.brand-wrap { display: flex; align-items: center; gap: 10px; }
-.brand-icon {
-width: 30px; height: 30px; background: var(–wood);
-border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
-}
-.brand-name {
-font-family: ‘Playfair Display’, serif; font-size: 0.95rem;
-font-weight: 700; color: var(–wood); line-height: 1;
-}
-.brand-date { font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(–gray); margin-top: 2px; }
-
-.top-btns { display: flex; gap: 8px; align-items: center; }
-
+.brand-wrap { display:flex; align-items:center; gap:10px; }
+.brand-icon { width:30px; height:30px; background:var(–wood); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:0.9rem; }
+.brand-name { font-family:‘Playfair Display’,serif; font-size:0.95rem; font-weight:700; color:var(–wood); line-height:1; }
+.brand-date { font-size:0.5rem; letter-spacing:0.2em; text-transform:uppercase; color:var(–gray); margin-top:2px; }
+.top-btns { display:flex; gap:8px; align-items:center; }
 .icon-btn {
-width: 30px; height: 30px;
-background: rgba(212,184,150,0.08); border: 1px solid rgba(212,184,150,0.15);
-border-radius: 6px; color: var(–wood); font-size: 0.85rem; cursor: pointer;
-display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+width:30px; height:30px; background:rgba(212,184,150,0.08); border:1px solid rgba(212,184,150,0.15);
+border-radius:6px; color:var(–wood); font-size:0.85rem; cursor:pointer;
+display:flex; align-items:center; justify-content:center; transition:background 0.2s;
 }
-.icon-btn:hover { background: rgba(212,184,150,0.18); }
-.icon-btn.spin { animation: spin 0.6s linear; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
+.icon-btn:hover { background:rgba(212,184,150,0.18); }
+.icon-btn.spin { animation:spin 0.6s linear; }
+@keyframes spin { to { transform:rotate(360deg); } }
 .btn-exit {
-background: none; border: 1px solid rgba(212,184,150,0.2);
-color: var(–gray); font-family: ‘Jost’, sans-serif; font-size: 0.55rem;
-letter-spacing: 0.2em; text-transform: uppercase; padding: 6px 12px;
-border-radius: 6px; cursor: pointer; transition: all 0.2s;
+background:none; border:1px solid rgba(212,184,150,0.2); color:var(–gray);
+font-family:‘Jost’,sans-serif; font-size:0.55rem; letter-spacing:0.2em;
+text-transform:uppercase; padding:6px 12px; border-radius:6px; cursor:pointer; transition:all 0.2s;
 }
-.btn-exit:hover { border-color: var(–red); color: var(–red); }
+.btn-exit:hover { border-color:var(–red); color:var(–red); }
 
-/* SCROLLABLE CONTENT AREA — fills space between top-bar and bottom-nav */
-.scroll-area {
-flex: 1;
-overflow-y: auto;
-overflow-x: hidden;
--webkit-overflow-scrolling: touch;
-padding-bottom: 0;
-}
+/* SCROLL AREA — only this scrolls */
+.scroll-area { flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; }
 
 /* DATE BAR */
-.date-bar {
-background: var(–black2);
-border-bottom: 1px solid var(–black3);
-padding: 12px 16px;
-display: flex; align-items: center; gap: 10px;
-}
-
+.date-bar { background:var(–black2); border-bottom:1px solid var(–black3); padding:12px 16px; display:flex; align-items:center; gap:10px; }
 .arr-btn {
-width: 38px; height: 38px; background: var(–black3);
-border: 1px solid var(–black4); border-radius: 8px; color: var(–wood);
-font-size: 1.2rem; cursor: pointer; display: flex; align-items: center;
-justify-content: center; flex-shrink: 0; transition: background 0.2s;
+width:38px; height:38px; background:var(–black3); border:1px solid var(–black4);
+border-radius:8px; color:var(–wood); font-size:1.2rem; cursor:pointer;
+display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background 0.2s;
 }
-.arr-btn:hover { background: rgba(212,184,150,0.1); }
-
-.date-mid { flex: 1; text-align: center; }
-.date-wd {
-font-family: ‘Playfair Display’, serif; font-size: 1.2rem;
-font-weight: 700; color: var(–white);
-}
-.date-str { font-size: 0.6rem; letter-spacing: 0.2em; color: var(–gray); text-transform: uppercase; margin-top: 2px; }
-
+.arr-btn:hover { background:rgba(212,184,150,0.1); }
+.date-mid { flex:1; text-align:center; }
+.date-wd { font-family:‘Playfair Display’,serif; font-size:1.2rem; font-weight:700; color:var(–white); }
+.date-str { font-size:0.6rem; letter-spacing:0.2em; color:var(–gray); text-transform:uppercase; margin-top:2px; }
 .btn-oggi {
-background: var(–wood); color: var(–black); border: none;
-font-family: ‘Jost’, sans-serif; font-size: 0.58rem; font-weight: 600;
-letter-spacing: 0.2em; text-transform: uppercase; padding: 8px 14px;
-border-radius: 8px; cursor: pointer; white-space: nowrap;
+background:var(–wood); color:var(–black); border:none; font-family:‘Jost’,sans-serif;
+font-size:0.58rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
+padding:8px 14px; border-radius:8px; cursor:pointer; white-space:nowrap;
 }
 
 /* STATS */
-.stats-row {
-display: grid; grid-template-columns: repeat(3,1fr);
-background: var(–black2); border-bottom: 1px solid var(–black3);
-}
-.stat-box {
-padding: 14px 8px; text-align: center; border-right: 1px solid var(–black3);
-}
-.stat-box:last-child { border-right: none; }
-.stat-n {
-font-family: ‘Playfair Display’, serif; font-size: 2rem; font-weight: 900;
-color: var(–wood); line-height: 1;
-}
-.stat-lbl { font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(–gray); margin-top: 4px; }
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); background:var(–black2); border-bottom:1px solid var(–black3); }
+.stat-box { padding:14px 8px; text-align:center; border-right:1px solid var(–black3); }
+.stat-box:last-child { border-right:none; }
+.stat-n { font-family:‘Playfair Display’,serif; font-size:2rem; font-weight:900; color:var(–wood); line-height:1; }
+.stat-lbl { font-size:0.52rem; letter-spacing:0.2em; text-transform:uppercase; color:var(–gray); margin-top:4px; }
 
-/* TIMELINE — cream background */
-.tl-wrap { padding: 14px 14px 24px; background: var(–cream); }
-
+/* TIMELINE */
+.tl-wrap { padding:14px 14px 24px; background:var(–cream); }
 .tl-head {
-font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase;
-color: var(–wood3); font-weight: 600; margin-bottom: 8px; margin-top: 4px;
-display: flex; align-items: center; gap: 10px;
+font-size:0.58rem; letter-spacing:0.4em; text-transform:uppercase; color:var(–wood3);
+font-weight:600; margin-bottom:8px; margin-top:4px; display:flex; align-items:center; gap:10px;
 }
-.tl-head::after { content: ‘’; flex: 1; height: 1px; background: var(–wood3); opacity: 0.25; }
+.tl-head::after { content:’’; flex:1; height:1px; background:var(–wood3); opacity:0.25; }
+.slot { display:flex; margin-bottom:5px; border-radius:8px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.07); }
+.slot-t { width:54px; min-width:54px; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:600; }
+.slot.booked .slot-t { background:var(–black); color:var(–wood); border-right:3px solid var(–wood3); }
+.slot.free .slot-t   { background:var(–cream2); color:var(–gray2); border-right:3px solid #D4C0A8; }
+.slot-body { flex:1; padding:11px 14px; display:flex; align-items:center; justify-content:space-between; min-height:56px; }
+.slot.booked .slot-body { background:var(–white); border:1px solid #E0CEB8; border-left:none; }
+.slot.free .slot-body   { background:var(–cream2); border:1px solid #D8CBBA; border-left:none; }
+.slot-name { font-size:0.95rem; font-weight:600; color:var(–text); }
+.slot-svc  { font-size:0.68rem; color:var(–wood3); margin-top:2px; font-weight:500; }
+.slot-tel  { font-size:0.62rem; color:var(–gray); margin-top:2px; }
+.slot-free-lbl { font-size:0.65rem; color:var(–gray); letter-spacing:0.1em; font-style:italic; }
+.slot-acts { display:flex; gap:6px; }
+.act-btn { width:32px; height:32px; border-radius:6px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.85rem; text-decoration:none; transition:all 0.2s; flex-shrink:0; }
+.act-btn.call { background:rgba(0,0,0,0.07); color:var(–black2); border:1px solid rgba(0,0,0,0.1); }
+.act-btn.call:hover { background:var(–black); color:var(–wood); }
+.act-btn.del  { background:rgba(192,57,43,0.07); color:rgba(192,57,43,0.5); border:1px solid rgba(192,57,43,0.1); }
+.act-btn.del:hover { background:var(–red); color:white; border-color:var(–red); }
+.break-div { display:flex; align-items:center; gap:10px; margin:12px 0; font-size:0.56rem; letter-spacing:0.3em; text-transform:uppercase; color:var(–gray); }
+.break-div::before,.break-div::after { content:’’; flex:1; height:1px; background:#D4C0A8; }
 
-.slot { display: flex; margin-bottom: 5px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
-
-.slot-t {
-width: 54px; min-width: 54px; display: flex; align-items: center;
-justify-content: center; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em;
-}
-
-.slot.booked .slot-t { background: var(–black); color: var(–wood); border-right: 3px solid var(–wood3); }
-.slot.free .slot-t   { background: var(–cream2); color: var(–gray2); border-right: 3px solid #D4C0A8; }
-
-.slot-body {
-flex: 1; padding: 11px 14px; display: flex; align-items: center;
-justify-content: space-between; min-height: 56px;
-}
-
-.slot.booked .slot-body {
-background: var(–white);
-border: 1px solid #E0CEB8; border-left: none;
-}
-.slot.free .slot-body {
-background: var(–cream2);
-border: 1px solid #D8CBBA; border-left: none;
-}
-
-.slot-name  { font-size: 0.95rem; font-weight: 600; color: var(–text); }
-.slot-svc   { font-size: 0.68rem; color: var(–wood3); margin-top: 2px; font-weight: 500; }
-.slot-tel   { font-size: 0.62rem; color: var(–gray); margin-top: 2px; }
-.slot-free-lbl { font-size: 0.65rem; color: var(–gray); letter-spacing: 0.1em; font-style: italic; }
-
-.slot-acts { display: flex; gap: 6px; }
-
-.act-btn {
-width: 32px; height: 32px; border-radius: 6px; border: none; cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-font-size: 0.85rem; text-decoration: none; transition: all 0.2s; flex-shrink: 0;
-}
-.act-btn.call { background: rgba(0,0,0,0.07); color: var(–black2); border: 1px solid rgba(0,0,0,0.1); }
-.act-btn.call:hover { background: var(–black); color: var(–wood); }
-.act-btn.del  { background: rgba(192,57,43,0.07); color: rgba(192,57,43,0.5); border: 1px solid rgba(192,57,43,0.1); }
-.act-btn.del:hover { background: var(–red); color: white; border-color: var(–red); }
-
-.break-div {
-display: flex; align-items: center; gap: 10px;
-margin: 12px 0; font-size: 0.56rem; letter-spacing: 0.3em;
-text-transform: uppercase; color: var(–gray);
-}
-.break-div::before, .break-div::after { content: ‘’; flex: 1; height: 1px; background: #D4C0A8; }
-
-/* DAY MESSAGES */
-.day-msg { text-align: center; padding: 60px 20px; background: var(–cream); }
-.day-msg .ico { font-size: 3rem; display: block; margin-bottom: 14px; opacity: 0.3; }
-.day-msg p { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(–gray); }
+.day-msg { text-align:center; padding:60px 20px; background:var(–cream); }
+.day-msg .ico { font-size:3rem; display:block; margin-bottom:14px; opacity:0.3; }
+.day-msg p { font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase; color:var(–gray); }
 
 /* LISTA */
-#listaSec { display: none; padding: 14px 14px 24px; background: var(–cream); }
-
-.search-wrap { position: relative; margin-bottom: 12px; }
+#listaSec { display:none; padding:14px 14px 24px; background:var(–cream); }
+.search-wrap { position:relative; margin-bottom:12px; }
 .search-wrap input {
-width: 100%; background: var(–white); border: 1px solid #D4C0A8;
-border-radius: 8px; color: var(–text); font-family: ‘Jost’, sans-serif;
-font-size: 0.9rem; padding: 13px 16px 13px 42px; outline: none; transition: border-color 0.2s;
+width:100%; background:var(–white); border:1px solid #D4C0A8; border-radius:8px;
+color:var(–text); font-family:‘Jost’,sans-serif; font-size:0.9rem;
+padding:13px 16px 13px 42px; outline:none; transition:border-color 0.2s;
 }
-.search-wrap input:focus { border-color: var(–wood2); }
-.search-wrap input::placeholder { color: var(–gray); }
-.search-ico { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(–gray); font-size: 0.95rem; pointer-events: none; }
-
+.search-wrap input:focus { border-color:var(–wood2); }
+.search-wrap input::placeholder { color:var(–gray); }
+.search-ico { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(–gray); font-size:0.95rem; pointer-events:none; }
 .pren-card {
-background: var(–white); border: 1px solid #E0CEB8; border-radius: 10px;
-padding: 14px 16px; margin-bottom: 7px; display: flex; align-items: center;
-gap: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); transition: border-color 0.2s;
+background:var(–white); border:1px solid #E0CEB8; border-radius:10px;
+padding:14px 16px; margin-bottom:7px; display:flex; align-items:center; gap:12px;
+box-shadow:0 1px 4px rgba(0,0,0,0.05); transition:border-color 0.2s;
 }
-.pren-card:hover { border-color: var(–wood2); }
+.pren-card:hover { border-color:var(–wood2); }
+.pren-av { width:42px; height:42px; min-width:42px; background:var(–black); border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:‘Playfair Display’,serif; font-size:1.1rem; font-weight:700; color:var(–wood); }
+.pren-info { flex:1; min-width:0; }
+.pren-name { font-size:0.95rem; font-weight:600; color:var(–text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pren-svc  { font-size:0.68rem; color:var(–wood3); margin-top:2px; font-weight:500; }
+.pren-chips { display:flex; gap:6px; margin-top:5px; }
+.chip { font-size:0.6rem; color:var(–gray2); background:var(–cream); border:1px solid #D4C0A8; padding:3px 8px; border-radius:20px; }
+.pren-acts { display:flex; gap:6px; }
 
-.pren-av {
-width: 42px; height: 42px; min-width: 42px; background: var(–black);
-border-radius: 10px; display: flex; align-items: center; justify-content: center;
-font-family: ‘Playfair Display’, serif; font-size: 1.1rem; font-weight: 700; color: var(–wood);
-}
-.pren-info { flex: 1; min-width: 0; }
-.pren-name { font-size: 0.95rem; font-weight: 600; color: var(–text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pren-svc  { font-size: 0.68rem; color: var(–wood3); margin-top: 2px; font-weight: 500; }
-.pren-chips { display: flex; gap: 6px; margin-top: 5px; }
-.chip { font-size: 0.6rem; color: var(–gray2); background: var(–cream); border: 1px solid #D4C0A8; padding: 3px 8px; border-radius: 20px; }
-.pren-acts { display: flex; gap: 6px; }
+.skel { background:linear-gradient(90deg,var(–cream2) 25%,var(–cream) 50%,var(–cream2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; height:56px; margin-bottom:5px; }
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-/* SKELETON */
-.skel {
-background: linear-gradient(90deg, var(–cream2) 25%, var(–cream) 50%, var(–cream2) 75%);
-background-size: 200% 100%; animation: shimmer 1.4s infinite;
-border-radius: 8px; height: 56px; margin-bottom: 5px;
-}
-@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-/* BOTTOM NAV — fixed, never moves */
+/* BOTTOM NAV — flex-shrink:0 keeps it at bottom, never scrolls */
 .bot-nav {
-flex-shrink: 0;
-background: var(–black);
-border-top: 2px solid var(–wood3);
-display: flex;
-padding-bottom: env(safe-area-inset-bottom, 0px);
+flex-shrink:0; background:var(–black); border-top:2px solid var(–wood3);
+display:flex; padding-bottom:env(safe-area-inset-bottom,0px);
 }
-
 .nav-btn {
-flex: 1; display: flex; flex-direction: column; align-items: center;
-justify-content: center; padding: 10px 4px; gap: 4px; cursor: pointer;
-color: var(–gray2); font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase;
-background: none; border: none; font-family: ‘Jost’, sans-serif; transition: color 0.2s;
-position: relative;
+flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+padding:10px 4px; gap:4px; cursor:pointer; color:var(–gray2); font-size:0.5rem;
+letter-spacing:0.15em; text-transform:uppercase; background:none; border:none;
+font-family:‘Jost’,sans-serif; transition:color 0.2s; position:relative;
 }
-.nav-btn.active { color: var(–wood); }
-.nav-btn.active::after {
-content: ‘’; position: absolute; bottom: 0; left: 25%; right: 25%;
-height: 2px; background: var(–wood); border-radius: 2px 2px 0 0;
-}
-.nav-btn svg { width: 21px; height: 21px; stroke-width: 1.5; }
+.nav-btn.active { color:var(–wood); }
+.nav-btn.active::after { content:’’; position:absolute; bottom:0; left:25%; right:25%; height:2px; background:var(–wood); border-radius:2px 2px 0 0; }
+.nav-btn svg { width:21px; height:21px; stroke-width:1.5; }
 
-/* TOAST */
 .toast {
-position: fixed; bottom: 80px; left: 50%;
-transform: translateX(-50%) translateY(10px);
-background: var(–black); border: 1px solid var(–wood3); color: var(–wood);
-padding: 11px 22px; border-radius: 40px; font-size: 0.78rem; letter-spacing: 0.05em;
-opacity: 0; transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
-z-index: 999; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(10px);
+background:var(–black); border:1px solid var(–wood3); color:var(–wood);
+padding:11px 22px; border-radius:40px; font-size:0.78rem; letter-spacing:0.05em;
+opacity:0; transition:all 0.3s cubic-bezier(.34,1.56,.64,1); z-index:999; white-space:nowrap;
 }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 
 </head>
@@ -418,12 +255,9 @@ z-index: 999; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   </div>
 </div>
 
-<!-- ADMIN PANEL — uses flexbox column to fix navbar -->
+<!-- ADMIN -->
 
 <div id="adminPanel">
-
-  <!-- TOP BAR -->
-
   <div class="top-bar">
     <div class="brand-wrap">
       <div class="brand-icon">✂️</div>
@@ -438,45 +272,34 @@ z-index: 999; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     </div>
   </div>
 
-  <!-- SCROLLABLE AREA -->
-
-  <div class="scroll-area" id="scrollArea">
-
-```
-<!-- CALENDARIO -->
-<div id="calSec">
-  <div class="date-bar">
-    <button class="arr-btn" onclick="changeDay(-1)">‹</button>
-    <div class="date-mid">
-      <div class="date-wd" id="wkDay"></div>
-      <div class="date-str" id="dateStr"></div>
+  <div class="scroll-area">
+    <div id="calSec">
+      <div class="date-bar">
+        <button class="arr-btn" onclick="changeDay(-1)">‹</button>
+        <div class="date-mid">
+          <div class="date-wd" id="wkDay"></div>
+          <div class="date-str" id="dateStr"></div>
+        </div>
+        <button class="btn-oggi" onclick="goToday()">Oggi</button>
+        <button class="arr-btn" onclick="changeDay(1)">›</button>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-n" id="sOcc">—</div><div class="stat-lbl">Occupati</div></div>
+        <div class="stat-box"><div class="stat-n" id="sLib">—</div><div class="stat-lbl">Liberi</div></div>
+        <div class="stat-box"><div class="stat-n" id="sTot">—</div><div class="stat-lbl">Totale</div></div>
+      </div>
+      <div class="tl-wrap" id="timeline"></div>
     </div>
-    <button class="btn-oggi" onclick="goToday()">Oggi</button>
-    <button class="arr-btn" onclick="changeDay(1)">›</button>
+    <div id="listaSec">
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input type="text" id="searchQ" placeholder="Cerca nome o telefono…" oninput="renderLista()">
+      </div>
+      <div id="listaCards"></div>
+    </div>
   </div>
-  <div class="stats-row">
-    <div class="stat-box"><div class="stat-n" id="sOcc">—</div><div class="stat-lbl">Occupati</div></div>
-    <div class="stat-box"><div class="stat-n" id="sLib">—</div><div class="stat-lbl">Liberi</div></div>
-    <div class="stat-box"><div class="stat-n" id="sTot">—</div><div class="stat-lbl">Totale</div></div>
-  </div>
-  <div class="tl-wrap" id="timeline"></div>
-</div>
 
-<!-- LISTA -->
-<div id="listaSec">
-  <div class="search-wrap">
-    <span class="search-ico">🔍</span>
-    <input type="text" id="searchQ" placeholder="Cerca nome o telefono…" oninput="renderLista()">
-  </div>
-  <div id="listaCards"></div>
-</div>
-```
-
-  </div><!-- end scroll-area -->
-
-  <!-- BOTTOM NAV — inside flex column, stays at bottom -->
-
-  <nav class="bot-nav" id="botNav">
+  <nav class="bot-nav">
     <button class="nav-btn active" id="nb-cal" onclick="showTab('cal')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       Calendario
@@ -486,8 +309,7 @@ z-index: 999; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.2);
       Prenotazioni
     </button>
   </nav>
-
-</div><!-- end adminPanel -->
+</div>
 
 <div class="toast" id="toast"></div>
 
@@ -496,199 +318,108 @@ const API_KEY    = "AIzaSyA-v4UrLIZPJGrq4_Mwc12XJlGHM26RLpA";
 const PROJECT_ID = "barber-life-simone";
 const DB_NAME    = "prenotazioni";
 const COLLECTION = "Prenotazione";
-const PASSWORD   = "barber2024"; // ← CAMBIA QUI LA TUA PASSWORD
+const PASSWORD   = "121099";
 
 function buildSlots(h1,m1,h2,m2){
   const s=[]; let h=h1,m=m1;
-  while(h<h2||(h===h2&&m<=m2)){
-    s.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
-    m+=30; if(m>=60){m=0;h++;}
-  }
+  while(h<h2||(h===h2&&m<=m2)){ s.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`); m+=30; if(m>=60){m=0;h++;} }
   return s;
 }
-const MATTINA    = buildSlots(9,30,12,30);
-const POMERIGGIO = buildSlots(15,30,19,30);
-const ALL_SLOTS  = [...MATTINA,...POMERIGGIO];
+const MATTINA=buildSlots(9,30,12,30), POMERIGGIO=buildSlots(15,30,19,30), ALL_SLOTS=[...MATTINA,...POMERIGGIO];
+let curDate=new Date(), allPren=[];
 
-let curDate = new Date();
-let allPren = [];
-
-/* AUTH */
 function doLogin(){
-  const v = document.getElementById('pwdIn').value;
-  if(v === PASSWORD){
-    sessionStorage.setItem('bl_ok','1');
-    showPanel();
-  } else {
-    const e = document.getElementById('loginErr');
-    e.textContent = 'Password errata';
-    document.getElementById('pwdIn').value = '';
-    document.getElementById('pwdIn').style.borderColor = '#C0392B';
-    setTimeout(()=>{ document.getElementById('pwdIn').style.borderColor=''; e.textContent=''; }, 2000);
+  const v=document.getElementById('pwdIn').value;
+  if(v===PASSWORD){ sessionStorage.setItem('bl_ok','1'); showPanel(); }
+  else {
+    const e=document.getElementById('loginErr'); e.textContent='Password errata';
+    document.getElementById('pwdIn').value='';
+    document.getElementById('pwdIn').style.borderColor='#C0392B';
+    setTimeout(()=>{ document.getElementById('pwdIn').style.borderColor=''; e.textContent=''; },2000);
   }
 }
-
 function doLogout(){ sessionStorage.removeItem('bl_ok'); location.reload(); }
 function togglePwd(){ const i=document.getElementById('pwdIn'); i.type=i.type==='password'?'text':'password'; }
 
 function showPanel(){
-  document.getElementById('loginScreen').style.display = 'none';
-  const p = document.getElementById('adminPanel');
-  p.style.display = 'flex';
-  p.style.flexDirection = 'column';
+  document.getElementById('loginScreen').style.display='none';
+  const p=document.getElementById('adminPanel'); p.style.display='flex'; p.style.flexDirection='column';
   init();
 }
 
-/* INIT */
 function init(){ updateDateUI(); loadData(); }
 
-const GG = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
-const MM = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+const GG=['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+const MM=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 
 function updateDateUI(){
-  const d = curDate;
-  document.getElementById('wkDay').textContent  = GG[d.getDay()];
-  document.getElementById('dateStr').textContent = `${d.getDate()} ${MM[d.getMonth()]} ${d.getFullYear()}`;
-  document.getElementById('topDate').textContent = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+  const d=curDate;
+  document.getElementById('wkDay').textContent=GG[d.getDay()];
+  document.getElementById('dateStr').textContent=`${d.getDate()} ${MM[d.getMonth()]} ${d.getFullYear()}`;
+  document.getElementById('topDate').textContent=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
 }
-
-function changeDay(delta){ curDate.setDate(curDate.getDate()+delta); updateDateUI(); renderTimeline(); }
+function changeDay(d){ curDate.setDate(curDate.getDate()+d); updateDateUI(); renderTimeline(); }
 function goToday(){ curDate=new Date(); updateDateUI(); renderTimeline(); }
 function ds(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 
-/* LOAD */
 async function loadData(){
   showSkel();
-  try {
-    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}?key=${API_KEY}&pageSize=500`;
-    const data = await (await fetch(url)).json();
-    allPren = (data.documents||[]).map(doc=>{
-      const f = doc.fields||{};
-      return { id:doc.name.split('/').pop(), nome:f.nome?.stringValue||'', telefono:f.telefono?.stringValue||'', servizio:f.servizio?.stringValue||'', data:f.data?.stringValue||'', ora:f.ora?.stringValue||'' };
-    });
+  try{
+    const data=await(await fetch(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}?key=${API_KEY}&pageSize=500`)).json();
+    allPren=(data.documents||[]).map(doc=>{ const f=doc.fields||{}; return{id:doc.name.split('/').pop(),nome:f.nome?.stringValue||'',telefono:f.telefono?.stringValue||'',servizio:f.servizio?.stringValue||'',data:f.data?.stringValue||'',ora:f.ora?.stringValue||''}; });
     renderTimeline(); renderLista();
-  } catch(e){
-    document.getElementById('timeline').innerHTML = '<div class="day-msg"><span class="ico">⚠️</span><p>Errore di rete</p></div>';
-  }
+  }catch(e){ document.getElementById('timeline').innerHTML='<div class="day-msg"><span class="ico">⚠️</span><p>Errore di rete</p></div>'; }
 }
+async function doRefresh(){ const b=document.getElementById('refBtn'); b.classList.add('spin'); await loadData(); setTimeout(()=>b.classList.remove('spin'),600); showToast('✅ Aggiornato'); }
+function showSkel(){ document.getElementById('timeline').innerHTML=Array(8).fill('<div class="skel"></div>').join(''); }
 
-async function doRefresh(){
-  const b = document.getElementById('refBtn');
-  b.classList.add('spin');
-  await loadData();
-  setTimeout(()=>b.classList.remove('spin'), 600);
-  showToast('✅ Aggiornato');
-}
-
-function showSkel(){
-  document.getElementById('timeline').innerHTML = Array(8).fill('<div class="skel"></div>').join('');
-}
-
-/* TIMELINE */
 function renderTimeline(){
-  const d=ds(curDate), dow=curDate.getDay(), tl=document.getElementById('timeline');
-  if(dow===0||dow===1){
-    tl.innerHTML='<div class="day-msg"><span class="ico">🔒</span><p>Negozio chiuso</p></div>';
-    ['sOcc','sLib','sTot'].forEach(id=>document.getElementById(id).textContent='—');
-    return;
-  }
-  const dp = allPren.filter(p=>p.data===d);
-  document.getElementById('sOcc').textContent = dp.length;
-  document.getElementById('sLib').textContent = ALL_SLOTS.length - dp.length;
-  document.getElementById('sTot').textContent = ALL_SLOTS.length;
-
-  let html = '<div class="tl-head">Mattina</div>';
-  MATTINA.forEach(s => html += slotHTML(s, dp));
-  html += '<div class="break-div">Pausa pranzo</div><div class="tl-head">Pomeriggio</div>';
-  POMERIGGIO.forEach(s => html += slotHTML(s, dp));
-  tl.innerHTML = html;
+  const d=ds(curDate),dow=curDate.getDay(),tl=document.getElementById('timeline');
+  if(dow===0||dow===1){ tl.innerHTML='<div class="day-msg"><span class="ico">🔒</span><p>Negozio chiuso</p></div>'; ['sOcc','sLib','sTot'].forEach(id=>document.getElementById(id).textContent='—'); return; }
+  const dp=allPren.filter(p=>p.data===d);
+  document.getElementById('sOcc').textContent=dp.length;
+  document.getElementById('sLib').textContent=ALL_SLOTS.length-dp.length;
+  document.getElementById('sTot').textContent=ALL_SLOTS.length;
+  let html='<div class="tl-head">Mattina</div>';
+  MATTINA.forEach(s=>html+=slotHTML(s,dp));
+  html+='<div class="break-div">Pausa pranzo</div><div class="tl-head">Pomeriggio</div>';
+  POMERIGGIO.forEach(s=>html+=slotHTML(s,dp));
+  tl.innerHTML=html;
 }
 
-function slotHTML(time, dp){
-  const p = dp.find(x=>x.ora===time);
-  if(p) return `
-  <div class="slot booked">
-    <div class="slot-t">${time}</div>
-    <div class="slot-body">
-      <div>
-        <div class="slot-name">${p.nome}</div>
-        <div class="slot-svc">${p.servizio}</div>
-        <div class="slot-tel">${p.telefono}</div>
-      </div>
-      <div class="slot-acts">
-        <a class="act-btn call" href="tel:${p.telefono}">📞</a>
-        <button class="act-btn del" onclick="deletePren('${p.id}')">✕</button>
-      </div>
-    </div>
-  </div>`;
-  return `
-  <div class="slot free">
-    <div class="slot-t">${time}</div>
-    <div class="slot-body"><span class="slot-free-lbl">Libero</span></div>
-  </div>`;
+function slotHTML(time,dp){
+  const p=dp.find(x=>x.ora===time);
+  if(p) return `<div class="slot booked"><div class="slot-t">${time}</div><div class="slot-body"><div><div class="slot-name">${p.nome}</div><div class="slot-svc">${p.servizio}</div><div class="slot-tel">${p.telefono}</div></div><div class="slot-acts"><a class="act-btn call" href="tel:${p.telefono}">📞</a><button class="act-btn del" onclick="deletePren('${p.id}')">✕</button></div></div></div>`;
+  return `<div class="slot free"><div class="slot-t">${time}</div><div class="slot-body"><span class="slot-free-lbl">Libero</span></div></div>`;
 }
 
-/* LISTA */
 function renderLista(){
-  const q = (document.getElementById('searchQ')?.value||'').toLowerCase();
-  const cards = document.getElementById('listaCards');
-  let list = [...allPren].sort((a,b)=>a.data!==b.data?a.data.localeCompare(b.data):a.ora.localeCompare(b.ora));
-  if(q) list = list.filter(p=>p.nome.toLowerCase().includes(q)||p.telefono.includes(q));
+  const q=(document.getElementById('searchQ')?.value||'').toLowerCase();
+  const cards=document.getElementById('listaCards');
+  let list=[...allPren].sort((a,b)=>a.data!==b.data?a.data.localeCompare(b.data):a.ora.localeCompare(b.ora));
+  if(q) list=list.filter(p=>p.nome.toLowerCase().includes(q)||p.telefono.includes(q));
   if(!list.length){ cards.innerHTML='<div class="day-msg"><span class="ico">📋</span><p>Nessuna prenotazione</p></div>'; return; }
-  cards.innerHTML = list.map(p=>{
-    const av = p.nome ? p.nome.charAt(0).toUpperCase() : '?';
-    const df = p.data ? p.data.split('-').reverse().join('/') : '—';
-    return `
-    <div class="pren-card">
-      <div class="pren-av">${av}</div>
-      <div class="pren-info">
-        <div class="pren-name">${p.nome}</div>
-        <div class="pren-svc">${p.servizio}</div>
-        <div class="pren-chips">
-          <span class="chip">📅 ${df}</span>
-          <span class="chip">⏰ ${p.ora}</span>
-        </div>
-      </div>
-      <div class="pren-acts">
-        <a class="act-btn call" href="tel:${p.telefono}">📞</a>
-        <button class="act-btn del" onclick="deletePren('${p.id}')">✕</button>
-      </div>
-    </div>`;
-  }).join('');
+  cards.innerHTML=list.map(p=>`<div class="pren-card"><div class="pren-av">${p.nome?p.nome.charAt(0).toUpperCase():'?'}</div><div class="pren-info"><div class="pren-name">${p.nome}</div><div class="pren-svc">${p.servizio}</div><div class="pren-chips"><span class="chip">📅 ${p.data?p.data.split('-').reverse().join('/'):'—'}</span><span class="chip">⏰ ${p.ora}</span></div></div><div class="pren-acts"><a class="act-btn call" href="tel:${p.telefono}">📞</a><button class="act-btn del" onclick="deletePren('${p.id}')">✕</button></div></div>`).join('');
 }
 
-/* DELETE */
 async function deletePren(id){
   if(!confirm('Eliminare questa prenotazione?')) return;
-  try{
-    await fetch(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}/${id}?key=${API_KEY}`,{method:'DELETE'});
-    allPren = allPren.filter(p=>p.id!==id);
-    renderTimeline(); renderLista();
-    showToast('✅ Eliminata');
-  } catch(e){ showToast('❌ Errore'); }
+  try{ await fetch(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}/${id}?key=${API_KEY}`,{method:'DELETE'}); allPren=allPren.filter(p=>p.id!==id); renderTimeline(); renderLista(); showToast('✅ Eliminata'); }
+  catch(e){ showToast('❌ Errore'); }
 }
 
-/* TABS */
 function showTab(tab){
-  document.getElementById('calSec').style.display   = tab==='cal'   ? 'block' : 'none';
-  document.getElementById('listaSec').style.display = tab==='lista' ? 'block' : 'none';
+  document.getElementById('calSec').style.display=tab==='cal'?'block':'none';
+  document.getElementById('listaSec').style.display=tab==='lista'?'block':'none';
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('nb-'+tab).classList.add('active');
-  document.getElementById('scrollArea').scrollTop = 0;
+  document.getElementById('scrollArea')?.scrollTo(0,0);
 }
 
-/* TOAST */
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2500);
-}
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 
-/* BOOT */
-window.addEventListener('load', ()=>{
-  if(sessionStorage.getItem('bl_ok')==='1') showPanel();
-});
-setInterval(()=>{ if(sessionStorage.getItem('bl_ok')==='1') loadData(); }, 60000);
+window.addEventListener('load',()=>{ if(sessionStorage.getItem('bl_ok')==='1') showPanel(); });
+setInterval(()=>{ if(sessionStorage.getItem('bl_ok')==='1') loadData(); },60000);
 </script>
 
 </body>
