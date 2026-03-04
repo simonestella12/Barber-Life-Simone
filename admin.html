@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Barber Life Simone</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark2: #1A1A1A;
+    --dark3: #252525;
+    --white: #F5F0E8;
+    --gray: #888;
+    --green: #4CAF50;
+    --red: #E53935;
+    --radius: 8px;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: var(–black);
+color: var(–white);
+font-family: ‘Jost’, sans-serif;
+font-weight: 300;
+min-height: 100svh;
+}
+
+/* ─── LOGIN ─── */
+#loginScreen {
+min-height: 100svh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 24px;
+background: var(–black);
+}
+
+.login-logo {
+font-size: 0.65rem;
+letter-spacing: 0.4em;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 40px;
+text-align: center;
+}
+
+.login-logo strong {
+display: block;
+font-family: ‘Jost’, sans-serif;
+font-size: 1.6rem;
+font-weight: 600;
+letter-spacing: 0.05em;
+color: var(–white);
+margin-bottom: 6px;
+}
+
+.login-box {
+width: 100%;
+max-width: 340px;
+background: var(–dark2);
+border: 1px solid rgba(201,168,76,0.2);
+border-radius: var(–radius);
+padding: 32px 24px;
+}
+
+.login-box label {
+display: block;
+font-size: 0.62rem;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 8px;
+}
+
+.login-box input {
+width: 100%;
+background: var(–dark3);
+border: 1px solid rgba(201,168,76,0.15);
+border-radius: 4px;
+color: var(–white);
+font-family: ‘Jost’, sans-serif;
+font-size: 1.1rem;
+padding: 14px 16px;
+outline: none;
+letter-spacing: 0.2em;
+transition: border-color 0.3s;
+}
+
+.login-box input:focus { border-color: var(–gold); }
+
+.btn-login {
+width: 100%;
+margin-top: 20px;
+padding: 14px;
+background: var(–gold);
+color: var(–black);
+border: none;
+border-radius: 4px;
+font-family: ‘Jost’, sans-serif;
+font-size: 0.75rem;
+font-weight: 600;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+cursor: pointer;
+transition: background 0.3s;
+}
+
+.btn-login:hover { background: var(–gold-light); }
+
+.login-error {
+color: var(–red);
+font-size: 0.8rem;
+text-align: center;
+margin-top: 12px;
+min-height: 20px;
+}
+
+/* ─── ADMIN PANEL ─── */
+#adminPanel { display: none; padding-bottom: 80px; }
+
+.admin-header {
+background: var(–dark);
+border-bottom: 1px solid rgba(201,168,76,0.15);
+padding: 16px 20px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+position: sticky;
+top: 0;
+z-index: 100;
+}
+
+.admin-header h1 {
+font-size: 0.9rem;
+font-weight: 500;
+letter-spacing: 0.1em;
+color: var(–gold);
+}
+
+.admin-header span {
+font-size: 0.65rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(–gray);
+}
+
+.btn-logout {
+background: none;
+border: 1px solid rgba(201,168,76,0.3);
+color: var(–gold);
+font-family: ‘Jost’, sans-serif;
+font-size: 0.6rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+padding: 6px 12px;
+border-radius: 4px;
+cursor: pointer;
+}
+
+/* ─── DATE NAV ─── */
+.date-nav {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 16px 20px;
+background: var(–dark2);
+border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.date-nav button {
+background: none;
+border: 1px solid rgba(201,168,76,0.2);
+color: var(–gold);
+width: 36px;
+height: 36px;
+border-radius: 4px;
+font-size: 1.1rem;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: background 0.2s;
+}
+
+.date-nav button:hover { background: rgba(201,168,76,0.1); }
+
+.date-nav .date-info {
+text-align: center;
+}
+
+.date-nav .date-day {
+font-size: 1rem;
+font-weight: 500;
+text-transform: capitalize;
+}
+
+.date-nav .date-full {
+font-size: 0.65rem;
+color: var(–gray);
+letter-spacing: 0.1em;
+margin-top: 2px;
+}
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1px;
+background: rgba(255,255,255,0.05);
+border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.stat-item {
+background: var(–dark2);
+padding: 14px 8px;
+text-align: center;
+}
+
+.stat-value {
+font-size: 1.6rem;
+font-weight: 600;
+color: var(–gold);
+line-height: 1;
+}
+
+.stat-label {
+font-size: 0.58rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–gray);
+margin-top: 4px;
+}
+
+/* ─── TIMELINE ─── */
+.timeline {
+padding: 16px 20px;
+}
+
+.timeline-title {
+font-size: 0.62rem;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: var(–gold);
+margin-bottom: 12px;
+}
+
+.time-slot {
+display: flex;
+align-items: stretch;
+margin-bottom: 6px;
+border-radius: 6px;
+overflow: hidden;
+min-height: 52px;
+}
+
+.time-label {
+width: 52px;
+min-width: 52px;
+background: var(–dark3);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.72rem;
+color: var(–gray);
+font-weight: 400;
+letter-spacing: 0.05em;
+border-right: 2px solid var(–dark);
+}
+
+.time-slot.booked .time-label { border-right-color: var(–gold); }
+.time-slot.free .time-label { border-right-color: rgba(76,175,80,0.4); }
+
+.time-content {
+flex: 1;
+padding: 10px 14px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.time-slot.booked .time-content { background: rgba(201,168,76,0.08); }
+.time-slot.free .time-content { background: rgba(76,175,80,0.05); }
+.time-slot.closed .time-content { background: var(–dark2); opacity: 0.4; }
+
+.slot-info { flex: 1; }
+
+.slot-name {
+font-size: 0.9rem;
+font-weight: 500;
+color: var(–white);
+}
+
+.slot-service {
+font-size: 0.72rem;
+color: var(–gold);
+margin-top: 2px;
+}
+
+.slot-phone {
+font-size: 0.68rem;
+color: var(–gray);
+margin-top: 2px;
+}
+
+.slot-free-text {
+font-size: 0.72rem;
+color: rgba(76,175,80,0.7);
+letter-spacing: 0.1em;
+}
+
+.slot-closed-text {
+font-size: 0.72rem;
+color: var(–gray);
+letter-spacing: 0.1em;
+}
+
+.btn-delete {
+background: none;
+border: none;
+color: rgba(229,57,53,0.6);
+font-size: 1.2rem;
+cursor: pointer;
+padding: 4px 8px;
+border-radius: 4px;
+transition: color 0.2s, background 0.2s;
+line-height: 1;
+}
+
+.btn-delete:hover {
+color: var(–red);
+background: rgba(229,57,53,0.1);
+}
+
+.btn-call {
+background: none;
+border: none;
+color: var(–gold);
+font-size: 1.1rem;
+cursor: pointer;
+padding: 4px 8px;
+text-decoration: none;
+display: flex;
+align-items: center;
+}
+
+/* ─── SECTION BREAK ─── */
+.break-label {
+text-align: center;
+padding: 10px;
+font-size: 0.6rem;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: rgba(136,136,136,0.4);
+}
+
+/* ─── LOADING ─── */
+.loading {
+text-align: center;
+padding: 40px 20px;
+color: var(–gray);
+font-size: 0.8rem;
+letter-spacing: 0.2em;
+}
+
+.loading-dot {
+display: inline-block;
+animation: blink 1.4s infinite both;
+}
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+0%, 80%, 100% { opacity: 0; }
+40% { opacity: 1; }
+}
+
+/* ─── EMPTY ─── */
+.empty-day {
+text-align: center;
+padding: 32px 20px;
+color: var(–gray);
+}
+
+.empty-day .icon { font-size: 2rem; margin-bottom: 10px; }
+.empty-day p { font-size: 0.8rem; letter-spacing: 0.1em; }
+
+/* ─── TOAST ─── */
+.toast {
+position: fixed;
+bottom: 90px;
+left: 50%;
+transform: translateX(-50%) translateY(20px);
+background: var(–dark3);
+border: 1px solid rgba(201,168,76,0.3);
+color: var(–white);
+padding: 12px 24px;
+border-radius: 40px;
+font-size: 0.8rem;
+letter-spacing: 0.05em;
+opacity: 0;
+transition: all 0.3s;
+z-index: 999;
+white-space: nowrap;
+}
+
+.toast.show {
+opacity: 1;
+transform: translateX(-50%) translateY(0);
+}
+
+/* ─── BOTTOM TAB ─── */
+.bottom-tab {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+background: rgba(17,17,17,0.97);
+backdrop-filter: blur(20px);
+border-top: 1px solid rgba(201,168,76,0.1);
+display: flex;
+padding-bottom: env(safe-area-inset-bottom);
+z-index: 100;
+}
+
+.tab-btn {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 10px 4px;
+gap: 4px;
+cursor: pointer;
+color: var(–gray);
+font-size: 0.55rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+background: none;
+border: none;
+font-family: ‘Jost’, sans-serif;
+transition: color 0.2s;
+}
+
+.tab-btn.active { color: var(–gold); }
+.tab-btn svg { width: 20px; height: 20px; stroke-width: 1.5; }
+
+/* ─── LISTA SEZIONE ─── */
+#listaSection { display: none; padding: 16px 20px; padding-bottom: 80px; }
+
+.search-box {
+display: flex;
+gap: 10px;
+margin-bottom: 16px;
+}
+
+.search-box input {
+flex: 1;
+background: var(–dark2);
+border: 1px solid rgba(201,168,76,0.15);
+border-radius: 4px;
+color: var(–white);
+font-family: ‘Jost’, sans-serif;
+font-size: 0.9rem;
+padding: 12px 14px;
+outline: none;
+}
+
+.search-box input:focus { border-color: var(–gold); }
+.search-box input::placeholder { color: var(–gray); }
+
+.prenotazione-card {
+background: var(–dark2);
+border: 1px solid rgba(255,255,255,0.05);
+border-radius: 6px;
+padding: 14px 16px;
+margin-bottom: 8px;
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.card-left { flex: 1; }
+
+.card-name {
+font-size: 1rem;
+font-weight: 500;
+}
+
+.card-service {
+font-size: 0.75rem;
+color: var(–gold);
+margin-top: 3px;
+}
+
+.card-meta {
+display: flex;
+gap: 12px;
+margin-top: 6px;
+}
+
+.card-date, .card-time {
+font-size: 0.68rem;
+color: var(–gray);
+display: flex;
+align-items: center;
+gap: 4px;
+}
+
+.card-actions {
+display: flex;
+gap: 4px;
+align-items: center;
+}
+</style>
+
+</head>
+<body>
+
+<!-- LOGIN -->
+
+<div id="loginScreen">
+  <div class="login-logo">
+    <strong>Barber Life</strong>
+    Pannello Admin
+  </div>
+  <div class="login-box">
+    <label>Password</label>
+    <input type="password" id="passwordInput" placeholder="••••••••" onkeydown="if(event.key==='Enter') login()">
+    <button class="btn-login" onclick="login()">Accedi</button>
+    <p class="login-error" id="loginError"></p>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+
+<div id="adminPanel">
+
+  <div class="admin-header">
+    <div>
+      <h1>✂️ Admin</h1>
+      <span id="headerDate"></span>
+    </div>
+    <button class="btn-logout" onclick="logout()">Esci</button>
+  </div>
+
+  <!-- CALENDARIO TAB -->
+
+  <div id="calendarioSection">
+    <div class="date-nav">
+      <button onclick="changeDay(-1)">‹</button>
+      <div class="date-info">
+        <div class="date-day" id="dayName"></div>
+        <div class="date-full" id="dayFull"></div>
+      </div>
+      <button onclick="changeDay(1)">›</button>
+    </div>
+
+```
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-value" id="statOccupati">—</div>
+    <div class="stat-label">Occupati</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value" id="statLiberi">—</div>
+    <div class="stat-label">Liberi</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value" id="statTotale">—</div>
+    <div class="stat-label">Totale</div>
+  </div>
+</div>
+
+<div class="timeline" id="timeline">
+  <div class="loading">
+    <span class="loading-dot">•</span>
+    <span class="loading-dot">•</span>
+    <span class="loading-dot">•</span>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- LISTA TAB -->
+
+  <div id="listaSection">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Cerca per nome..." oninput="filterPrenotazioni()">
+    </div>
+    <div id="listaCards"></div>
+  </div>
+
+</div>
+
+<!-- BOTTOM TAB -->
+
+<div class="bottom-tab" id="bottomTab" style="display:none">
+  <button class="tab-btn active" id="tab-calendario" onclick="showTab('calendario')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    Calendario
+  </button>
+  <button class="tab-btn" id="tab-lista" onclick="showTab('lista')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+    Tutte
+  </button>
+</div>
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API_KEY = "AIzaSyA-v4UrLIZPJGrq4_Mwc12XJlGHM26RLpA";
+const PROJECT_ID = "barber-life-simone";
+const DB_NAME = "prenotazioni";
+const COLLECTION = "Prenotazione";
+const ADMIN_PASSWORD = "barber2024"; // ← CAMBIA QUESTA PASSWORD!
+
+// Orari di lavoro
+const SLOTS_MATTINA = [];
+const SLOTS_POMERIGGIO = [];
+
+function buildSlots() {
+  // 9:30 - 12:30
+  for (let h = 9, m = 30; h < 13 || (h === 12 && m <= 30);) {
+    SLOTS_MATTINA.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
+    m += 30; if (m >= 60) { m = 0; h++; }
+    if (h > 12 || (h === 12 && m > 30)) break;
+  }
+  // 15:30 - 19:30
+  for (let h = 15, m = 30; ;) {
+    SLOTS_POMERIGGIO.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
+    m += 30; if (m >= 60) { m = 0; h++; }
+    if (h > 19 || (h === 19 && m > 30)) break;
+  }
+}
+buildSlots();
+
+const ALL_SLOTS = [...SLOTS_MATTINA, ...SLOTS_POMERIGGIO];
+
+let currentDate = new Date();
+let allPrenotazioni = [];
+
+// ─── AUTH ───
+function login() {
+  const pwd = document.getElementById('passwordInput').value;
+  if (pwd === ADMIN_PASSWORD) {
+    sessionStorage.setItem('adminAuth', '1');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('bottomTab').style.display = 'flex';
+    initAdmin();
+  } else {
+    document.getElementById('loginError').textContent = 'Password errata';
+    document.getElementById('passwordInput').value = '';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('adminAuth');
+  location.reload();
+}
+
+// ─── INIT ───
+function initAdmin() {
+  updateDateHeader();
+  loadAllPrenotazioni();
+}
+
+// ─── DATE ───
+function changeDay(delta) {
+  currentDate.setDate(currentDate.getDate() + delta);
+  updateDateHeader();
+  renderTimeline();
+}
+
+function updateDateHeader() {
+  const giorni = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+  const mesi = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+  document.getElementById('dayName').textContent = giorni[currentDate.getDay()];
+  document.getElementById('dayFull').textContent = `${currentDate.getDate()} ${mesi[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+  document.getElementById('headerDate').textContent = `${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()}`;
+}
+
+function getDateString(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// ─── LOAD DATA ───
+async function loadAllPrenotazioni() {
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}?key=${API_KEY}&pageSize=500`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    allPrenotazioni = (data.documents || []).map(doc => {
+      const f = doc.fields || {};
+      return {
+        id: doc.name.split('/').pop(),
+        nome: f.nome?.stringValue || '',
+        telefono: f.telefono?.stringValue || '',
+        servizio: f.servizio?.stringValue || '',
+        data: f.data?.stringValue || '',
+        ora: f.ora?.stringValue || '',
+        creatoIl: f.creatoIl?.timestampValue || ''
+      };
+    });
+
+    renderTimeline();
+    renderLista();
+  } catch(e) {
+    document.getElementById('timeline').innerHTML = '<div class="loading">Errore caricamento dati</div>';
+  }
+}
+
+// ─── TIMELINE ───
+function renderTimeline() {
+  const dateStr = getDateString(currentDate);
+  const dayOfWeek = currentDate.getDay();
+  const timeline = document.getElementById('timeline');
+
+  // Domenica o lunedì = chiuso
+  if (dayOfWeek === 0 || dayOfWeek === 1) {
+    timeline.innerHTML = `
+      <div class="empty-day">
+        <div class="icon">🔒</div>
+        <p>Negozio chiuso</p>
+      </div>`;
+    document.getElementById('statOccupati').textContent = '—';
+    document.getElementById('statLiberi').textContent = '—';
+    document.getElementById('statTotale').textContent = '—';
+    return;
+  }
+
+  const prenotazioniGiorno = allPrenotazioni.filter(p => p.data === dateStr);
+  const occupati = prenotazioniGiorno.length;
+  const liberi = ALL_SLOTS.length - occupati;
+
+  document.getElementById('statOccupati').textContent = occupati;
+  document.getElementById('statLiberi').textContent = liberi;
+  document.getElementById('statTotale').textContent = ALL_SLOTS.length;
+
+  let html = '<div class="timeline-title">Mattina</div>';
+
+  SLOTS_MATTINA.forEach(slot => {
+    html += renderSlot(slot, prenotazioniGiorno);
+  });
+
+  html += '<div class="break-label">— Pausa —</div>';
+  html += '<div class="timeline-title">Pomeriggio</div>';
+
+  SLOTS_POMERIGGIO.forEach(slot => {
+    html += renderSlot(slot, prenotazioniGiorno);
+  });
+
+  timeline.innerHTML = html;
+}
+
+function renderSlot(slot, prenotazioni) {
+  const pren = prenotazioni.find(p => p.ora === slot);
+  if (pren) {
+    return `
+      <div class="time-slot booked">
+        <div class="time-label">${slot}</div>
+        <div class="time-content">
+          <div class="slot-info">
+            <div class="slot-name">${pren.nome}</div>
+            <div class="slot-service">${pren.servizio}</div>
+            <div class="slot-phone">${pren.telefono}</div>
+          </div>
+          <div style="display:flex;gap:4px">
+            <a class="btn-call" href="tel:${pren.telefono}" title="Chiama">📞</a>
+            <button class="btn-delete" onclick="deletePrenotazione('${pren.id}')" title="Elimina">✕</button>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    return `
+      <div class="time-slot free">
+        <div class="time-label">${slot}</div>
+        <div class="time-content">
+          <span class="slot-free-text">Disponibile</span>
+        </div>
+      </div>`;
+  }
+}
+
+// ─── LISTA ───
+function renderLista(filter = '') {
+  const cards = document.getElementById('listaCards');
+  let pren = [...allPrenotazioni].sort((a, b) => {
+    if (a.data !== b.data) return a.data.localeCompare(b.data);
+    return a.ora.localeCompare(b.ora);
+  });
+
+  if (filter) {
+    pren = pren.filter(p => p.nome.toLowerCase().includes(filter.toLowerCase()) || p.telefono.includes(filter));
+  }
+
+  if (pren.length === 0) {
+    cards.innerHTML = '<div class="empty-day"><div class="icon">📋</div><p>Nessuna prenotazione</p></div>';
+    return;
+  }
+
+  cards.innerHTML = pren.map(p => {
+    const dataFormatted = p.data ? p.data.split('-').reverse().join('/') : '—';
+    return `
+      <div class="prenotazione-card">
+        <div class="card-left">
+          <div class="card-name">${p.nome}</div>
+          <div class="card-service">${p.servizio}</div>
+          <div class="card-meta">
+            <span class="card-date">📅 ${dataFormatted}</span>
+            <span class="card-time">⏰ ${p.ora}</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <a class="btn-call" href="tel:${p.telefono}" title="Chiama">📞</a>
+          <button class="btn-delete" onclick="deletePrenotazione('${p.id}')">✕</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function filterPrenotazioni() {
+  const q = document.getElementById('searchInput').value;
+  renderLista(q);
+}
+
+// ─── DELETE ───
+async function deletePrenotazione(id) {
+  if (!confirm('Eliminare questa prenotazione?')) return;
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}/${id}?key=${API_KEY}`;
+    const res = await fetch(url, { method: 'DELETE' });
+    if (res.ok || res.status === 200 || res.status === 404) {
+      allPrenotazioni = allPrenotazioni.filter(p => p.id !== id);
+      renderTimeline();
+      renderLista(document.getElementById('searchInput')?.value || '');
+      showToast('✅ Prenotazione eliminata');
+    }
+  } catch(e) {
+    showToast('❌ Errore eliminazione');
+  }
+}
+
+// ─── TABS ───
+function showTab(tab) {
+  document.getElementById('calendarioSection').style.display = tab === 'calendario' ? 'block' : 'none';
+  document.getElementById('listaSection').style.display = tab === 'lista' ? 'block' : 'none';
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+// ─── TOAST ───
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ─── CHECK AUTH ───
+window.addEventListener('load', () => {
+  if (sessionStorage.getItem('adminAuth') === '1') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('bottomTab').style.display = 'flex';
+    initAdmin();
+  }
+});
+
+// Auto-refresh ogni 60 secondi
+setInterval(() => {
+  if (sessionStorage.getItem('adminAuth') === '1') loadAllPrenotazioni();
+}, 60000);
+</script>
+
+</body>
+</html>
