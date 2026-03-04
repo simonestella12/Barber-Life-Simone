@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="it">
 <head>
 <meta charset="UTF-8">
@@ -39,6 +40,7 @@
 
 <label>Servizio</label>
 <select id="servizio" required>
+
 <option value="">Seleziona servizio</option>
 <option>Taglio €14</option>
 <option>Taglio Baby €10</option>
@@ -59,6 +61,7 @@
 
 <label>Orario appuntamento</label>
 <select id="time" required>
+
 <option value="">Prima scegli la data</option>
 </select>
 
@@ -207,17 +210,19 @@ form.addEventListener("submit", async e => {
     return;
   }
 
+  msg.textContent = "Invio in corso...";
+
   try {
     await addDoc(collection(db, "Prenotazione"), {
       nome, telefono, servizio, data, ora, creatoIl: new Date()
     });
 
-    msg.textContent = "Prenotazione inviata ✔";
+    msg.textContent = "✅ Prenotazione inviata!";
     form.reset();
     timeSelect.innerHTML = "<option value=''>Prima scegli la data</option>";
 
   } catch (error) {
-    msg.textContent = "Errore salvataggio ❌";
+    msg.textContent = "❌ Errore: " + error.message;
   }
 });
 </script>
