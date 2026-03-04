@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#111111">
 <title>Agenda — Barber Life Simone</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -25,11 +27,12 @@
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { -webkit-tap-highlight-color: transparent; }
+html { -webkit-tap-highlight-color: transparent; color-scheme: dark; }
 
 body {
-background: var(–cream);
-color: var(–black);
+color-scheme: dark;
+background: var(–black);
+color: var(–white);
 font-family: ‘Jost’, sans-serif;
 font-weight: 400;
 min-height: 100svh;
@@ -209,7 +212,7 @@ width: 100%;
 margin-top: 22px;
 padding: 17px;
 background: var(–wood);
-color: var(–black);
+color: var(–white);
 border: none;
 border-radius: 8px;
 font-family: ‘Jost’, sans-serif;
@@ -250,7 +253,7 @@ letter-spacing: 0.05em;
 /* ══════════════════════
 ADMIN PANEL
 ══════════════════════ */
-#adminPanel { display: none; background: var(–cream); min-height: 100svh; }
+#adminPanel { display: none; background: var(–black); min-height: 100svh; }
 
 /* TOP BAR */
 .top-bar {
@@ -379,7 +382,7 @@ margin-top: 2px;
 
 .btn-oggi {
 background: var(–wood);
-color: var(–black);
+color: var(–white);
 border: none;
 font-family: ‘Jost’, sans-serif;
 font-size: 0.58rem;
@@ -399,7 +402,7 @@ white-space: nowrap;
 display: grid;
 grid-template-columns: repeat(3, 1fr);
 gap: 0;
-background: var(–black);
+background: var(–black2);
 border-bottom: 2px solid var(–black3);
 }
 
@@ -432,8 +435,8 @@ margin-top: 4px;
 /* TIMELINE */
 .tl-wrap {
 padding: 14px;
-padding-bottom: 100px;
-background: var(–cream);
+padding-bottom: 110px;
+background: var(–black);
 }
 
 .tl-head {
@@ -488,6 +491,7 @@ border-right: 3px solid var(–black4);
 }
 
 .slot-body {
+color-scheme: dark;
 flex: 1;
 padding: 11px 14px;
 display: flex;
@@ -497,23 +501,25 @@ min-height: 56px;
 }
 
 .slot.booked .slot-body {
-background: var(–white);
-border-top: 1px solid #E8D8C4;
-border-right: 1px solid #E8D8C4;
-border-bottom: 1px solid #E8D8C4;
+color-scheme: dark;
+background: var(–black2);
+border-top: 1px solid var(–black4);
+border-right: 1px solid var(–black4);
+border-bottom: 1px solid var(–black4);
 }
 
 .slot.free .slot-body {
-background: #EEEBE7;
-border-top: 1px solid #DDD5C8;
-border-right: 1px solid #DDD5C8;
-border-bottom: 1px solid #DDD5C8;
+color-scheme: dark;
+background: var(–black3);
+border-top: 1px solid var(–black4);
+border-right: 1px solid var(–black4);
+border-bottom: 1px solid var(–black4);
 }
 
 .slot-name {
 font-size: 0.95rem;
 font-weight: 600;
-color: var(–black);
+color: var(–white);
 }
 
 .slot-service {
@@ -553,11 +559,11 @@ flex-shrink: 0;
 }
 
 .act-btn.call {
-background: rgba(0,0,0,0.06);
-color: var(–black2);
-border: 1px solid rgba(0,0,0,0.1);
+background: rgba(212,184,150,0.1);
+color: var(–wood);
+border: 1px solid rgba(212,184,150,0.2);
 }
-.act-btn.call:hover { background: var(–black); color: var(–wood); }
+.act-btn.call:hover { background: rgba(212,184,150,0.2); color: var(–wood2); }
 
 .act-btn.del {
 background: rgba(192,57,43,0.07);
@@ -578,7 +584,7 @@ color: var(–gray);
 }
 .break-div::before, .break-div::after {
 content: ‘’; flex: 1;
-height: 1px; background: #D4C5B0;
+height: 1px; background: var(–black4);
 }
 
 /* CLOSED / EMPTY */
@@ -598,8 +604,8 @@ color: var(–gray);
 #listaSection {
 display: none;
 padding: 14px;
-padding-bottom: 100px;
-background: var(–cream);
+padding-bottom: 110px;
+background: var(–black);
 }
 
 .search-wrap {
@@ -609,10 +615,10 @@ margin-bottom: 12px;
 
 .search-wrap input {
 width: 100%;
-background: var(–white);
-border: 1px solid #D4C5B0;
+background: var(–black2);
+border: 1px solid var(–black4);
 border-radius: 8px;
-color: var(–black);
+color: var(–white);
 font-family: ‘Jost’, sans-serif;
 font-size: 0.9rem;
 padding: 13px 16px 13px 42px;
@@ -632,8 +638,8 @@ pointer-events: none;
 }
 
 .pren-card {
-background: var(–white);
-border: 1px solid #E0D0BC;
+background: var(–black2);
+border: 1px solid var(–black4);
 border-radius: 10px;
 padding: 14px 16px;
 margin-bottom: 7px;
@@ -664,7 +670,7 @@ color: var(–wood);
 .pren-name {
 font-size: 0.95rem;
 font-weight: 600;
-color: var(–black);
+color: var(–white);
 white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
@@ -685,9 +691,9 @@ margin-top: 5px;
 
 .chip {
 font-size: 0.6rem;
-color: var(–gray2);
-background: var(–cream);
-border: 1px solid #D4C5B0;
+color: var(–gray);
+background: var(–black);
+border: 1px solid var(–black4);
 padding: 3px 8px;
 border-radius: 20px;
 letter-spacing: 0.03em;
@@ -697,7 +703,7 @@ letter-spacing: 0.03em;
 
 /* SKELETON */
 .skel {
-background: linear-gradient(90deg, #E8DDD0 25%, #F0E6D8 50%, #E8DDD0 75%);
+background: linear-gradient(90deg, var(–black2) 25%, var(–black3) 50%, var(–black2) 75%);
 background-size: 200% 100%;
 animation: shimmer 1.4s infinite;
 border-radius: 8px;
@@ -717,7 +723,10 @@ background: var(–black);
 border-top: 2px solid var(–wood3);
 display: flex;
 padding-bottom: env(safe-area-inset-bottom);
-z-index: 150;
+z-index: 9999;
+-webkit-transform: translateZ(0);
+transform: translateZ(0);
+will-change: transform;
 }
 
 .nav-btn {
