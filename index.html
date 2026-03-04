@@ -6,6 +6,267 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Barber Life Simone</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* ── AUTH OVERLAY ── */
+.auth-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.auth-overlay.open { display: flex; }
+
+.auth-box {
+background: #fff;
+border-radius: 16px;
+padding: 28px 24px;
+width: 100%;
+max-width: 360px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.auth-box h3 {
+font-size: 1.2rem;
+margin-bottom: 20px;
+text-align: center;
+color: #111;
+}
+
+.auth-box label {
+display: block;
+font-size: 0.72rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+color: #555;
+margin-bottom: 6px;
+margin-top: 14px;
+}
+
+.auth-box input {
+width: 100%;
+padding: 12px 14px;
+border: 1px solid #ddd;
+border-radius: 8px;
+font-size: 0.95rem;
+outline: none;
+transition: border-color 0.2s;
+box-sizing: border-box;
+}
+.auth-box input:focus { border-color: #B8956A; }
+
+.auth-btn {
+width: 100%;
+margin-top: 20px;
+padding: 14px;
+background: #B8956A;
+color: #fff;
+border: none;
+border-radius: 8px;
+font-size: 0.8rem;
+font-weight: 700;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+cursor: pointer;
+transition: background 0.2s;
+}
+.auth-btn:hover { background: #A07850; }
+
+.auth-switch {
+text-align: center;
+margin-top: 14px;
+font-size: 0.82rem;
+color: #666;
+}
+.auth-switch a { color: #B8956A; cursor: pointer; text-decoration: underline; }
+
+.auth-close {
+float: right;
+background: none;
+border: none;
+font-size: 1.3rem;
+cursor: pointer;
+color: #999;
+margin-top: -4px;
+}
+
+.auth-msg {
+text-align: center;
+font-size: 0.82rem;
+margin-top: 10px;
+min-height: 18px;
+color: #c0392b;
+}
+
+/* ── PROFILO BAR ── */
+.profilo-bar {
+background: #f5ede0;
+border-bottom: 1px solid #e0ceb8;
+padding: 10px 16px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+font-size: 0.8rem;
+}
+
+.profilo-bar .benvenuto { color: #555; }
+.profilo-bar .benvenuto strong { color: #B8956A; }
+
+.profilo-btns { display: flex; gap: 8px; }
+
+.btn-profilo {
+background: #B8956A;
+color: #fff;
+border: none;
+padding: 6px 14px;
+border-radius: 20px;
+font-size: 0.72rem;
+font-weight: 600;
+cursor: pointer;
+letter-spacing: 0.05em;
+}
+
+.btn-accedi {
+background: none;
+border: 1px solid #B8956A;
+color: #B8956A;
+padding: 6px 14px;
+border-radius: 20px;
+font-size: 0.72rem;
+font-weight: 600;
+cursor: pointer;
+}
+
+.btn-logout-profilo {
+background: none;
+border: 1px solid #ccc;
+color: #888;
+padding: 6px 12px;
+border-radius: 20px;
+font-size: 0.72rem;
+cursor: pointer;
+}
+
+/* ── LE MIE PRENOTAZIONI ── */
+.mie-pren-section {
+margin-top: 20px;
+padding: 0;
+}
+
+.mie-pren-title {
+font-size: 0.75rem;
+font-weight: 700;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: #B8956A;
+margin-bottom: 12px;
+padding-bottom: 6px;
+border-bottom: 1px solid #e0ceb8;
+}
+
+.pren-storico-card {
+background: #fdf8f2;
+border: 1px solid #e0ceb8;
+border-radius: 10px;
+padding: 14px 16px;
+margin-bottom: 10px;
+}
+
+.pren-storico-card.futura { border-left: 3px solid #B8956A; }
+.pren-storico-card.passata { opacity: 0.6; }
+
+.pren-storico-top {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+}
+
+.pren-storico-info .svc { font-weight: 600; font-size: 0.95rem; color: #111; }
+.pren-storico-info .dt  { font-size: 0.75rem; color: #888; margin-top: 3px; }
+
+.pren-storico-badge {
+font-size: 0.62rem;
+font-weight: 700;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+padding: 3px 10px;
+border-radius: 20px;
+}
+.pren-storico-badge.futura { background: #f5ede0; color: #B8956A; border: 1px solid #e0ceb8; }
+.pren-storico-badge.passata { background: #f0f0f0; color: #999; }
+
+.pren-storico-azioni {
+display: flex;
+gap: 8px;
+margin-top: 12px;
+}
+
+.btn-modifica, .btn-cancella {
+flex: 1;
+padding: 8px;
+border-radius: 6px;
+font-size: 0.72rem;
+font-weight: 600;
+letter-spacing: 0.05em;
+text-transform: uppercase;
+cursor: pointer;
+border: none;
+transition: all 0.2s;
+}
+
+.btn-modifica { background: #f5ede0; color: #B8956A; border: 1px solid #e0ceb8; }
+.btn-modifica:hover { background: #B8956A; color: #fff; }
+
+.btn-cancella { background: #fdf0f0; color: #c0392b; border: 1px solid #f5c6c6; }
+.btn-cancella:hover { background: #c0392b; color: #fff; }
+
+.storico-vuoto {
+text-align: center;
+padding: 20px;
+color: #aaa;
+font-size: 0.85rem;
+}
+
+/* MODIFICA MODAL */
+.modifica-overlay {
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.6);
+z-index: 1001;
+align-items: center;
+justify-content: center;
+padding: 20px;
+}
+.modifica-overlay.open { display: flex; }
+
+.modifica-box {
+background: #fff;
+border-radius: 16px;
+padding: 28px 24px;
+width: 100%;
+max-width: 360px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.modifica-box h3 { font-size: 1.1rem; margin-bottom: 16px; text-align: center; }
+.modifica-box label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #555; margin-bottom: 6px; margin-top: 12px; }
+.modifica-box select, .modifica-box input {
+width: 100%; padding: 12px 14px; border: 1px solid #ddd;
+border-radius: 8px; font-size: 0.95rem; outline: none; box-sizing: border-box;
+}
+.modifica-box select:focus, .modifica-box input:focus { border-color: #B8956A; }
+
+.modifica-btns { display: flex; gap: 10px; margin-top: 20px; }
+.modifica-btns button { flex: 1; padding: 13px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border: none; }
+.btn-salva { background: #B8956A; color: #fff; }
+.btn-annulla { background: #f0f0f0; color: #666; }
+</style>
+
 </head>
 
 <body>
@@ -25,13 +286,25 @@
   <a onclick="showSection('galleryMenu')">Galleria</a>
 </nav>
 
+<!-- BARRA PROFILO -->
+
+<div class="profilo-bar" id="profiloBar">
+  <span class="benvenuto" id="benvenutoTxt">Ciao! Accedi per prenotare più velocemente</span>
+  <div class="profilo-btns">
+    <button class="btn-accedi" id="btnAccedi" onclick="apriAuth('login')">Accedi</button>
+    <button class="btn-profilo" id="btnRegistrati" onclick="apriAuth('registrati')">Registrati</button>
+    <button class="btn-logout-profilo" id="btnLogout" style="display:none" onclick="doLogout()">Esci</button>
+  </div>
+</div>
+
 <main class="container">
+
+<!-- PRENOTAZIONE -->
 
 <section id="booking" class="section active">
 <h2>Prenota appuntamento</h2>
 
 <form id="bookingForm">
-
 <label>Nome e cognome</label>
 <input type="text" id="nome" required>
 
@@ -70,6 +343,14 @@
 </form>
 
 <p id="msg"></p>
+
+<!-- LE MIE PRENOTAZIONI (visibile solo se loggato) -->
+
+<div class="mie-pren-section" id="miePrenSection" style="display:none">
+  <div class="mie-pren-title">📋 Le mie prenotazioni</div>
+  <div id="miePrenLista"></div>
+</div>
+
 </section>
 
 <section id="mappa" class="section">
@@ -120,14 +401,91 @@
 
 </main>
 
-<script>
-const API_KEY = "AIzaSyA-v4UrLIZPJGrq4_Mwc12XJlGHM26RLpA";
-const PROJECT_ID = "barber-life-simone";
-const COLLECTION = "Prenotazione";
+<!-- AUTH MODAL -->
 
-window.toggleMenu = () => {
-  document.getElementById("menu").classList.toggle("open");
-};
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <button class="auth-close" onclick="chiudiAuth()">✕</button>
+
+```
+<!-- LOGIN -->
+<div id="loginForm">
+  <h3>✂️ Accedi</h3>
+  <label>Email</label>
+  <input type="email" id="loginEmail" placeholder="la-tua@email.com">
+  <label>Password</label>
+  <input type="password" id="loginPwd" placeholder="••••••••">
+  <button class="auth-btn" onclick="doLogin()">Accedi</button>
+  <p class="auth-msg" id="loginMsg"></p>
+  <div class="auth-switch">Non hai un account? <a onclick="switchAuth('registrati')">Registrati</a></div>
+</div>
+
+<!-- REGISTRAZIONE -->
+<div id="registraForm" style="display:none">
+  <h3>✂️ Crea account</h3>
+  <label>Nome e cognome</label>
+  <input type="text" id="regNome" placeholder="Mario Rossi">
+  <label>Telefono</label>
+  <input type="tel" id="regTel" placeholder="3xxxxxxxxx">
+  <label>Email</label>
+  <input type="email" id="regEmail" placeholder="la-tua@email.com">
+  <label>Password (min. 6 caratteri)</label>
+  <input type="password" id="regPwd" placeholder="••••••••">
+  <button class="auth-btn" onclick="doRegistra()">Crea account</button>
+  <p class="auth-msg" id="regMsg"></p>
+  <div class="auth-switch">Hai già un account? <a onclick="switchAuth('login')">Accedi</a></div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- MODIFICA MODAL -->
+
+<div class="modifica-overlay" id="modificaOverlay">
+  <div class="modifica-box">
+    <h3>✏️ Modifica prenotazione</h3>
+    <input type="hidden" id="modDocId">
+    <label>Servizio</label>
+    <select id="modServizio">
+      <option>Taglio €14</option>
+      <option>Taglio Baby €10</option>
+      <option>Barba €5</option>
+      <option>Barba sfumata €5</option>
+      <option>Taglio + Barba + Shampoo €20</option>
+      <option>Shampoo €3</option>
+      <option>Basette e collo €3</option>
+      <option>Sopracciglia €3</option>
+      <option>Pettinata + Shampoo €5</option>
+      <option>Sfumatura lato da €10</option>
+      <option>Trattamento lisciante da €15</option>
+      <option>Trattamenti da €10</option>
+    </select>
+    <label>Data</label>
+    <input type="date" id="modData">
+    <label>Orario</label>
+    <select id="modOra"></select>
+    <div class="modifica-btns">
+      <button class="btn-annulla" onclick="chiudiModifica()">Annulla</button>
+      <button class="btn-salva" onclick="salvaModifica()">Salva</button>
+    </div>
+    <p class="auth-msg" id="modMsg"></p>
+  </div>
+</div>
+
+<script>
+const API_KEY    = "AIzaSyA-v4UrLIZPJGrq4_Mwc12XJlGHM26RLpA";
+const PROJECT_ID = "barber-life-simone";
+const DB_NAME    = "prenotazioni";
+const COLLECTION = "Prenotazione";
+const AUTH_URL   = `https://identitytoolkit.googleapis.com/v1/accounts`;
+
+let currentUser = null; // { uid, email, nome, telefono, idToken }
+
+/* ══════════════════════
+   MENU / NAVIGAZIONE
+══════════════════════ */
+window.toggleMenu = () => document.getElementById("menu").classList.toggle("open");
 
 window.showSection = id => {
   document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
@@ -135,94 +493,328 @@ window.showSection = id => {
   document.getElementById("menu").classList.remove("open");
 };
 
-window.openMaps = () => {
-  window.open("https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti");
-};
+window.openMaps = () => window.open("https://www.google.com/maps/search/?api=1&query=Barber+Life+Simone+Scoglitti");
 
-const dateInput = document.getElementById("date");
+/* ══════════════════════
+   ORARI
+══════════════════════ */
+const dateInput  = document.getElementById("date");
 const timeSelect = document.getElementById("time");
-const form = document.getElementById("bookingForm");
-const msg = document.getElementById("msg");
+const form       = document.getElementById("bookingForm");
+const msg        = document.getElementById("msg");
 
-function generaOrari() {
-  timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
-  function add(h1, m1, h2, m2) {
-    let h = h1, m = m1;
-    while (h < h2 || (h === h2 && m <= m2)) {
-      const hh = String(h).padStart(2, '0');
-      const mm = String(m).padStart(2, '0');
-      const opt = document.createElement("option");
-      opt.value = hh + ":" + mm;
-      opt.textContent = hh + ":" + mm;
-      timeSelect.appendChild(opt);
-      m += 30;
-      if (m >= 60) { m = 0; h++; }
+function generaOrari(sel) {
+  sel.innerHTML = "<option value=''>Seleziona orario</option>";
+  function add(h1,m1,h2,m2){
+    let h=h1,m=m1;
+    while(h<h2||(h===h2&&m<=m2)){
+      const v=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+      const o=document.createElement("option"); o.value=v; o.textContent=v;
+      sel.appendChild(o); m+=30; if(m>=60){m=0;h++;}
     }
   }
-  add(9, 30, 12, 30);
-  add(15, 30, 19, 30);
+  add(9,30,12,30); add(15,30,19,30);
 }
 
 dateInput.addEventListener("change", () => {
-  if (!dateInput.value) return;
-  const d = new Date(dateInput.value);
-  const day = d.getDay();
-  if (day === 0 || day === 1) {
+  if(!dateInput.value) return;
+  const day = new Date(dateInput.value).getDay();
+  if(day===0||day===1){
     alert("Il negozio è chiuso domenica e lunedì");
-    dateInput.value = "";
-    timeSelect.innerHTML = "<option value=''>Prima scegli la data</option>";
-    return;
+    dateInput.value=""; timeSelect.innerHTML="<option value=''>Prima scegli la data</option>"; return;
   }
-  generaOrari();
+  generaOrari(timeSelect);
 });
 
+/* ══════════════════════
+   PRENOTAZIONE
+══════════════════════ */
 form.addEventListener("submit", async e => {
   e.preventDefault();
-
-  const nome = document.getElementById("nome").value.trim();
+  const nome     = document.getElementById("nome").value.trim();
   const telefono = document.getElementById("telefono").value.trim();
   const servizio = document.getElementById("servizio").value;
-  const data = dateInput.value;
-  const ora = timeSelect.value;
+  const data     = dateInput.value;
+  const ora      = timeSelect.value;
 
-  if (!nome || !telefono || !servizio || !data || !ora) {
-    alert("Compila tutti i campi");
-    return;
-  }
+  if(!nome||!telefono||!servizio||!data||!ora){ alert("Compila tutti i campi"); return; }
 
   msg.textContent = "Invio in corso...";
 
-  const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/prenotazioni/documents/${COLLECTION}?key=${API_KEY}`;
-
-  const body = {
-    fields: {
-      nome:     { stringValue: nome },
-      telefono: { stringValue: telefono },
-      servizio: { stringValue: servizio },
-      data:     { stringValue: data },
-      ora:      { stringValue: ora },
-      creatoIl: { timestampValue: new Date().toISOString() }
-    }
+  const fields = {
+    nome:     { stringValue: nome },
+    telefono: { stringValue: telefono },
+    servizio: { stringValue: servizio },
+    data:     { stringValue: data },
+    ora:      { stringValue: ora },
+    creatoIl: { timestampValue: new Date().toISOString() }
   };
 
+  // Se loggato salva userId
+  if(currentUser) fields.userId = { stringValue: currentUser.uid };
+
   try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    });
-
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || "Errore sconosciuto");
-    }
-
+    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}?key=${API_KEY}`;
+    const res = await fetch(url, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({fields}) });
+    if(!res.ok) throw new Error((await res.json()).error?.message||"Errore");
     msg.textContent = "✅ Prenotazione inviata!";
     form.reset();
     timeSelect.innerHTML = "<option value=''>Prima scegli la data</option>";
+    if(currentUser) caricaMiePrenotazioni();
+  } catch(err) { msg.textContent = "❌ Errore: " + err.message; }
+});
 
-  } catch (error) {
-    msg.textContent = "❌ Errore: " + error.message;
+/* ══════════════════════
+   AUTH
+══════════════════════ */
+function apriAuth(tipo) {
+  document.getElementById("authOverlay").classList.add("open");
+  switchAuth(tipo);
+}
+function chiudiAuth() { document.getElementById("authOverlay").classList.remove("open"); }
+
+function switchAuth(tipo) {
+  document.getElementById("loginForm").style.display    = tipo==="login"       ? "block" : "none";
+  document.getElementById("registraForm").style.display = tipo==="registrati"  ? "block" : "none";
+  document.getElementById("loginMsg").textContent  = "";
+  document.getElementById("regMsg").textContent    = "";
+}
+
+async function doLogin() {
+  const email = document.getElementById("loginEmail").value.trim();
+  const pwd   = document.getElementById("loginPwd").value;
+  const msgEl = document.getElementById("loginMsg");
+  if(!email||!pwd){ msgEl.textContent="Compila tutti i campi"; return; }
+  msgEl.textContent = "Accesso in corso...";
+  try {
+    const res = await fetch(`${AUTH_URL}:signInWithPassword?key=${API_KEY}`, {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({email, password:pwd, returnSecureToken:true})
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(traduciErrore(data.error?.message));
+    await setCurrentUser(data.idToken, data.localId);
+    chiudiAuth();
+  } catch(err) { msgEl.textContent = "❌ " + err.message; }
+}
+
+async function doRegistra() {
+  const nome  = document.getElementById("regNome").value.trim();
+  const tel   = document.getElementById("regTel").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+  const pwd   = document.getElementById("regPwd").value;
+  const msgEl = document.getElementById("regMsg");
+  if(!nome||!tel||!email||!pwd){ msgEl.textContent="Compila tutti i campi"; return; }
+  if(pwd.length<6){ msgEl.textContent="Password troppo corta (min. 6 caratteri)"; return; }
+  msgEl.textContent = "Creazione account...";
+  try {
+    // Crea utente Firebase Auth
+    const res = await fetch(`${AUTH_URL}:signUp?key=${API_KEY}`, {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({email, password:pwd, returnSecureToken:true})
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(traduciErrore(data.error?.message));
+
+    // Salva profilo su Firestore
+    await salvaProfiloUtente(data.localId, nome, tel, email, data.idToken);
+    await setCurrentUser(data.idToken, data.localId);
+    chiudiAuth();
+  } catch(err) { msgEl.textContent = "❌ " + err.message; }
+}
+
+async function salvaProfiloUtente(uid, nome, telefono, email, idToken) {
+  const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/Utenti/${uid}?key=${API_KEY}`;
+  await fetch(url, {
+    method:"PATCH",
+    headers:{"Content-Type":"application/json", "Authorization":"Bearer "+idToken},
+    body: JSON.stringify({ fields: {
+      nome:     { stringValue: nome },
+      telefono: { stringValue: telefono },
+      email:    { stringValue: email },
+      uid:      { stringValue: uid }
+    }})
+  });
+}
+
+async function setCurrentUser(idToken, uid) {
+  // Carica profilo da Firestore
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/Utenti/${uid}?key=${API_KEY}`;
+    const res = await fetch(url, { headers:{"Authorization":"Bearer "+idToken} });
+    const data = await res.json();
+    const f = data.fields||{};
+    currentUser = { uid, idToken, nome: f.nome?.stringValue||"", telefono: f.telefono?.stringValue||"", email: f.email?.stringValue||"" };
+  } catch(e) { currentUser = { uid, idToken, nome:"", telefono:"", email:"" }; }
+
+  // Salva token in sessionStorage
+  sessionStorage.setItem("bl_token", idToken);
+  sessionStorage.setItem("bl_uid", uid);
+
+  // Precompila form
+  if(currentUser.nome)     document.getElementById("nome").value = currentUser.nome;
+  if(currentUser.telefono) document.getElementById("telefono").value = currentUser.telefono;
+
+  aggiornaUI();
+  caricaMiePrenotazioni();
+}
+
+function aggiornaUI() {
+  const loggato = !!currentUser;
+  document.getElementById("btnAccedi").style.display    = loggato ? "none" : "";
+  document.getElementById("btnRegistrati").style.display = loggato ? "none" : "";
+  document.getElementById("btnLogout").style.display    = loggato ? "" : "none";
+  document.getElementById("miePrenSection").style.display = loggato ? "block" : "none";
+  if(loggato) {
+    document.getElementById("benvenutoTxt").innerHTML = `Ciao, <strong>${currentUser.nome||currentUser.email}</strong> 👋`;
+  } else {
+    document.getElementById("benvenutoTxt").textContent = "Ciao! Accedi per prenotare più velocemente";
+  }
+}
+
+function doLogout() {
+  currentUser = null;
+  sessionStorage.removeItem("bl_token");
+  sessionStorage.removeItem("bl_uid");
+  document.getElementById("nome").value = "";
+  document.getElementById("telefono").value = "";
+  aggiornaUI();
+  document.getElementById("miePrenLista").innerHTML = "";
+}
+
+/* ══════════════════════
+   LE MIE PRENOTAZIONI
+══════════════════════ */
+async function caricaMiePrenotazioni() {
+  if(!currentUser) return;
+  const lista = document.getElementById("miePrenLista");
+  lista.innerHTML = "<div class='storico-vuoto'>Caricamento...</div>";
+
+  try {
+    // Query Firestore per userId == currentUser.uid
+    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents:runQuery?key=${API_KEY}`;
+    const body = {
+      structuredQuery: {
+        from: [{ collectionId: COLLECTION }],
+        where: { fieldFilter: { field: { fieldPath:"userId" }, op:"EQUAL", value: { stringValue: currentUser.uid } } },
+        orderBy: [{ field: { fieldPath:"data" }, direction:"DESCENDING" }, { field: { fieldPath:"ora" }, direction:"DESCENDING" }]
+      }
+    };
+    const res  = await fetch(url, { method:"POST", headers:{"Content-Type":"application/json","Authorization":"Bearer "+currentUser.idToken}, body:JSON.stringify(body) });
+    const data = await res.json();
+
+    const prenotazioni = data
+      .filter(r => r.document)
+      .map(r => {
+        const f = r.document.fields||{};
+        return { id: r.document.name.split('/').pop(), servizio: f.servizio?.stringValue||'', data: f.data?.stringValue||'', ora: f.ora?.stringValue||'' };
+      });
+
+    if(!prenotazioni.length) { lista.innerHTML = "<div class='storico-vuoto'>Nessuna prenotazione trovata</div>"; return; }
+
+    const oggi = new Date().toISOString().split('T')[0];
+    lista.innerHTML = prenotazioni.map((p, i) => {
+      const futura = p.data >= oggi;
+      const dataF  = p.data ? p.data.split('-').reverse().join('/') : '—';
+      const azioniHTML = (futura && i===0) ? `
+        <div class="pren-storico-azioni">
+          <button class="btn-modifica" onclick="apriModifica('${p.id}','${p.servizio}','${p.data}','${p.ora}')">✏️ Modifica</button>
+          <button class="btn-cancella" onclick="cancellaPrenotazione('${p.id}')">🗑 Cancella</button>
+        </div>` : '';
+      return `
+      <div class="pren-storico-card ${futura?'futura':'passata'}">
+        <div class="pren-storico-top">
+          <div class="pren-storico-info">
+            <div class="svc">${p.servizio}</div>
+            <div class="dt">📅 ${dataF} &nbsp;⏰ ${p.ora}</div>
+          </div>
+          <span class="pren-storico-badge ${futura?'futura':'passata'}">${futura?'In arrivo':'Passata'}</span>
+        </div>
+        ${azioniHTML}
+      </div>`;
+    }).join('');
+
+  } catch(e) { lista.innerHTML = "<div class='storico-vuoto'>Errore caricamento</div>"; }
+}
+
+async function cancellaPrenotazione(id) {
+  if(!confirm("Vuoi cancellare questa prenotazione?")) return;
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}/${id}?key=${API_KEY}`;
+    await fetch(url, { method:"DELETE", headers:{"Authorization":"Bearer "+currentUser.idToken} });
+    caricaMiePrenotazioni();
+  } catch(e) { alert("Errore durante la cancellazione"); }
+}
+
+/* ══════════════════════
+   MODIFICA
+══════════════════════ */
+function apriModifica(id, servizio, data, ora) {
+  document.getElementById("modDocId").value = id;
+  document.getElementById("modServizio").value = servizio;
+  document.getElementById("modData").value = data;
+  generaOrari(document.getElementById("modOra"));
+  document.getElementById("modOra").value = ora;
+  document.getElementById("modMsg").textContent = "";
+  document.getElementById("modificaOverlay").classList.add("open");
+}
+
+function chiudiModifica() { document.getElementById("modificaOverlay").classList.remove("open"); }
+
+document.getElementById("modData").addEventListener("change", () => {
+  const day = new Date(document.getElementById("modData").value).getDay();
+  if(day===0||day===1){ alert("Chiuso domenica e lunedì"); document.getElementById("modData").value=""; return; }
+  generaOrari(document.getElementById("modOra"));
+});
+
+async function salvaModifica() {
+  const id       = document.getElementById("modDocId").value;
+  const servizio = document.getElementById("modServizio").value;
+  const data     = document.getElementById("modData").value;
+  const ora      = document.getElementById("modOra").value;
+  const msgEl    = document.getElementById("modMsg");
+
+  if(!data||!ora){ msgEl.textContent="Seleziona data e orario"; return; }
+  msgEl.textContent = "Salvataggio...";
+
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}/${id}?key=${API_KEY}&updateMask.fieldPaths=servizio&updateMask.fieldPaths=data&updateMask.fieldPaths=ora`;
+    const res = await fetch(url, {
+      method:"PATCH",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer "+currentUser.idToken},
+      body: JSON.stringify({ fields: { servizio:{stringValue:servizio}, data:{stringValue:data}, ora:{stringValue:ora} } })
+    });
+    if(!res.ok) throw new Error("Errore");
+    chiudiModifica();
+    caricaMiePrenotazioni();
+  } catch(e) { msgEl.textContent = "❌ Errore durante il salvataggio"; }
+}
+
+/* ══════════════════════
+   UTILITY
+══════════════════════ */
+function traduciErrore(code) {
+  const map = {
+    "EMAIL_EXISTS": "Email già registrata",
+    "INVALID_EMAIL": "Email non valida",
+    "WEAK_PASSWORD": "Password troppo debole (min. 6 caratteri)",
+    "EMAIL_NOT_FOUND": "Email non trovata",
+    "INVALID_PASSWORD": "Password errata",
+    "INVALID_LOGIN_CREDENTIALS": "Email o password errati",
+    "TOO_MANY_ATTEMPTS_TRY_LATER": "Troppi tentativi, riprova più tardi"
+  };
+  return map[code] || code || "Errore sconosciuto";
+}
+
+/* ══════════════════════
+   AUTO-LOGIN
+══════════════════════ */
+window.addEventListener("load", async () => {
+  const token = sessionStorage.getItem("bl_token");
+  const uid   = sessionStorage.getItem("bl_uid");
+  if(token && uid) {
+    try { await setCurrentUser(token, uid); }
+    catch(e) { sessionStorage.removeItem("bl_token"); sessionStorage.removeItem("bl_uid"); }
   }
 });
 </script>
