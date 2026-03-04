@@ -4,44 +4,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Admin — Barber Life Simone</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Agenda — Barber Life Simone</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --gold: #C9A84C;
-  --gold2: #E8C96A;
-  --gold3: rgba(201,168,76,0.12);
-  --black: #080808;
-  --d1: #101010;
-  --d2: #181818;
-  --d3: #222;
-  --d4: #2a2a2a;
-  --white: #F5F0E8;
-  --gray: #666;
-  --gray2: #444;
-  --green: #3ddc84;
-  --red: #ff5252;
-  --radius: 12px;
-  --radius-sm: 8px;
+  --wood:    #D4B896;
+  --wood2:   #C4A47C;
+  --wood3:   #B8956A;
+  --wood-bg: #F0E4D0;
+  --black:   #111;
+  --black2:  #1A1A1A;
+  --black3:  #222;
+  --black4:  #2C2C2C;
+  --white:   #FDF8F2;
+  --cream:   #F5EDE0;
+  --gray:    #888;
+  --gray2:   #555;
+  --red:     #C0392B;
+  --radius:  10px;
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { -webkit-tap-highlight-color: transparent; }
 
 body {
-background: var(–black);
-color: var(–white);
+background: var(–cream);
+color: var(–black);
 font-family: ‘Jost’, sans-serif;
-font-weight: 300;
+font-weight: 400;
 min-height: 100svh;
-overflow-x: hidden;
 }
 
-/* ══════════════════════════════
+/* ══════════════════════
 LOGIN
-══════════════════════════════ */
+══════════════════════ */
 #loginScreen {
 min-height: 100svh;
+background: var(–black);
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -51,370 +50,379 @@ position: relative;
 overflow: hidden;
 }
 
-.login-bg {
+/* Wood texture lines */
+.wood-lines {
 position: absolute;
 inset: 0;
-background:
-radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 60%),
-radial-gradient(ellipse 50% 40% at 80% 100%, rgba(201,168,76,0.04) 0%, transparent 50%);
+background-image: repeating-linear-gradient(
+180deg,
+transparent 0px,
+transparent 18px,
+rgba(212,184,150,0.04) 18px,
+rgba(212,184,150,0.04) 19px
+);
 pointer-events: none;
 }
 
-.login-grid {
+.login-glow {
 position: absolute;
-inset: 0;
-background-image:
-linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
-linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
-background-size: 40px 40px;
+width: 300px; height: 300px;
+background: radial-gradient(circle, rgba(212,184,150,0.08) 0%, transparent 70%);
+top: 50%; left: 50%;
+transform: translate(-50%, -60%);
 pointer-events: none;
-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
 }
 
-.login-brand {
+.login-logo-wrap {
 position: relative;
 z-index: 2;
 text-align: center;
-margin-bottom: 48px;
+margin-bottom: 44px;
+}
+
+.login-badge {
+display: inline-flex;
+flex-direction: column;
+align-items: center;
+gap: 0;
 }
 
 .login-scissors {
-font-size: 2.4rem;
-margin-bottom: 16px;
+font-size: 2.8rem;
 display: block;
-animation: float 3s ease-in-out infinite;
+margin-bottom: 12px;
+filter: sepia(1) saturate(0.3) brightness(1.5);
 }
 
-@keyframes float {
-0%, 100% { transform: translateY(0) rotate(-10deg); }
-50% { transform: translateY(-6px) rotate(10deg); }
-}
-
-.login-brand h1 {
+.login-title {
 font-family: ‘Playfair Display’, serif;
-font-size: 2rem;
-font-weight: 700;
+font-size: 2.4rem;
+font-weight: 900;
+color: var(–wood);
 letter-spacing: 0.02em;
-color: var(–white);
-line-height: 1;
+line-height: 0.9;
+text-shadow: 0 2px 20px rgba(212,184,150,0.2);
 }
 
-.login-brand p {
-font-size: 0.62rem;
-letter-spacing: 0.5em;
+.login-title span {
+display: block;
+font-size: 1rem;
+font-weight: 400;
+font-style: italic;
+color: var(–wood2);
+letter-spacing: 0.15em;
+margin-top: 8px;
+}
+
+.login-divider {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-top: 14px;
+}
+
+.login-divider::before,
+.login-divider::after {
+content: ‘’;
+width: 30px;
+height: 1px;
+background: var(–wood3);
+opacity: 0.4;
+}
+
+.login-divider span {
+font-size: 0.58rem;
+letter-spacing: 0.4em;
 text-transform: uppercase;
-color: var(–gold);
-margin-top: 10px;
+color: var(–wood3);
+opacity: 0.7;
 }
 
 .login-card {
 position: relative;
 z-index: 2;
 width: 100%;
-max-width: 360px;
-background: linear-gradient(145deg, var(–d2), var(–d1));
-border: 1px solid rgba(201,168,76,0.2);
-border-radius: var(–radius);
-padding: 36px 28px;
-box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03) inset;
+max-width: 340px;
+background: var(–black2);
+border: 1px solid rgba(212,184,150,0.15);
+border-radius: 14px;
+padding: 32px 24px;
+box-shadow:
+0 40px 80px rgba(0,0,0,0.6),
+inset 0 1px 0 rgba(212,184,150,0.08);
 }
 
 .login-card::before {
 content: ‘’;
 position: absolute;
-top: 0; left: 20%; right: 20%;
+top: 0; left: 30%; right: 30%;
 height: 1px;
-background: linear-gradient(90deg, transparent, var(–gold), transparent);
+background: linear-gradient(90deg, transparent, var(–wood), transparent);
+opacity: 0.5;
 }
 
-.field-label {
-font-size: 0.6rem;
-letter-spacing: 0.35em;
+.field-lbl {
+font-size: 0.58rem;
+letter-spacing: 0.4em;
 text-transform: uppercase;
-color: var(–gold);
+color: var(–wood2);
 margin-bottom: 10px;
 display: block;
 }
 
-.field-wrap {
-position: relative;
-}
+.pwd-wrap { position: relative; }
 
-.field-wrap input {
+.pwd-wrap input {
 width: 100%;
-background: var(–d3);
-border: 1px solid var(–d4);
-border-radius: var(–radius-sm);
+background: var(–black3);
+border: 1px solid var(–black4);
+border-radius: 8px;
 color: var(–white);
 font-family: ‘Jost’, sans-serif;
-font-size: 1.3rem;
-letter-spacing: 0.25em;
-padding: 16px 50px 16px 18px;
+font-size: 1.4rem;
+letter-spacing: 0.3em;
+padding: 16px 48px 16px 18px;
 outline: none;
 transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.field-wrap input:focus {
-border-color: var(–gold);
-box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+.pwd-wrap input:focus {
+border-color: var(–wood2);
+box-shadow: 0 0 0 3px rgba(196,164,124,0.1);
 }
 
-.field-wrap .eye-btn {
+.eye-btn {
 position: absolute;
-right: 14px;
-top: 50%;
+right: 14px; top: 50%;
 transform: translateY(-50%);
-background: none;
-border: none;
-color: var(–gray);
+background: none; border: none;
+color: var(–gray2);
 cursor: pointer;
-font-size: 1.1rem;
+font-size: 1rem;
 padding: 4px;
 transition: color 0.2s;
 }
-
-.field-wrap .eye-btn:hover { color: var(–gold); }
+.eye-btn:hover { color: var(–wood); }
 
 .btn-login {
 width: 100%;
-margin-top: 24px;
+margin-top: 22px;
 padding: 17px;
-background: linear-gradient(135deg, var(–gold), var(–gold2));
+background: var(–wood);
 color: var(–black);
 border: none;
-border-radius: var(–radius-sm);
+border-radius: 8px;
 font-family: ‘Jost’, sans-serif;
-font-size: 0.72rem;
+font-size: 0.7rem;
 font-weight: 600;
-letter-spacing: 0.35em;
+letter-spacing: 0.4em;
 text-transform: uppercase;
 cursor: pointer;
 position: relative;
 overflow: hidden;
-transition: transform 0.2s, box-shadow 0.3s;
-box-shadow: 0 8px 24px rgba(201,168,76,0.25);
+transition: background 0.3s, transform 0.15s, box-shadow 0.3s;
+box-shadow: 0 6px 20px rgba(212,184,150,0.2);
 }
 
-.btn-login::before {
+.btn-login::after {
 content: ‘’;
 position: absolute;
-top: 0; left: -100%;
-width: 100%; height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-transition: left 0.5s;
+inset: 0;
+background: repeating-linear-gradient(
+90deg,
+transparent 0px, transparent 8px,
+rgba(0,0,0,0.03) 8px, rgba(0,0,0,0.03) 9px
+);
 }
 
-.btn-login:hover { transform: translateY(-1px); box-shadow: 0 12px 32px rgba(201,168,76,0.35); }
-.btn-login:hover::before { left: 100%; }
+.btn-login:hover { background: var(–wood2); transform: translateY(-1px); box-shadow: 0 10px 28px rgba(212,184,150,0.3); }
 .btn-login:active { transform: translateY(0); }
 
 .login-err {
 text-align: center;
-color: var(–red);
+color: #E74C3C;
 font-size: 0.75rem;
-margin-top: 14px;
+margin-top: 12px;
 min-height: 18px;
 letter-spacing: 0.05em;
 }
 
-/* ══════════════════════════════
+/* ══════════════════════
 ADMIN PANEL
-══════════════════════════════ */
-#adminPanel { display: none; }
+══════════════════════ */
+#adminPanel { display: none; background: var(–cream); min-height: 100svh; }
 
-/* HEADER */
+/* TOP BAR */
 .top-bar {
 position: sticky;
-top: 0;
-z-index: 200;
-background: rgba(8,8,8,0.92);
-backdrop-filter: blur(24px);
--webkit-backdrop-filter: blur(24px);
-border-bottom: 1px solid rgba(201,168,76,0.1);
-padding: 14px 20px;
+top: 0; z-index: 200;
+background: var(–black);
+border-bottom: 2px solid var(–wood3);
+padding: 0 16px;
 display: flex;
 align-items: center;
 justify-content: space-between;
+height: 56px;
 }
 
-.top-bar-left {
+.top-bar-brand {
 display: flex;
 align-items: center;
 gap: 10px;
 }
 
-.top-bar-icon {
-width: 34px;
-height: 34px;
-background: var(–gold3);
-border: 1px solid rgba(201,168,76,0.25);
-border-radius: 8px;
+.brand-icon {
+width: 32px; height: 32px;
+background: var(–wood);
+border-radius: 6px;
 display: flex;
 align-items: center;
 justify-content: center;
 font-size: 1rem;
 }
 
-.top-bar h1 {
+.brand-text {
 font-family: ‘Playfair Display’, serif;
-font-size: 1.1rem;
-font-weight: 400;
-color: var(–white);
-letter-spacing: 0.02em;
-}
-
-.top-bar-sub {
-font-size: 0.58rem;
-letter-spacing: 0.2em;
-text-transform: uppercase;
-color: var(–gray);
-margin-top: 1px;
-}
-
-.btn-refresh {
-background: none;
-border: 1px solid var(–d4);
-color: var(–gray);
-width: 34px;
-height: 34px;
-border-radius: 8px;
 font-size: 1rem;
+font-weight: 700;
+color: var(–wood);
+letter-spacing: 0.03em;
+line-height: 1;
+}
+
+.brand-sub {
+font-size: 0.5rem;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: var(–wood3);
+margin-top: 2px;
+}
+
+.top-actions { display: flex; gap: 8px; align-items: center; }
+
+.icon-btn {
+width: 32px; height: 32px;
+background: rgba(212,184,150,0.08);
+border: 1px solid rgba(212,184,150,0.15);
+border-radius: 6px;
+color: var(–wood);
+font-size: 0.9rem;
 cursor: pointer;
 display: flex;
 align-items: center;
 justify-content: center;
 transition: all 0.2s;
-margin-right: 8px;
 }
 
-.btn-refresh:hover { border-color: var(–gold); color: var(–gold); }
-.btn-refresh.spin { animation: spin 0.6s linear; }
+.icon-btn:hover { background: rgba(212,184,150,0.15); }
+.icon-btn.spin { animation: spin 0.6s linear; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.btn-logout {
+.btn-exit {
 background: none;
-border: 1px solid var(–d4);
+border: 1px solid rgba(212,184,150,0.2);
 color: var(–gray);
 font-family: ‘Jost’, sans-serif;
+font-size: 0.55rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+padding: 6px 12px;
+border-radius: 6px;
+cursor: pointer;
+transition: all 0.2s;
+}
+.btn-exit:hover { border-color: var(–red); color: var(–red); }
+
+/* DATE BAR */
+.date-bar {
+background: var(–black2);
+border-bottom: 1px solid var(–black3);
+padding: 12px 16px;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.arr-btn {
+width: 38px; height: 38px;
+background: var(–black3);
+border: 1px solid var(–black4);
+border-radius: 8px;
+color: var(–wood);
+font-size: 1.2rem;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+transition: background 0.2s;
+}
+.arr-btn:hover { background: rgba(212,184,150,0.1); border-color: rgba(212,184,150,0.2); }
+
+.date-mid { flex: 1; text-align: center; }
+
+.date-wd {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.2rem;
+font-weight: 700;
+color: var(–white);
+letter-spacing: 0.02em;
+}
+
+.date-str {
+font-size: 0.6rem;
+letter-spacing: 0.2em;
+color: var(–gray);
+text-transform: uppercase;
+margin-top: 2px;
+}
+
+.btn-oggi {
+background: var(–wood);
+color: var(–black);
+border: none;
+font-family: ‘Jost’, sans-serif;
 font-size: 0.58rem;
+font-weight: 600;
 letter-spacing: 0.2em;
 text-transform: uppercase;
 padding: 8px 14px;
 border-radius: 8px;
 cursor: pointer;
-transition: all 0.2s;
-}
-
-.btn-logout:hover { border-color: var(–red); color: var(–red); }
-
-/* DATE NAV */
-.date-bar {
-background: var(–d1);
-border-bottom: 1px solid rgba(255,255,255,0.04);
-padding: 14px 16px;
-display: flex;
-align-items: center;
-gap: 12px;
-}
-
-.date-arrow {
-width: 40px;
-height: 40px;
-background: var(–d2);
-border: 1px solid var(–d3);
-border-radius: 10px;
-color: var(–gold);
-font-size: 1.3rem;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: all 0.2s;
-flex-shrink: 0;
-}
-
-.date-arrow:hover { background: var(–gold3); border-color: rgba(201,168,76,0.3); }
-
-.date-center { flex: 1; text-align: center; }
-
-.date-weekday {
-font-family: ‘Playfair Display’, serif;
-font-size: 1.15rem;
-font-weight: 400;
-letter-spacing: 0.02em;
-}
-
-.date-full-str {
-font-size: 0.62rem;
-letter-spacing: 0.2em;
-color: var(–gray);
-margin-top: 3px;
-text-transform: uppercase;
-}
-
-.btn-today {
-background: var(–gold3);
-border: 1px solid rgba(201,168,76,0.2);
-color: var(–gold);
-font-family: ‘Jost’, sans-serif;
-font-size: 0.58rem;
-letter-spacing: 0.2em;
-text-transform: uppercase;
-padding: 8px 12px;
-border-radius: 8px;
-cursor: pointer;
+transition: background 0.2s;
 white-space: nowrap;
-transition: all 0.2s;
 }
-
-.btn-today:hover { background: rgba(201,168,76,0.2); }
+.btn-oggi:hover { background: var(–wood2); }
 
 /* STATS */
 .stats-row {
 display: grid;
 grid-template-columns: repeat(3, 1fr);
-gap: 8px;
-padding: 12px 16px;
-background: var(–d1);
-border-bottom: 1px solid rgba(255,255,255,0.04);
+gap: 0;
+background: var(–black);
+border-bottom: 2px solid var(–black3);
 }
 
-.stat-card {
-background: var(–d2);
-border: 1px solid var(–d3);
-border-radius: 10px;
-padding: 12px 10px;
+.stat-box {
+padding: 14px 8px;
 text-align: center;
+border-right: 1px solid var(–black3);
 position: relative;
-overflow: hidden;
 }
-
-.stat-card.gold { border-color: rgba(201,168,76,0.2); }
-.stat-card.green { border-color: rgba(61,220,132,0.2); }
-
-.stat-card::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 2px;
-}
-
-.stat-card.gold::before { background: linear-gradient(90deg, transparent, var(–gold), transparent); }
-.stat-card.green::before { background: linear-gradient(90deg, transparent, var(–green), transparent); }
+.stat-box:last-child { border-right: none; }
 
 .stat-n {
 font-family: ‘Playfair Display’, serif;
-font-size: 1.9rem;
-font-weight: 700;
+font-size: 2rem;
+font-weight: 900;
+color: var(–wood);
 line-height: 1;
 }
 
-.stat-card.gold .stat-n { color: var(–gold); }
-.stat-card.green .stat-n { color: var(–green); }
-.stat-card:not(.gold):not(.green) .stat-n { color: var(–white); }
+.stat-box.free .stat-n { color: var(–white); }
 
 .stat-lbl {
-font-size: 0.56rem;
+font-size: 0.52rem;
 letter-spacing: 0.2em;
 text-transform: uppercase;
 color: var(–gray);
@@ -422,298 +430,291 @@ margin-top: 4px;
 }
 
 /* TIMELINE */
-.timeline-wrap {
-padding: 16px;
+.tl-wrap {
+padding: 14px;
 padding-bottom: 100px;
+background: var(–cream);
 }
 
-.section-label {
-font-size: 0.6rem;
+.tl-head {
+font-size: 0.58rem;
 letter-spacing: 0.4em;
 text-transform: uppercase;
-color: var(–gold);
-margin-bottom: 10px;
+color: var(–wood3);
+font-weight: 600;
+margin-bottom: 8px;
 margin-top: 4px;
 display: flex;
 align-items: center;
 gap: 10px;
 }
-
-.section-label::after {
+.tl-head::after {
 content: ‘’;
 flex: 1;
 height: 1px;
-background: rgba(201,168,76,0.15);
+background: var(–wood3);
+opacity: 0.3;
 }
 
 .slot {
 display: flex;
-margin-bottom: 6px;
-border-radius: 10px;
+margin-bottom: 5px;
+border-radius: 8px;
 overflow: hidden;
-transition: transform 0.15s;
+box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
-.slot:active { transform: scale(0.99); }
-
-.slot-time {
-width: 58px;
-min-width: 58px;
+.slot-t {
+width: 54px;
+min-width: 54px;
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: 0.72rem;
-font-weight: 500;
-letter-spacing: 0.05em;
+font-size: 0.7rem;
+font-weight: 600;
+letter-spacing: 0.03em;
 }
 
-.slot.booked .slot-time {
-background: rgba(201,168,76,0.15);
-color: var(–gold);
-border-right: 2px solid var(–gold);
+.slot.booked .slot-t {
+background: var(–black);
+color: var(–wood);
+border-right: 3px solid var(–wood3);
 }
 
-.slot.free .slot-time {
-background: rgba(61,220,132,0.06);
-color: rgba(61,220,132,0.5);
-border-right: 2px solid rgba(61,220,132,0.2);
+.slot.free .slot-t {
+background: var(–black3);
+color: var(–gray2);
+border-right: 3px solid var(–black4);
 }
 
 .slot-body {
 flex: 1;
-padding: 12px 14px;
+padding: 11px 14px;
 display: flex;
 align-items: center;
 justify-content: space-between;
-min-height: 58px;
+min-height: 56px;
 }
 
 .slot.booked .slot-body {
-background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(201,168,76,0.03));
-border: 1px solid rgba(201,168,76,0.1);
-border-left: none;
-border-radius: 0 10px 10px 0;
+background: var(–white);
+border-top: 1px solid #E8D8C4;
+border-right: 1px solid #E8D8C4;
+border-bottom: 1px solid #E8D8C4;
 }
 
 .slot.free .slot-body {
-background: rgba(61,220,132,0.03);
-border: 1px solid rgba(61,220,132,0.06);
-border-left: none;
-border-radius: 0 10px 10px 0;
+background: #EEEBE7;
+border-top: 1px solid #DDD5C8;
+border-right: 1px solid #DDD5C8;
+border-bottom: 1px solid #DDD5C8;
 }
 
 .slot-name {
 font-size: 0.95rem;
-font-weight: 500;
-letter-spacing: 0.01em;
+font-weight: 600;
+color: var(–black);
 }
 
 .slot-service {
-font-size: 0.7rem;
-color: var(–gold);
+font-size: 0.68rem;
+color: var(–wood3);
 margin-top: 2px;
-letter-spacing: 0.03em;
+font-weight: 500;
 }
 
 .slot-tel {
-font-size: 0.65rem;
+font-size: 0.62rem;
 color: var(–gray);
-margin-top: 3px;
+margin-top: 2px;
 }
 
 .slot-free-lbl {
-font-size: 0.68rem;
-color: rgba(61,220,132,0.5);
+font-size: 0.65rem;
+color: var(–gray);
 letter-spacing: 0.1em;
+font-style: italic;
 }
 
-.slot-actions { display: flex; gap: 6px; }
+.slot-acts { display: flex; gap: 6px; }
 
-.action-btn {
-width: 34px;
-height: 34px;
-border-radius: 8px;
+.act-btn {
+width: 32px; height: 32px;
+border-radius: 6px;
 border: none;
 cursor: pointer;
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: 0.9rem;
-transition: all 0.2s;
+font-size: 0.85rem;
 text-decoration: none;
+transition: all 0.2s;
 flex-shrink: 0;
 }
 
-.action-btn.call {
-background: rgba(201,168,76,0.1);
-color: var(–gold);
-border: 1px solid rgba(201,168,76,0.2);
+.act-btn.call {
+background: rgba(0,0,0,0.06);
+color: var(–black2);
+border: 1px solid rgba(0,0,0,0.1);
 }
+.act-btn.call:hover { background: var(–black); color: var(–wood); }
 
-.action-btn.call:hover { background: rgba(201,168,76,0.2); }
-
-.action-btn.del {
-background: rgba(255,82,82,0.08);
-color: rgba(255,82,82,0.5);
-border: 1px solid rgba(255,82,82,0.1);
+.act-btn.del {
+background: rgba(192,57,43,0.07);
+color: rgba(192,57,43,0.5);
+border: 1px solid rgba(192,57,43,0.1);
 }
+.act-btn.del:hover { background: var(–red); color: var(–white); border-color: var(–red); }
 
-.action-btn.del:hover { background: rgba(255,82,82,0.15); color: var(–red); border-color: rgba(255,82,82,0.3); }
-
-.break-divider {
+.break-div {
 display: flex;
 align-items: center;
-gap: 12px;
-margin: 14px 0;
-color: var(–gray2);
-font-size: 0.58rem;
+gap: 10px;
+margin: 12px 0;
+font-size: 0.56rem;
 letter-spacing: 0.3em;
 text-transform: uppercase;
+color: var(–gray);
 }
-
-.break-divider::before,
-.break-divider::after {
-content: ‘’;
-flex: 1;
-height: 1px;
-background: var(–d3);
+.break-div::before, .break-div::after {
+content: ‘’; flex: 1;
+height: 1px; background: #D4C5B0;
 }
 
 /* CLOSED / EMPTY */
-.day-closed, .day-empty {
+.day-msg {
 text-align: center;
 padding: 60px 20px;
 }
-
-.day-closed .big-icon, .day-empty .big-icon {
-font-size: 3rem;
-margin-bottom: 16px;
-display: block;
-opacity: 0.4;
-}
-
-.day-closed p, .day-empty p {
-color: var(–gray);
-font-size: 0.8rem;
-letter-spacing: 0.15em;
+.day-msg .ico { font-size: 3rem; display: block; margin-bottom: 14px; opacity: 0.3; }
+.day-msg p {
+font-size: 0.75rem;
+letter-spacing: 0.2em;
 text-transform: uppercase;
+color: var(–gray);
 }
 
-/* LISTA SECTION */
+/* LISTA */
 #listaSection {
 display: none;
-padding: 16px;
+padding: 14px;
 padding-bottom: 100px;
+background: var(–cream);
 }
 
 .search-wrap {
 position: relative;
-margin-bottom: 14px;
+margin-bottom: 12px;
 }
 
 .search-wrap input {
 width: 100%;
-background: var(–d2);
-border: 1px solid var(–d3);
-border-radius: 10px;
-color: var(–white);
+background: var(–white);
+border: 1px solid #D4C5B0;
+border-radius: 8px;
+color: var(–black);
 font-family: ‘Jost’, sans-serif;
 font-size: 0.9rem;
-padding: 14px 16px 14px 44px;
+padding: 13px 16px 13px 42px;
 outline: none;
-transition: border-color 0.3s;
+transition: border-color 0.2s;
 }
+.search-wrap input:focus { border-color: var(–wood2); }
+.search-wrap input::placeholder { color: var(–gray); }
 
-.search-wrap input:focus { border-color: rgba(201,168,76,0.3); }
-.search-wrap input::placeholder { color: var(–gray2); }
-
-.search-icon {
+.search-ico {
 position: absolute;
-left: 14px;
-top: 50%;
+left: 14px; top: 50%;
 transform: translateY(-50%);
 color: var(–gray);
-font-size: 1rem;
+font-size: 0.95rem;
 pointer-events: none;
 }
 
 .pren-card {
-background: var(–d2);
-border: 1px solid var(–d3);
-border-radius: 12px;
-padding: 16px;
-margin-bottom: 8px;
+background: var(–white);
+border: 1px solid #E0D0BC;
+border-radius: 10px;
+padding: 14px 16px;
+margin-bottom: 7px;
 display: flex;
 align-items: center;
-gap: 14px;
-animation: slideIn 0.3s ease;
-transition: border-color 0.2s;
+gap: 12px;
+transition: border-color 0.2s, box-shadow 0.2s;
+box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
+.pren-card:hover { border-color: var(–wood2); box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
 
-.pren-card:hover { border-color: rgba(201,168,76,0.2); }
-
-@keyframes slideIn {
-from { opacity: 0; transform: translateY(8px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-.pren-avatar {
-width: 44px;
-height: 44px;
-min-width: 44px;
-background: var(–gold3);
-border: 1px solid rgba(201,168,76,0.2);
-border-radius: 12px;
+.pren-av {
+width: 42px; height: 42px;
+min-width: 42px;
+background: var(–black);
+border-radius: 10px;
 display: flex;
 align-items: center;
 justify-content: center;
 font-family: ‘Playfair Display’, serif;
 font-size: 1.1rem;
-color: var(–gold);
 font-weight: 700;
+color: var(–wood);
 }
 
 .pren-info { flex: 1; min-width: 0; }
 
 .pren-name {
 font-size: 0.95rem;
-font-weight: 500;
+font-weight: 600;
+color: var(–black);
 white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
 }
 
-.pren-service {
-font-size: 0.7rem;
-color: var(–gold);
+.pren-svc {
+font-size: 0.68rem;
+color: var(–wood3);
 margin-top: 2px;
+font-weight: 500;
 }
 
-.pren-meta {
+.pren-chips {
 display: flex;
-gap: 10px;
+gap: 6px;
 margin-top: 5px;
 }
 
-.pren-chip {
-font-size: 0.62rem;
-color: var(–gray);
-background: var(–d3);
+.chip {
+font-size: 0.6rem;
+color: var(–gray2);
+background: var(–cream);
+border: 1px solid #D4C5B0;
 padding: 3px 8px;
 border-radius: 20px;
-letter-spacing: 0.05em;
+letter-spacing: 0.03em;
 }
 
-.pren-actions { display: flex; gap: 6px; }
+.pren-acts { display: flex; gap: 6px; }
+
+/* SKELETON */
+.skel {
+background: linear-gradient(90deg, #E8DDD0 25%, #F0E6D8 50%, #E8DDD0 75%);
+background-size: 200% 100%;
+animation: shimmer 1.4s infinite;
+border-radius: 8px;
+height: 56px;
+margin-bottom: 5px;
+}
+@keyframes shimmer {
+0% { background-position: 200% 0; }
+100% { background-position: -200% 0; }
+}
 
 /* BOTTOM NAV */
-.bottom-nav {
+.bot-nav {
 position: fixed;
 bottom: 0; left: 0; right: 0;
-background: rgba(10,10,10,0.96);
-backdrop-filter: blur(24px);
--webkit-backdrop-filter: blur(24px);
-border-top: 1px solid rgba(255,255,255,0.06);
+background: var(–black);
+border-top: 2px solid var(–wood3);
 display: flex;
 padding-bottom: env(safe-area-inset-bottom);
 z-index: 150;
@@ -725,11 +726,11 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-padding: 11px 4px;
-gap: 5px;
+padding: 10px 4px;
+gap: 4px;
 cursor: pointer;
-color: var(–gray);
-font-size: 0.52rem;
+color: var(–gray2);
+font-size: 0.5rem;
 letter-spacing: 0.15em;
 text-transform: uppercase;
 background: none;
@@ -739,143 +740,128 @@ transition: color 0.2s;
 position: relative;
 }
 
-.nav-btn.active { color: var(–gold); }
+.nav-btn.active { color: var(–wood); }
 
-.nav-btn.active::before {
+.nav-btn.active::after {
 content: ‘’;
 position: absolute;
-top: 0; left: 25%; right: 25%;
+bottom: 0; left: 25%; right: 25%;
 height: 2px;
-background: var(–gold);
-border-radius: 0 0 2px 2px;
+background: var(–wood);
+border-radius: 2px 2px 0 0;
 }
 
-.nav-btn svg { width: 22px; height: 22px; stroke-width: 1.5; }
+.nav-btn svg { width: 21px; height: 21px; stroke-width: 1.5; }
 
 /* TOAST */
 .toast {
 position: fixed;
-bottom: 85px;
-left: 50%;
+bottom: 80px; left: 50%;
 transform: translateX(-50%) translateY(10px);
-background: var(–d3);
-border: 1px solid rgba(201,168,76,0.2);
-color: var(–white);
-padding: 12px 22px;
+background: var(–black);
+border: 1px solid var(–wood3);
+color: var(–wood);
+padding: 11px 22px;
 border-radius: 40px;
-font-size: 0.8rem;
+font-size: 0.78rem;
 letter-spacing: 0.05em;
 opacity: 0;
-transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
 z-index: 999;
 white-space: nowrap;
-box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-
-.toast.show {
-opacity: 1;
-transform: translateX(-50%) translateY(0);
-}
-
-/* LOADING */
-.skeleton {
-background: linear-gradient(90deg, var(–d2) 25%, var(–d3) 50%, var(–d2) 75%);
-background-size: 200% 100%;
-animation: shimmer 1.5s infinite;
-border-radius: 10px;
-height: 58px;
-margin-bottom: 6px;
-}
-
-@keyframes shimmer {
-0% { background-position: 200% 0; }
-100% { background-position: -200% 0; }
-}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 
 </head>
 <body>
 
-<!-- ══ LOGIN ══ -->
+<!-- LOGIN -->
 
 <div id="loginScreen">
-  <div class="login-bg"></div>
-  <div class="login-grid"></div>
+  <div class="wood-lines"></div>
+  <div class="login-glow"></div>
 
-  <div class="login-brand">
-    <span class="login-scissors">✂️</span>
-    <h1>Barber Life Simone</h1>
-    <p>Pannello Amministratore</p>
+  <div class="login-logo-wrap">
+    <div class="login-badge">
+      <span class="login-scissors">✂️</span>
+      <div class="login-title">
+        Barber Life
+        <span>Simone</span>
+      </div>
+      <div class="login-divider"><span>Agenda</span></div>
+    </div>
   </div>
 
   <div class="login-card">
-    <label class="field-label">Password di accesso</label>
-    <div class="field-wrap">
-      <input type="password" id="pwdInput" placeholder="••••••••" onkeydown="if(event.key==='Enter') doLogin()">
+    <label class="field-lbl">Password</label>
+    <div class="pwd-wrap">
+      <input type="password" id="pwdIn" placeholder="••••••••" onkeydown="if(event.key==='Enter') doLogin()">
       <button class="eye-btn" onclick="togglePwd()">👁</button>
     </div>
-    <button class="btn-login" onclick="doLogin()">Accedi al pannello</button>
+    <button class="btn-login" onclick="doLogin()">Accedi all'agenda</button>
     <p class="login-err" id="loginErr"></p>
   </div>
 </div>
 
-<!-- ══ ADMIN ══ -->
+<!-- ADMIN -->
 
 <div id="adminPanel">
 
   <div class="top-bar">
-    <div class="top-bar-left">
-      <div class="top-bar-icon">✂️</div>
+    <div class="top-bar-brand">
+      <div class="brand-icon">✂️</div>
       <div>
-        <h1>Admin Panel</h1>
-        <div class="top-bar-sub" id="topDate"></div>
+        <div class="brand-text">Agenda Barber Life</div>
+        <div class="brand-sub" id="topDate"></div>
       </div>
     </div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button class="btn-refresh" id="refreshBtn" onclick="refreshData()" title="Aggiorna">↻</button>
-      <button class="btn-logout" onclick="doLogout()">Esci</button>
+    <div class="top-actions">
+      <button class="icon-btn" id="refBtn" onclick="doRefresh()" title="Aggiorna">↻</button>
+      <button class="btn-exit" onclick="doLogout()">Esci</button>
     </div>
   </div>
 
   <!-- CALENDARIO -->
 
-  <div id="calSection">
+  <div id="calSec">
     <div class="date-bar">
-      <button class="date-arrow" onclick="changeDay(-1)">‹</button>
-      <div class="date-center">
-        <div class="date-weekday" id="wkDay"></div>
-        <div class="date-full-str" id="fullDate"></div>
+      <button class="arr-btn" onclick="changeDay(-1)">‹</button>
+      <div class="date-mid">
+        <div class="date-wd" id="wkDay"></div>
+        <div class="date-str" id="dateStr"></div>
       </div>
-      <button class="btn-today" onclick="goToday()">Oggi</button>
-      <button class="date-arrow" onclick="changeDay(1)">›</button>
+      <button class="btn-oggi" onclick="goToday()">Oggi</button>
+      <button class="arr-btn" onclick="changeDay(1)">›</button>
     </div>
 
 ```
 <div class="stats-row">
-  <div class="stat-card gold">
+  <div class="stat-box">
     <div class="stat-n" id="sOcc">—</div>
     <div class="stat-lbl">Occupati</div>
   </div>
-  <div class="stat-card green">
+  <div class="stat-box free">
     <div class="stat-n" id="sLib">—</div>
     <div class="stat-lbl">Liberi</div>
   </div>
-  <div class="stat-card">
+  <div class="stat-box">
     <div class="stat-n" id="sTot">—</div>
-    <div class="stat-lbl">Tot. slot</div>
+    <div class="stat-lbl">Totale</div>
   </div>
 </div>
 
-<div class="timeline-wrap" id="timeline"></div>
+<div class="tl-wrap" id="timeline"></div>
 ```
 
   </div>
 
   <!-- LISTA -->
 
-  <div id="listaSection">
+  <div id="listaSec">
     <div class="search-wrap">
-      <span class="search-icon">🔍</span>
+      <span class="search-ico">🔍</span>
       <input type="text" id="searchQ" placeholder="Cerca nome o telefono…" oninput="renderLista()">
     </div>
     <div id="listaCards"></div>
@@ -885,7 +871,7 @@ margin-bottom: 6px;
 
 <!-- BOTTOM NAV -->
 
-<nav class="bottom-nav" id="bottomNav" style="display:none">
+<nav class="bot-nav" id="botNav" style="display:none">
   <button class="nav-btn active" id="nb-cal" onclick="showTab('cal')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
     Calendario
@@ -899,263 +885,201 @@ margin-bottom: 6px;
 <div class="toast" id="toast"></div>
 
 <script>
-/* ── CONFIG ── */
 const API_KEY    = "AIzaSyA-v4UrLIZPJGrq4_Mwc12XJlGHM26RLpA";
 const PROJECT_ID = "barber-life-simone";
 const DB_NAME    = "prenotazioni";
 const COLLECTION = "Prenotazione";
-const PASSWORD   = "barber2024"; // ← CAMBIA QUI LA TUA PASSWORD
+const PASSWORD   = "barber2024"; // ← CAMBIA QUI
 
-/* ── SLOT ── */
-function buildSlots(h1, m1, h2, m2) {
-  const s = [];
-  let h = h1, m = m1;
-  while (h < h2 || (h === h2 && m <= m2)) {
+function buildSlots(h1,m1,h2,m2) {
+  const s=[]; let h=h1,m=m1;
+  while(h<h2||(h===h2&&m<=m2)){
     s.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
-    m += 30; if (m >= 60) { m = 0; h++; }
+    m+=30; if(m>=60){m=0;h++;}
   }
   return s;
 }
 const MATTINA    = buildSlots(9,30,12,30);
 const POMERIGGIO = buildSlots(15,30,19,30);
-const ALL_SLOTS  = [...MATTINA, ...POMERIGGIO];
+const ALL_SLOTS  = [...MATTINA,...POMERIGGIO];
 
-/* ── STATE ── */
-let currentDate = new Date();
+let curDate = new Date();
 let allPren = [];
 
-/* ── AUTH ── */
-function doLogin() {
-  const v = document.getElementById('pwdInput').value;
-  if (v === PASSWORD) {
-    sessionStorage.setItem('bl_admin','1');
+/* AUTH */
+function doLogin(){
+  const v = document.getElementById('pwdIn').value;
+  if(v===PASSWORD){
+    sessionStorage.setItem('bl_ok','1');
     showPanel();
   } else {
-    const err = document.getElementById('loginErr');
-    err.textContent = 'Password errata, riprova';
-    document.getElementById('pwdInput').value = '';
-    document.getElementById('pwdInput').style.borderColor = 'var(--red)';
-    setTimeout(() => {
-      document.getElementById('pwdInput').style.borderColor = '';
-      err.textContent = '';
-    }, 2000);
+    const e=document.getElementById('loginErr');
+    e.textContent='Password errata';
+    document.getElementById('pwdIn').value='';
+    document.getElementById('pwdIn').style.borderColor='#C0392B';
+    setTimeout(()=>{ document.getElementById('pwdIn').style.borderColor=''; e.textContent=''; },2000);
   }
 }
 
-function doLogout() {
-  sessionStorage.removeItem('bl_admin');
-  location.reload();
-}
+function doLogout(){ sessionStorage.removeItem('bl_ok'); location.reload(); }
+function togglePwd(){ const i=document.getElementById('pwdIn'); i.type=i.type==='password'?'text':'password'; }
 
-function togglePwd() {
-  const i = document.getElementById('pwdInput');
-  i.type = i.type === 'password' ? 'text' : 'password';
-}
-
-function showPanel() {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('adminPanel').style.display = 'block';
-  document.getElementById('bottomNav').style.display = 'flex';
+function showPanel(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('adminPanel').style.display='block';
+  document.getElementById('botNav').style.display='flex';
   init();
 }
 
-/* ── INIT ── */
-function init() {
-  updateDateUI();
-  loadData();
+/* INIT */
+function init(){ updateDateUI(); loadData(); }
+
+/* DATE */
+const GG=['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+const MM=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+
+function updateDateUI(){
+  const d=curDate;
+  document.getElementById('wkDay').textContent=GG[d.getDay()];
+  document.getElementById('dateStr').textContent=`${d.getDate()} ${MM[d.getMonth()]} ${d.getFullYear()}`;
+  document.getElementById('topDate').textContent=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
 }
 
-/* ── DATE ── */
-const GIORNI = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
-const MESI   = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+function changeDay(d){ curDate.setDate(curDate.getDate()+d); updateDateUI(); renderTimeline(); }
+function goToday(){ curDate=new Date(); updateDateUI(); renderTimeline(); }
+function ds(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 
-function updateDateUI() {
-  const d = currentDate;
-  document.getElementById('wkDay').textContent   = GIORNI[d.getDay()];
-  document.getElementById('fullDate').textContent = `${d.getDate()} ${MESI[d.getMonth()]} ${d.getFullYear()}`;
-  document.getElementById('topDate').textContent  = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
-}
-
-function changeDay(delta) {
-  currentDate.setDate(currentDate.getDate() + delta);
-  updateDateUI();
-  renderTimeline();
-}
-
-function goToday() {
-  currentDate = new Date();
-  updateDateUI();
-  renderTimeline();
-}
-
-function dateStr(d) {
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-
-/* ── LOAD ── */
-async function loadData() {
-  showSkeletons();
-  try {
-    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}?key=${API_KEY}&pageSize=500`;
-    const res  = await fetch(url);
-    const data = await res.json();
-    allPren = (data.documents || []).map(doc => {
-      const f = doc.fields || {};
-      return {
-        id:       doc.name.split('/').pop(),
-        nome:     f.nome?.stringValue     || '',
-        telefono: f.telefono?.stringValue || '',
-        servizio: f.servizio?.stringValue || '',
-        data:     f.data?.stringValue     || '',
-        ora:      f.ora?.stringValue      || '',
-      };
+/* LOAD */
+async function loadData(){
+  showSkel();
+  try{
+    const url=`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}?key=${API_KEY}&pageSize=500`;
+    const res=await fetch(url);
+    const data=await res.json();
+    allPren=(data.documents||[]).map(doc=>{
+      const f=doc.fields||{};
+      return { id:doc.name.split('/').pop(), nome:f.nome?.stringValue||'', telefono:f.telefono?.stringValue||'', servizio:f.servizio?.stringValue||'', data:f.data?.stringValue||'', ora:f.ora?.stringValue||'' };
     });
-    renderTimeline();
-    renderLista();
-  } catch(e) {
-    document.getElementById('timeline').innerHTML = '<div class="day-empty"><span class="big-icon">⚠️</span><p>Errore di rete</p></div>';
+    renderTimeline(); renderLista();
+  } catch(e){
+    document.getElementById('timeline').innerHTML='<div class="day-msg"><span class="ico">⚠️</span><p>Errore di rete</p></div>';
   }
 }
 
-async function refreshData() {
-  const btn = document.getElementById('refreshBtn');
-  btn.classList.add('spin');
+async function doRefresh(){
+  const b=document.getElementById('refBtn');
+  b.classList.add('spin');
   await loadData();
-  setTimeout(() => btn.classList.remove('spin'), 600);
+  setTimeout(()=>b.classList.remove('spin'),600);
   showToast('✅ Aggiornato');
 }
 
-function showSkeletons() {
-  document.getElementById('timeline').innerHTML = Array(6).fill('<div class="skeleton"></div>').join('');
+function showSkel(){
+  document.getElementById('timeline').innerHTML=Array(7).fill('<div class="skel"></div>').join('');
 }
 
-/* ── TIMELINE ── */
-function renderTimeline() {
-  const ds  = dateStr(currentDate);
-  const dow = currentDate.getDay();
-  const tl  = document.getElementById('timeline');
-
-  if (dow === 0 || dow === 1) {
-    tl.innerHTML = '<div class="day-closed"><span class="big-icon">🔒</span><p>Negozio chiuso</p></div>';
-    document.getElementById('sOcc').textContent = '—';
-    document.getElementById('sLib').textContent = '—';
-    document.getElementById('sTot').textContent = '—';
+/* TIMELINE */
+function renderTimeline(){
+  const d=ds(curDate), dow=curDate.getDay(), tl=document.getElementById('timeline');
+  if(dow===0||dow===1){
+    tl.innerHTML='<div class="day-msg"><span class="ico">🔒</span><p>Negozio chiuso</p></div>';
+    ['sOcc','sLib','sTot'].forEach(id=>document.getElementById(id).textContent='—');
     return;
   }
+  const dp=allPren.filter(p=>p.data===d);
+  document.getElementById('sOcc').textContent=dp.length;
+  document.getElementById('sLib').textContent=ALL_SLOTS.length-dp.length;
+  document.getElementById('sTot').textContent=ALL_SLOTS.length;
 
-  const dayPren = allPren.filter(p => p.data === ds);
-  document.getElementById('sOcc').textContent = dayPren.length;
-  document.getElementById('sLib').textContent = ALL_SLOTS.length - dayPren.length;
-  document.getElementById('sTot').textContent = ALL_SLOTS.length;
-
-  let html = `<div class="section-label">Mattina</div>`;
-  MATTINA.forEach(s => html += slotHTML(s, dayPren));
-  html += `<div class="break-divider">Pausa pranzo</div>`;
-  html += `<div class="section-label">Pomeriggio</div>`;
-  POMERIGGIO.forEach(s => html += slotHTML(s, dayPren));
-
-  tl.innerHTML = html;
+  let html=`<div class="tl-head">Mattina</div>`;
+  MATTINA.forEach(s=>html+=slotHTML(s,dp));
+  html+=`<div class="break-div">Pausa pranzo</div><div class="tl-head">Pomeriggio</div>`;
+  POMERIGGIO.forEach(s=>html+=slotHTML(s,dp));
+  tl.innerHTML=html;
 }
 
-function slotHTML(time, dayPren) {
-  const p = dayPren.find(x => x.ora === time);
-  if (p) {
-    return `
-    <div class="slot booked">
-      <div class="slot-time">${time}</div>
-      <div class="slot-body">
-        <div>
-          <div class="slot-name">${p.nome}</div>
-          <div class="slot-service">${p.servizio}</div>
-          <div class="slot-tel">${p.telefono}</div>
-        </div>
-        <div class="slot-actions">
-          <a class="action-btn call" href="tel:${p.telefono}">📞</a>
-          <button class="action-btn del" onclick="deletePren('${p.id}')">✕</button>
-        </div>
+function slotHTML(time,dp){
+  const p=dp.find(x=>x.ora===time);
+  if(p) return `
+  <div class="slot booked">
+    <div class="slot-t">${time}</div>
+    <div class="slot-body">
+      <div>
+        <div class="slot-name">${p.nome}</div>
+        <div class="slot-service">${p.servizio}</div>
+        <div class="slot-tel">${p.telefono}</div>
       </div>
-    </div>`;
-  }
+      <div class="slot-acts">
+        <a class="act-btn call" href="tel:${p.telefono}">📞</a>
+        <button class="act-btn del" onclick="deletePren('${p.id}')">✕</button>
+      </div>
+    </div>
+  </div>`;
   return `
   <div class="slot free">
-    <div class="slot-time">${time}</div>
-    <div class="slot-body">
-      <span class="slot-free-lbl">Disponibile</span>
-    </div>
+    <div class="slot-t">${time}</div>
+    <div class="slot-body"><span class="slot-free-lbl">Libero</span></div>
   </div>`;
 }
 
-/* ── LISTA ── */
-function renderLista() {
-  const q     = (document.getElementById('searchQ')?.value || '').toLowerCase();
-  const cards = document.getElementById('listaCards');
-  let list    = [...allPren].sort((a,b) => a.data !== b.data ? a.data.localeCompare(b.data) : a.ora.localeCompare(b.ora));
-  if (q) list = list.filter(p => p.nome.toLowerCase().includes(q) || p.telefono.includes(q));
-
-  if (!list.length) {
-    cards.innerHTML = '<div class="day-empty"><span class="big-icon">📋</span><p>Nessuna prenotazione</p></div>';
-    return;
-  }
-
-  cards.innerHTML = list.map(p => {
-    const avatar = p.nome ? p.nome.charAt(0).toUpperCase() : '?';
-    const dataF  = p.data ? p.data.split('-').reverse().join('/') : '—';
+/* LISTA */
+function renderLista(){
+  const q=(document.getElementById('searchQ')?.value||'').toLowerCase();
+  const cards=document.getElementById('listaCards');
+  let list=[...allPren].sort((a,b)=>a.data!==b.data?a.data.localeCompare(b.data):a.ora.localeCompare(b.ora));
+  if(q) list=list.filter(p=>p.nome.toLowerCase().includes(q)||p.telefono.includes(q));
+  if(!list.length){ cards.innerHTML='<div class="day-msg"><span class="ico">📋</span><p>Nessuna prenotazione</p></div>'; return; }
+  cards.innerHTML=list.map(p=>{
+    const av=p.nome?p.nome.charAt(0).toUpperCase():'?';
+    const df=p.data?p.data.split('-').reverse().join('/'):'—';
     return `
     <div class="pren-card">
-      <div class="pren-avatar">${avatar}</div>
+      <div class="pren-av">${av}</div>
       <div class="pren-info">
         <div class="pren-name">${p.nome}</div>
-        <div class="pren-service">${p.servizio}</div>
-        <div class="pren-meta">
-          <span class="pren-chip">📅 ${dataF}</span>
-          <span class="pren-chip">⏰ ${p.ora}</span>
+        <div class="pren-svc">${p.servizio}</div>
+        <div class="pren-chips">
+          <span class="chip">📅 ${df}</span>
+          <span class="chip">⏰ ${p.ora}</span>
         </div>
       </div>
-      <div class="pren-actions">
-        <a class="action-btn call" href="tel:${p.telefono}">📞</a>
-        <button class="action-btn del" onclick="deletePren('${p.id}')">✕</button>
+      <div class="pren-acts">
+        <a class="act-btn call" href="tel:${p.telefono}">📞</a>
+        <button class="act-btn del" onclick="deletePren('${p.id}')">✕</button>
       </div>
     </div>`;
   }).join('');
 }
 
-/* ── DELETE ── */
-async function deletePren(id) {
-  if (!confirm('Eliminare questa prenotazione?')) return;
-  try {
-    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}/${id}?key=${API_KEY}`;
-    await fetch(url, { method: 'DELETE' });
-    allPren = allPren.filter(p => p.id !== id);
-    renderTimeline();
-    renderLista();
+/* DELETE */
+async function deletePren(id){
+  if(!confirm('Eliminare questa prenotazione?')) return;
+  try{
+    await fetch(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}/${id}?key=${API_KEY}`,{method:'DELETE'});
+    allPren=allPren.filter(p=>p.id!==id);
+    renderTimeline(); renderLista();
     showToast('✅ Prenotazione eliminata');
-  } catch(e) { showToast('❌ Errore'); }
+  } catch(e){ showToast('❌ Errore'); }
 }
 
-/* ── TABS ── */
-function showTab(tab) {
-  document.getElementById('calSection').style.display   = tab === 'cal'   ? 'block' : 'none';
-  document.getElementById('listaSection').style.display = tab === 'lista' ? 'block' : 'none';
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('nb-' + tab).classList.add('active');
+/* TABS */
+function showTab(tab){
+  document.getElementById('calSec').style.display   = tab==='cal'   ? 'block':'none';
+  document.getElementById('listaSec').style.display = tab==='lista' ? 'block':'none';
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('nb-'+tab).classList.add('active');
 }
 
-/* ── TOAST ── */
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+/* TOAST */
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-/* ── BOOT ── */
-window.addEventListener('load', () => {
-  if (sessionStorage.getItem('bl_admin') === '1') showPanel();
-});
-
-setInterval(() => {
-  if (sessionStorage.getItem('bl_admin') === '1') loadData();
-}, 60000);
+/* BOOT */
+window.addEventListener('load',()=>{ if(sessionStorage.getItem('bl_ok')==='1') showPanel(); });
+setInterval(()=>{ if(sessionStorage.getItem('bl_ok')==='1') loadData(); },60000);
 </script>
 
 </body>
