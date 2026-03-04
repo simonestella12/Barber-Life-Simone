@@ -120,21 +120,10 @@
 
 </main>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA-v4UrLIZPJGrq4_Mwc12XJlGHM26RLpA",
-  authDomain: "barber-life-simone.firebaseapp.com",
-  projectId: "barber-life-simone",
-  storageBucket: "barber-life-simone.firebasestorage.app",
-  messagingSenderId: "1017187146409",
-  appId: "1:1017187146409:web:4b91d3f3b6023f07e267b8"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+<script>
+const API_KEY = "AIzaSyA-v4UrLIZPJGrq4_Mwc12XJlGHM26RLpA";
+const PROJECT_ID = "barber-life-simone";
+const COLLECTION = "Prenotazione";
 
 window.toggleMenu = () => {
   document.getElementById("menu").classList.toggle("open");
@@ -157,42 +146,33 @@ const msg = document.getElementById("msg");
 
 function generaOrari() {
   timeSelect.innerHTML = "<option value=''>Seleziona orario</option>";
-
   function add(h1, m1, h2, m2) {
-    let h = h1;
-    let m = m1;
-
+    let h = h1, m = m1;
     while (h < h2 || (h === h2 && m <= m2)) {
       const hh = String(h).padStart(2, '0');
       const mm = String(m).padStart(2, '0');
-
       const opt = document.createElement("option");
       opt.value = hh + ":" + mm;
       opt.textContent = hh + ":" + mm;
       timeSelect.appendChild(opt);
-
       m += 30;
       if (m >= 60) { m = 0; h++; }
     }
   }
-
   add(9, 30, 12, 30);
   add(15, 30, 19, 30);
 }
 
 dateInput.addEventListener("change", () => {
   if (!dateInput.value) return;
-
   const d = new Date(dateInput.value);
   const day = d.getDay();
-
   if (day === 0 || day === 1) {
     alert("Il negozio è chiuso domenica e lunedì");
     dateInput.value = "";
     timeSelect.innerHTML = "<option value=''>Prima scegli la data</option>";
     return;
   }
-
   generaOrari();
 });
 
@@ -212,17 +192,30 @@ form.addEventListener("submit", async e => {
 
   msg.textContent = "Invio in corso...";
 
-  const timeout = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error("Timeout: nessuna risposta da Firestore")), 10000)
-  );
+  const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/${COLLECTION}?key=${API_KEY}`;
+
+  const body = {
+    fields: {
+      nome:     { stringValue: nome },
+      telefono: { stringValue: telefono },
+      servizio: { stringValue: servizio },
+      data:     { stringValue: data },
+      ora:      { stringValue: ora },
+      creatoIl: { timestampValue: new Date().toISOString() }
+    }
+  };
 
   try {
-    await Promise.race([
-      addDoc(collection(db, "Prenotazione"), {
-        nome, telefono, servizio, data, ora, creatoIl: new Date()
-      }),
-      timeout
-    ]);
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || "Errore sconosciuto");
+    }
 
     msg.textContent = "✅ Prenotazione inviata!";
     form.reset();
@@ -231,11 +224,6 @@ form.addEventListener("submit", async e => {
   } catch (error) {
     msg.textContent = "❌ Errore: " + error.message;
   }
-});
-</script>
-
-</body>
-</html>
 });
 </script>
 
