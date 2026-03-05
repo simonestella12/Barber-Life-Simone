@@ -700,7 +700,7 @@ async function caricaMiePrenotazioni() {
         orderBy: [{ field: { fieldPath:"data" }, direction:"DESCENDING" }, { field: { fieldPath:"ora" }, direction:"DESCENDING" }]
       }
     };
-    const res  = await fetch(url, { method:"POST", headers:{"Content-Type":"application/json","Authorization":"Bearer "+currentUser.idToken}, body:JSON.stringify(body) });
+    const res  = await fetch(url, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
     const data = await res.json();
 
     const prenotazioni = data
@@ -741,7 +741,7 @@ async function cancellaPrenotazione(id) {
   if(!confirm("Vuoi cancellare questa prenotazione?")) return;
   try {
     const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}/${id}?key=${API_KEY}`;
-    await fetch(url, { method:"DELETE", headers:{"Authorization":"Bearer "+currentUser.idToken} });
+    await fetch(url, { method:"DELETE" });
     caricaMiePrenotazioni();
   } catch(e) { alert("Errore durante la cancellazione"); }
 }
@@ -781,7 +781,7 @@ async function salvaModifica() {
     const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}/${id}?key=${API_KEY}&updateMask.fieldPaths=servizio&updateMask.fieldPaths=data&updateMask.fieldPaths=ora`;
     const res = await fetch(url, {
       method:"PATCH",
-      headers:{"Content-Type":"application/json","Authorization":"Bearer "+currentUser.idToken},
+      headers:{"Content-Type":"application/json"},
       body: JSON.stringify({ fields: { servizio:{stringValue:servizio}, data:{stringValue:data}, ora:{stringValue:ora} } })
     });
     if(!res.ok) throw new Error("Errore");
