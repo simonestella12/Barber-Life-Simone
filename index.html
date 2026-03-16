@@ -267,6 +267,8 @@ border-radius: 8px; font-size: 0.95rem; outline: none; box-sizing: border-box;
 .btn-annulla { background: #f0f0f0; color: #666; }
 </style>
 
+<script src="https://js.stripe.com/v3/"></script>
+
 </head>
 
 <body>
@@ -338,9 +340,33 @@ border-radius: 8px; font-size: 0.95rem; outline: none; box-sizing: border-box;
 <option value="">Prima scegli la data</option>
 </select>
 
-<button type="submit">PRENOTA APPUNTAMENTO</button>
+<button type="submit" id="btnPrenota">PRENOTA APPUNTAMENTO</button>
 
 </form>
+
+<div id="loginRequired" style="display:none; background:#fff8f0; border:1px solid #e0ceb8; border-radius:10px; padding:16px; margin-top:12px; text-align:center;">
+  <p style="color:#B8956A; font-weight:600; margin-bottom:10px;">⚠️ Devi registrarti per prenotare</p>
+  <button class="auth-btn" style="width:auto;padding:10px 24px;margin-right:8px;" onclick="apriAuth('login')">Accedi</button>
+  <button class="auth-btn" style="width:auto;padding:10px 24px;background:#111;" onclick="apriAuth('registrati')">Registrati</button>
+</div>
+
+<!-- CAPARRA BOX -->
+
+<div id="caparraBox" style="display:none; background:#fff8f0; border:1px solid #e0ceb8; border-radius:12px; padding:18px; margin-top:14px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+    <div>
+      <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.15em; color:#B8956A; font-weight:700;">Caparra richiesta</div>
+      <div style="font-size:1.6rem; font-weight:900; color:#111;" id="caparraImporto">€0</div>
+      <div style="font-size:0.72rem; color:#888;" id="caparraDesc">50% di €0 — resto in salone</div>
+    </div>
+    <div style="font-size:2rem;">💳</div>
+  </div>
+  <div id="cardElement" style="background:#fff; border:1px solid #ddd; border-radius:8px; padding:14px;"></div>
+  <p id="cardError" style="color:#c0392b; font-size:0.78rem; margin-top:8px; min-height:16px;"></p>
+  <button id="btnPaga" onclick="processaPagamento()" style="width:100%; margin-top:14px; padding:16px; background:#B8956A; color:#fff; border:none; border-radius:8px; font-family:inherit; font-size:0.8rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; cursor:pointer;">
+    PAGA E PRENOTA
+  </button>
+</div>
 
 <p id="msg"></p>
 
@@ -531,6 +557,10 @@ dateInput.addEventListener("change", () => {
 ══════════════════════ */
 form.addEventListener("submit", async e => {
   e.preventDefault();
+
+  // Registrazione obbligatoria
+  if(!currentUser){ apriAuth('login'); return; }
+
   const nome     = document.getElementById("nome").value.trim();
   const telefono = document.getElementById("telefono").value.trim();
   const servizio = document.getElementById("servizio").value;
@@ -539,30 +569,119 @@ form.addEventListener("submit", async e => {
 
   if(!nome||!telefono||!servizio||!data||!ora){ alert("Compila tutti i campi"); return; }
 
-  msg.textContent = "Invio in corso...";
+  const prezzo = PREZZI[servizio];
+  if(!prezzo){ alert("Servizio non valido"); return; }
 
-  const fields = {
-    nome:     { stringValue: nome },
-    telefono: { stringValue: telefono },
-    servizio: { stringValue: servizio },
-    data:     { stringValue: data },
-    ora:      { stringValue: ora },
-    creatoIl: { timestampValue: new Date().toISOString() }
-  };
+  const caparra = Math.round(prezzo / 2 * 100) / 100;
+  document.getElementById('caparraImporto').textContent = `€${caparra.toFixed(2)}`;
+  document.getElementById('caparraDesc').textContent = `50% di €${prezzo} — resto €${(prezzo-caparra).toFixed(2)} in salone`;
 
-  // Se loggato salva userId
-  if(currentUser) fields.userId = { stringValue: currentUser.uid };
+  // Salva dati in attesa del pagamento
+  pendingBooking = { nome, telefono, servizio, data, ora };
 
+  // Mostra box pagamento
+  document.getElementById('caparraBox').style.display = 'block';
+  document.getElementById('btnPrenota').style.display = 'none';
+  document.getElementById('caparraBox').scrollIntoView({ behavior:'smooth' });
+
+  // Init Stripe
+  initStripe();
+
+  // Crea PaymentIntent
   try {
-    const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}?key=${API_KEY}`;
-    const res = await fetch(url, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({fields}) });
-    if(!res.ok) throw new Error((await res.json()).error?.message||"Errore");
-    msg.textContent = "✅ Prenotazione inviata!";
-    form.reset();
-    timeSelect.innerHTML = "<option value=''>Prima scegli la data</option>";
-    if(currentUser) caricaMiePrenotazioni();
-  } catch(err) { msg.textContent = "❌ Errore: " + err.message; }
+    const res = await fetch('/api/crea-pagamento', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ servizio, importoTotale: prezzo, nome, email: currentUser.email })
+    });
+    const data2 = await res.json();
+    if(!res.ok) throw new Error(data2.error);
+    clientSecret = data2.clientSecret;
+  } catch(err) {
+    document.getElementById('cardError').textContent = '❌ Errore: ' + err.message;
+  }
 });
+
+async function processaPagamento() {
+  if(!clientSecret || !cardElement) return;
+  const btn = document.getElementById('btnPaga');
+  btn.textContent = 'Elaborazione...'; btn.disabled = true;
+
+  const { paymentIntent, error } = await stripeInstance.confirmCardPayment(clientSecret, {
+    payment_method: { card: cardElement, billing_details: { name: pendingBooking.nome, email: currentUser.email } }
+  });
+
+  if(error) {
+    document.getElementById('cardError').textContent = error.message;
+    btn.textContent = 'PAGA E PRENOTA'; btn.disabled = false;
+    return;
+  }
+
+  if(paymentIntent.status === 'succeeded') {
+    // Salva prenotazione su Firestore
+    const fields = {
+      nome:      { stringValue: pendingBooking.nome },
+      telefono:  { stringValue: pendingBooking.telefono },
+      servizio:  { stringValue: pendingBooking.servizio },
+      data:      { stringValue: pendingBooking.data },
+      ora:       { stringValue: pendingBooking.ora },
+      userId:    { stringValue: currentUser.uid },
+      pagato:    { booleanValue: true },
+      paymentId: { stringValue: paymentIntent.id },
+      creatoIl:  { timestampValue: new Date().toISOString() }
+    };
+    try {
+      const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/${DB_NAME}/documents/${COLLECTION}?key=${API_KEY}`;
+      await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({fields}) });
+      msg.textContent = '✅ Pagamento effettuato e prenotazione confermata!';
+      msg.style.color = '#27ae60';
+      document.getElementById('caparraBox').style.display = 'none';
+      document.getElementById('btnPrenota').style.display = '';
+      form.reset();
+      timeSelect.innerHTML = "<option value=''>Prima scegli la data</option>";
+      clientSecret = null; pendingBooking = null;
+      caricaMiePrenotazioni();
+    } catch(err) {
+      msg.textContent = '⚠️ Pagamento ok ma errore salvataggio — contattaci!';
+    }
+  }
+}
+
+
+/* PREZZI SERVIZI */
+const PREZZI = {
+  "Taglio €14": 14,
+  "Taglio Baby €10": 10,
+  "Barba €5": 5,
+  "Barba sfumata €5": 5,
+  "Taglio + Barba + Shampoo €20": 20,
+  "Shampoo €3": 3,
+  "Basette e collo €3": 3,
+  "Sopracciglia €3": 3,
+  "Pettinata + Shampoo €5": 5,
+  "Sfumatura lato da €10": 10,
+  "Trattamento lisciante da €15": 15,
+  "Trattamenti da €10": 10
+};
+
+const STRIPE_PK = "pk_live_51TBJ6L11Mhn4pDmv9Y2R04AZTqMhiUZ25lEZ5NIhwi5BC4007F3rIr6J57RkNsbDw18ijg9eYVVSfG3lSzvK7ol200cBZEa36v";
+let stripeInstance = null;
+let cardElement = null;
+let clientSecret = null;
+let pendingBooking = null;
+
+function initStripe() {
+  if(stripeInstance) return;
+  stripeInstance = Stripe(STRIPE_PK);
+  const elements = stripeInstance.elements();
+  cardElement = elements.create('card', {
+    style: { base: { fontSize: '16px', color: '#111', fontFamily: 'Jost, sans-serif' } }
+  });
+  cardElement.mount('#cardElement');
+  cardElement.on('change', e => {
+    document.getElementById('cardError').textContent = e.error ? e.error.message : '';
+  });
+}
 
 /* ══════════════════════
    AUTH
@@ -661,14 +780,16 @@ async function setCurrentUser(idToken, uid) {
 
 function aggiornaUI() {
   const loggato = !!currentUser;
-  document.getElementById("btnAccedi").style.display    = loggato ? "none" : "";
+  document.getElementById("btnAccedi").style.display     = loggato ? "none" : "";
   document.getElementById("btnRegistrati").style.display = loggato ? "none" : "";
-  document.getElementById("btnLogout").style.display    = loggato ? "" : "none";
+  document.getElementById("btnLogout").style.display     = loggato ? "" : "none";
   document.getElementById("miePrenSection").style.display = loggato ? "block" : "none";
+  document.getElementById("loginRequired").style.display  = loggato ? "none" : "block";
+  document.getElementById("btnPrenota").style.display     = loggato ? "" : "none";
   if(loggato) {
     document.getElementById("benvenutoTxt").innerHTML = `Ciao, <strong>${currentUser.nome||currentUser.email}</strong> 👋`;
   } else {
-    document.getElementById("benvenutoTxt").textContent = "Ciao! Accedi per prenotare più velocemente";
+    document.getElementById("benvenutoTxt").textContent = "Registrati per prenotare il tuo appuntamento!";
   }
 }
 
