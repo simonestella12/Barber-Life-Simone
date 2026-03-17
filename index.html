@@ -544,13 +544,32 @@ function generaOrari(sel) {
 
 dateInput.addEventListener("change", () => {
   if(!dateInput.value) return;
-  const day = new Date(dateInput.value).getDay();
+  // Fix timezone Safari: aggiungi T12:00 per evitare scorrimento al giorno precedente
+  const parts = dateInput.value.split('-');
+  const d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+  const day = d.getDay();
   if(day===0||day===1){
-    alert("Il negozio è chiuso domenica e lunedì");
-    dateInput.value=""; timeSelect.innerHTML="<option value=''>Prima scegli la data</option>"; return;
+    setTimeout(() => {
+      dateInput.value="";
+      timeSelect.innerHTML="<option value=''>Prima scegli la data</option>";
+      alert("Il negozio è chiuso domenica e lunedì. Scegli un altro giorno.");
+    }, 100);
+    return;
   }
   generaOrari(timeSelect);
+  // Reset caparra se era già aperta
+  nascondiCaparra();
 });
+
+document.getElementById("servizio").addEventListener("change", () => {
+  nascondiCaparra();
+});
+
+function nascondiCaparra() {
+  document.getElementById('caparraBox').style.display = 'none';
+  if(currentUser) document.getElementById('btnPrenota').style.display = '';
+  clientSecret = null;
+}
 
 /* ══════════════════════
    PRENOTAZIONE
