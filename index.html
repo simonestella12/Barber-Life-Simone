@@ -569,6 +569,10 @@ function nascondiCaparra() {
   document.getElementById('caparraBox').style.display = 'none';
   if(currentUser) document.getElementById('btnPrenota').style.display = '';
   clientSecret = null;
+  stripeElements = null;
+  cardElement = null;
+  stripeInstance = null;
+  document.getElementById('cardElement').innerHTML = '';
 }
 
 /* ══════════════════════
@@ -603,10 +607,8 @@ form.addEventListener("submit", async e => {
   document.getElementById('btnPrenota').style.display = 'none';
   document.getElementById('caparraBox').scrollIntoView({ behavior:'smooth' });
 
-  // Init Stripe
-  initStripe();
-
-  // Crea PaymentIntent
+  // Crea PaymentIntent e poi init Stripe
+  document.getElementById('cardError').textContent = '⏳ Inizializzazione pagamento...';
   try {
     const res = await fetch('/api/crea-pagamento', {
       method: 'POST',
@@ -614,8 +616,10 @@ form.addEventListener("submit", async e => {
       body: JSON.stringify({ servizio, importoTotale: prezzo, nome, email: currentUser.email })
     });
     const data2 = await res.json();
-    if(!res.ok) throw new Error(data2.error);
+    if(!res.ok) throw new Error(data2.error || JSON.stringify(data2));
     clientSecret = data2.clientSecret;
+    document.getElementById('cardError').textContent = '';
+    await initStripe(clientSecret);
   } catch(err) {
     document.getElementById('cardError').textContent = '❌ Errore: ' + err.message;
   }
@@ -626,8 +630,13 @@ async function processaPagamento() {
   const btn = document.getElementById('btnPaga');
   btn.textContent = 'Elaborazione...'; btn.disabled = true;
 
-  const { paymentIntent, error } = await stripeInstance.confirmCardPayment(clientSecret, {
-    payment_method: { card: cardElement, billing_details: { name: pendingBooking.nome, email: currentUser.email } }
+  const { paymentIntent, error } = await stripeInstance.confirmPayment({
+    elements: stripeElements,
+    confirmParams: {
+      return_url: window.location.href,
+      payment_method_data: { billing_details: { name: pendingBooking.nome, email: currentUser.email } }
+    },
+    redirect: 'if_required'
   });
 
   if(error) {
@@ -685,17 +694,15 @@ const PREZZI = {
 
 const STRIPE_PK = "pk_live_51TBJ6L11Mhn4pDmv9Y2R04AZTqMhiUZ25lEZ5NIhwi5BC4007F3rIr6J57RkNsbDw18ijg9eYVVSfG3lSzvK7ol200cBZEa36v";
 let stripeInstance = null;
+let stripeElements = null;
 let cardElement = null;
 let clientSecret = null;
 let pendingBooking = null;
 
-function initStripe() {
-  if(stripeInstance) return;
+async function initStripe(secret) {
   stripeInstance = Stripe(STRIPE_PK);
-  const elements = stripeInstance.elements();
-  cardElement = elements.create('card', {
-    style: { base: { fontSize: '16px', color: '#111', fontFamily: 'Jost, sans-serif' } }
-  });
+  stripeElements = stripeInstance.elements({ clientSecret: secret, locale: 'it' });
+  cardElement = stripeElements.create('payment');
   cardElement.mount('#cardElement');
   cardElement.on('change', e => {
     document.getElementById('cardError').textContent = e.error ? e.error.message : '';
