@@ -1,4 +1,4 @@
-const stripe = require(‘stripe’)(process.env.STRIPE_SECRET_KEY);
+const stripe = require(‘stripe’)(‘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’);
 
 module.exports = async (req, res) => {
 res.setHeader(‘Access-Control-Allow-Origin’, ‘*’);
@@ -9,11 +9,9 @@ if (req.method !== ‘POST’) return res.status(405).json({ error: ‘Method no
 
 try {
 const { servizio, importoTotale, nome, email } = req.body;
+const caparra = Math.round((importoTotale / 2) * 100);
 
 ```
-// Calcola 50% arrotondato ai centesimi
-const caparra = Math.round((importoTotale / 2) * 100); // in centesimi
-
 const paymentIntent = await stripe.paymentIntents.create({
   amount: caparra,
   currency: 'eur',
