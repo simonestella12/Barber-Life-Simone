@@ -26,6 +26,7 @@
   --gray:  #888;
   --gray2: #555;
   --red:   #C0392B;
+  --green: #27AE60;
   --text:  #1A1205;
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -92,11 +93,13 @@ body { font-family:'Jost',sans-serif; font-weight:400; background:var(--black); 
 .slot.free .slot-t   { background:var(--cream2); color:var(--gray2); border-right:3px solid #D4C0A8; }
 .slot-body { flex:1; padding:11px 14px; display:flex; align-items:center; justify-content:space-between; min-height:56px; }
 .slot.booked .slot-body { background:var(--white); border:1px solid #E0CEB8; border-left:none; }
-.slot.free .slot-body   { background:var(--cream2); border:1px solid #D8CBBA; border-left:none; }
+.slot.free .slot-body   { background:var(--cream2); border:1px solid #D8CBBA; border-left:none; cursor:pointer; transition:background 0.2s; }
+.slot.free .slot-body:hover { background:#E0D4C0; }
 .slot-name { font-size:0.95rem; font-weight:600; color:var(--text); }
 .slot-svc  { font-size:0.68rem; color:var(--wood3); margin-top:2px; font-weight:500; }
 .slot-tel  { font-size:0.62rem; color:var(--gray); margin-top:2px; }
 .slot-free-lbl { font-size:0.65rem; color:var(--gray); letter-spacing:0.1em; font-style:italic; }
+.slot-free-add { font-size:0.7rem; color:var(--wood3); font-weight:600; }
 .slot-acts { display:flex; gap:6px; }
 .act-btn { width:32px; height:32px; border-radius:6px; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.85rem; text-decoration:none; transition:all 0.2s; flex-shrink:0; }
 .act-btn.call { background:rgba(0,0,0,0.07); color:var(--black2); border:1px solid rgba(0,0,0,0.1); }
@@ -132,6 +135,65 @@ body { font-family:'Jost',sans-serif; font-weight:400; background:var(--black); 
 .nav-btn svg { width:21px; height:21px; stroke-width:1.5; }
 .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(10px); background:var(--black); border:1px solid var(--wood3); color:var(--wood); padding:11px 22px; border-radius:40px; font-size:0.78rem; letter-spacing:0.05em; opacity:0; transition:all 0.3s cubic-bezier(.34,1.56,.64,1); z-index:999; white-space:nowrap; }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ── MODAL PRENOTAZIONE RAPIDA ── */
+.modal-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.7); z-index:1000;
+  align-items:flex-end; justify-content:center;
+  padding:0;
+}
+.modal-overlay.open { display:flex; }
+
+.modal-box {
+  background:var(--white); width:100%; max-width:480px;
+  border-radius:20px 20px 0 0;
+  padding:24px 20px 36px;
+  box-shadow:0 -20px 60px rgba(0,0,0,0.4);
+  animation:slideUp 0.3s cubic-bezier(.34,1.2,.64,1);
+}
+@keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+
+.modal-handle {
+  width:40px; height:4px; background:#D4C0A8;
+  border-radius:2px; margin:0 auto 20px;
+}
+
+.modal-title {
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem; font-weight:700; color:var(--text);
+  margin-bottom:4px;
+}
+.modal-subtitle {
+  font-size:0.7rem; color:var(--wood3); font-weight:600;
+  letter-spacing:0.1em; margin-bottom:20px;
+}
+
+.modal-field { margin-bottom:14px; }
+.modal-field label { display:block; font-size:0.6rem; font-weight:600; letter-spacing:0.25em; text-transform:uppercase; color:var(--wood3); margin-bottom:6px; }
+.modal-field input, .modal-field select {
+  width:100%; padding:13px 14px;
+  background:var(--cream); border:1px solid #D4C0A8;
+  border-radius:8px; font-family:'Jost',sans-serif;
+  font-size:0.95rem; color:var(--text); outline:none;
+  transition:border-color 0.2s; -webkit-appearance:none;
+}
+.modal-field input:focus, .modal-field select:focus { border-color:var(--wood2); }
+
+.modal-btns { display:flex; gap:10px; margin-top:20px; }
+.btn-modal-save {
+  flex:1; padding:15px; background:var(--wood3); color:var(--white);
+  border:none; border-radius:8px; font-family:'Jost',sans-serif;
+  font-size:0.7rem; font-weight:700; letter-spacing:0.2em;
+  text-transform:uppercase; cursor:pointer; transition:background 0.2s;
+}
+.btn-modal-save:hover { background:var(--wood2); }
+.btn-modal-cancel {
+  padding:15px 20px; background:var(--cream2); color:var(--gray2);
+  border:none; border-radius:8px; font-family:'Jost',sans-serif;
+  font-size:0.7rem; font-weight:600; cursor:pointer;
+}
+.modal-msg { font-size:0.75rem; color:var(--red); margin-top:8px; min-height:16px; text-align:center; }
 </style>
 </head>
 <body>
@@ -211,15 +273,59 @@ body { font-family:'Jost',sans-serif; font-weight:400; background:var(--black); 
   </nav>
 </div>
 
+<!-- MODAL PRENOTAZIONE RAPIDA -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Nuova prenotazione</div>
+    <div class="modal-subtitle" id="modalSubtitle">—</div>
+
+    <div class="modal-field">
+      <label>Nome e cognome</label>
+      <input type="text" id="mNome" placeholder="Mario Rossi">
+    </div>
+    <div class="modal-field">
+      <label>Telefono</label>
+      <input type="tel" id="mTelefono" placeholder="3xx xxx xxxx">
+    </div>
+    <div class="modal-field">
+      <label>Servizio</label>
+      <select id="mServizio">
+        <option value="">Seleziona servizio</option>
+        <option>Taglio €14</option>
+        <option>Taglio Baby €10</option>
+        <option>Barba €5</option>
+        <option>Barba sfumata €5</option>
+        <option>Taglio + Barba + Shampoo €20</option>
+        <option>Shampoo €3</option>
+        <option>Basette e collo €3</option>
+        <option>Sopracciglia €3</option>
+        <option>Pettinata + Shampoo €5</option>
+        <option>Sfumatura lato da €10</option>
+        <option>Trattamento lisciante da €15</option>
+        <option>Trattamenti da €10</option>
+      </select>
+    </div>
+
+    <p class="modal-msg" id="modalMsg"></p>
+
+    <div class="modal-btns">
+      <button class="btn-modal-cancel" onclick="chiudiModal()">Annulla</button>
+      <button class="btn-modal-save" onclick="salvaPrenotazioneRapida()">✓ Prenota</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 /* ══════════════════════════════════════
-   CONFIG — Realtime Database
+   CONFIG
 ══════════════════════════════════════ */
 const API_KEY  = "AIzaSyA-v4UrLIZPJGrq4_Mwc12XJlGHM26RLpA";
 const RTDB_URL = "https://barber-life-simone-default-rtdb.europe-west1.firebasedatabase.app";
 const PASSWORD = "121099";
+const ADMIN_UID = "admin"; // uid speciale per prenotazioni fatte dall'agenda
 
 /* ══════════════════════════════════════
    SLOTS
@@ -234,7 +340,9 @@ const POMERIGGIO = buildSlots(15,30,19,30);
 const ALL_SLOTS  = [...MATTINA,...POMERIGGIO];
 
 let curDate = new Date();
-let allPren = []; // array flat di tutte le prenotazioni
+let allPren = [];
+let modalOra  = '';
+let modalData = '';
 
 /* ══════════════════════════════════════
    LOGIN
@@ -271,7 +379,7 @@ const MM = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Ag
 
 function updateDateUI(){
   const d = curDate;
-  document.getElementById('wkDay').textContent  = GG[d.getDay()];
+  document.getElementById('wkDay').textContent   = GG[d.getDay()];
   document.getElementById('dateStr').textContent = `${d.getDate()} ${MM[d.getMonth()]} ${d.getFullYear()}`;
   document.getElementById('topDate').textContent = `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
 }
@@ -280,32 +388,20 @@ function goToday(){ curDate=new Date(); updateDateUI(); renderTimeline(); }
 function ds(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 
 /* ══════════════════════════════════════
-   CARICA DATI — Realtime Database
-   Legge /prenotazioni/{uid}/{pushId}
+   CARICA DATI
 ══════════════════════════════════════ */
 async function loadData(){
   showSkel();
   try {
-    // Legge tutti gli utenti per trovare tutte le prenotazioni
-    const res  = await fetch(`${RTDB_URL}/prenotazioni.json?auth=`);
+    const res  = await fetch(`${RTDB_URL}/prenotazioni.json`);
     const data = await res.json();
-
     allPren = [];
     if(data){
-      // data = { uid1: { pushId1: {...}, pushId2: {...} }, uid2: {...} }
       Object.entries(data).forEach(([uid, pren]) => {
         if(pren && typeof pren === 'object'){
           Object.entries(pren).forEach(([pushId, p]) => {
             if(p && p.data){
-              allPren.push({
-                id:       pushId,
-                uid:      uid,
-                nome:     p.nome     || '',
-                telefono: p.telefono || '',
-                servizio: p.servizio || '',
-                data:     p.data     || '',
-                ora:      p.ora      || ''
-              });
+              allPren.push({ id:pushId, uid, nome:p.nome||'', telefono:p.telefono||'', servizio:p.servizio||'', data:p.data||'', ora:p.ora||'' });
             }
           });
         }
@@ -350,13 +446,13 @@ function renderTimeline(){
   document.getElementById('sTot').textContent = ALL_SLOTS.length;
 
   let html = '<div class="tl-head">Mattina</div>';
-  MATTINA.forEach(s => html += slotHTML(s, dp));
+  MATTINA.forEach(s => html += slotHTML(s, dp, d));
   html += '<div class="break-div">Pausa pranzo</div><div class="tl-head">Pomeriggio</div>';
-  POMERIGGIO.forEach(s => html += slotHTML(s, dp));
+  POMERIGGIO.forEach(s => html += slotHTML(s, dp, d));
   tl.innerHTML = html;
 }
 
-function slotHTML(time, dp){
+function slotHTML(time, dp, data){
   const p = dp.find(x=>x.ora===time);
   if(p) return `
     <div class="slot booked">
@@ -373,7 +469,73 @@ function slotHTML(time, dp){
         </div>
       </div>
     </div>`;
-  return `<div class="slot free"><div class="slot-t">${time}</div><div class="slot-body"><span class="slot-free-lbl">Libero</span></div></div>`;
+  // Slot libero — cliccabile per prenotare
+  return `
+    <div class="slot free">
+      <div class="slot-t">${time}</div>
+      <div class="slot-body" onclick="apriModal('${time}','${data}')">
+        <span class="slot-free-lbl">Libero</span>
+        <span class="slot-free-add">+ Aggiungi</span>
+      </div>
+    </div>`;
+}
+
+/* ══════════════════════════════════════
+   MODAL PRENOTAZIONE RAPIDA
+══════════════════════════════════════ */
+function apriModal(ora, data){
+  modalOra  = ora;
+  modalData = data;
+  const dataF = data.split('-').reverse().join('/');
+  document.getElementById('modalSubtitle').textContent = `📅 ${dataF}  ⏰ ${ora}`;
+  document.getElementById('mNome').value     = '';
+  document.getElementById('mTelefono').value = '';
+  document.getElementById('mServizio').value = '';
+  document.getElementById('modalMsg').textContent = '';
+  document.getElementById('modalOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('mNome').focus(), 300);
+}
+
+function chiudiModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// Chiudi modal toccando fuori
+document.getElementById('modalOverlay').addEventListener('click', function(e){
+  if(e.target === this) chiudiModal();
+});
+
+async function salvaPrenotazioneRapida(){
+  const nome     = document.getElementById('mNome').value.trim();
+  const telefono = document.getElementById('mTelefono').value.trim();
+  const servizio = document.getElementById('mServizio').value;
+  const msgEl    = document.getElementById('modalMsg');
+
+  if(!nome || !telefono || !servizio){
+    msgEl.textContent = 'Compila tutti i campi';
+    return;
+  }
+
+  msgEl.textContent = 'Salvataggio...';
+  msgEl.style.color = 'var(--gray)';
+
+  try {
+    // Salva in /prenotazioni/admin/{pushId}
+    const url = `${RTDB_URL}/prenotazioni/${ADMIN_UID}.json`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, telefono, servizio, data: modalData, ora: modalOra, creatoIl: Date.now(), fonte: 'agenda' })
+    });
+    if(!res.ok) throw new Error('Errore');
+
+    chiudiModal();
+    await loadData();
+    showToast('✅ Prenotazione aggiunta!');
+  } catch(e) {
+    msgEl.textContent = '❌ Errore salvataggio';
+    msgEl.style.color = 'var(--red)';
+  }
 }
 
 /* ══════════════════════════════════════
@@ -389,7 +551,7 @@ function renderLista(){
     <div class="pren-card">
       <div class="pren-av">${p.nome?p.nome.charAt(0).toUpperCase():'?'}</div>
       <div class="pren-info">
-        <div class="pren-name">${p.nome}</div>
+        <div class="pren-name">${p.nome}${p.uid===ADMIN_UID?' <span style="font-size:0.6rem;color:var(--wood3);background:var(--cream);padding:1px 6px;border-radius:10px;border:1px solid #D4C0A8">in sala</span>':''}</div>
         <div class="pren-svc">${p.servizio}</div>
         <div class="pren-chips">
           <span class="chip">📅 ${p.data?p.data.split('-').reverse().join('/'):'—'}</span>
